@@ -10,6 +10,10 @@ installed to the iPad home screen as a PWA and runs offline.
 
 No build step, no framework, no runtime dependencies. `www/` is shipped verbatim.
 
+**`TODO.md` holds the open work and the current state** — read it before
+starting anything. The top item (making saved progress survive schema changes)
+is high priority and blocks editing `PLAN` or the storage shape.
+
 ## Commands
 
 ```bash
@@ -71,6 +75,13 @@ Keeping these separate matters:
   stars, favourites, best streak, per-day history, reminder settings. Call
   `save()` after mutating. If storage throws (e.g. opened over `file://`),
   `memoryOnly` is set and the app degrades to in-memory with a warning toast.
+
+  **Do not change the storage key or the saved shape without a migration.**
+  `load()` currently accepts only an exact version match and drops anything
+  else, which has already cost one wipe of real progress. `dayRec().done` also
+  stores *positions* within a weekday's plan rather than exercise ids, so
+  editing `PLAN` silently re-points historical records. Both are item 1 in
+  `TODO.md`; fix them before touching either.
 - **`ui`** — ephemeral. Current screen, selected exercise, filter, the weekday
   being trained (`wday`), workout index, phase, seconds remaining. Never
   persisted; resets on launch.

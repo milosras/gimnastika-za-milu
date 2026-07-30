@@ -53,6 +53,8 @@ Hosting is GitHub Pages from the `gh-pages` branch of a public repo. The page
 holds no personal data — the name and all progress live only in the iPad's own
 storage — but the URL itself is reachable by anyone who has it.
 
+Open work and known issues are in [`TODO.md`](TODO.md).
+
 ## How the app behaves
 
 Everything starts at zero and is earned:
