@@ -25,8 +25,8 @@ There are no tests and no linter. Verification is visual, via `npm run shots`.
 ### Visual verification
 
 `tools/shots.mjs` is the main way to check work. It drives Chrome over the
-DevTools protocol, walks all nine screens plus a full six-exercise workout, and
-reports console errors. Chrome must already be running with a debugging port:
+DevTools protocol, walks all nine screens plus a full workout (including the
+ready/prep/go phases), and reports console errors. Chrome must already be running with a debugging port:
 
 ```bash
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
@@ -67,12 +67,13 @@ rail text directly instead of re-rendering, or typing would lose focus.
 
 Keeping these separate matters:
 
-- **`st`** — persisted to `localStorage` under `mila-gimnastika-v1`. Name, theme,
+- **`st`** — persisted to `localStorage` under `mila-gimnastika-v2`. Name, theme,
   stars, favourites, best streak, per-day history, reminder settings. Call
   `save()` after mutating. If storage throws (e.g. opened over `file://`),
   `memoryOnly` is set and the app degrades to in-memory with a warning toast.
-- **`ui`** — ephemeral. Current screen, selected exercise, filter, workout index,
-  seconds remaining. Never persisted; resets on launch.
+- **`ui`** — ephemeral. Current screen, selected exercise, filter, the weekday
+  being trained (`wday`), workout index, phase, seconds remaining. Never
+  persisted; resets on launch.
 
 ### Derived numbers
 

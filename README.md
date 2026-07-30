@@ -1,9 +1,9 @@
 # Gimnastika za Milu
 
-An iPad app for a kid's daily gymnastics practice, in Serbian. Nine screens,
-six-exercise workout with a timer, a weekly plan, progress charts, stickers and
-a reminder — implemented from the Claude Design project
-*Mila Gimnastika iPad.dc.html*.
+An iPad app for a kid's daily gymnastics practice, in Serbian. Nine screens, a
+different guided workout each weekday, a weekly plan, progress charts, stickers
+and a reminder — implemented from the Claude Design project
+*Mila Gimnastika iPad.dc.html*. Lili the bunny is the coach.
 
 No build step, no framework, no dependencies. Plain HTML, CSS and JavaScript
 that runs from `www/`.
@@ -13,12 +13,14 @@ www/
   index.html            shell
   styles.css            design tokens + every screen's layout
   app.js                data, state, the nine screens, workout logic
-  illustrations.js      the gymnast, Maca the mascot, badges — all inline SVG
+  illustrations.js      drawn fallback figures + badges, inline SVG
+  img/                  Lili's photographs
   sw.js                 offline cache
   manifest.webmanifest  home-screen app metadata
   icons/                generated app icons
 design/                 the original .dc.html and its design system, for reference
-tools/                  icon generator, local server, screenshot harness
+assets/                 Lili's source sheet and PROMPTS.md for the missing poses
+tools/                  icon generator, image cropper, local server, screenshot harness
 ```
 
 ## Putting it on the iPad
@@ -110,8 +112,10 @@ Two things were changed deliberately from the design source:
 
 - **Category filters** matched on the visible category text, so *Leptirić*
   (`Istezanje`) and *Mačka–krava* (`Mobilnost kičme`) could never appear under
-  any filter. Exercises now carry a group (`bal`/`str`/`flex`) and the chips
-  filter on that.
+  any filter. Exercises now carry a group (`warm`/`bal`/`str`/`flex`) and the
+  chips filter on that.
+- **The display font** is Baloo 2, not the design's Caprasimo — Caprasimo has no
+  `č ć ž š đ` and the browser was substituting a different face mid-word.
 - The design's illustration slots were dashed placeholders and its numbers were
   fixed sample values. Both are real here — drawn figures, and counts derived
   from what has actually been done.
