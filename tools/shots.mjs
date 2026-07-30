@@ -96,9 +96,20 @@ await click('[data-act="go"][data-arg="rem"]');
 await shot("08-rem");
 await click('[data-act="go"][data-arg="home"]');
 await click('[data-act="start"]');
-await shot("09-work");
-for (let i = 0; i < 6; i++) await click('[data-act="next"]');
-await sleep(500);
+await shot("09-work-ready");          /* waiting on KRENI, nothing counting */
+await click('[data-act="go1"]');
+await sleep(900);
+await shot("09b-work-prep");          /* 5s count-in */
+await sleep(4600);
+await shot("09c-work-go");            /* exercise running */
+
+/* plan length varies by weekday, so walk until the finish screen appears */
+for (let i = 0; i < 12; i++) {
+  const more = await evaluate('!!document.querySelector(\'[data-act="next"]\')');
+  if (!more) break;
+  await click('[data-act="next"]');
+}
+await sleep(600);
 await shot("10-done");
 await click('[data-act="go"][data-arg="prize"]');
 await shot("11-prize-earned");
@@ -107,10 +118,7 @@ await shot("12-home-after");
 await click('[data-act="go"][data-arg="prog"]');
 await shot("13-prog-after");
 
-/* every pose, on one sheet */
-await evaluate(`document.body.innerHTML='<div id=p style="display:grid;grid-template-columns:repeat(5,1fr);background:#f3e8ff">'+Object.keys(ILLU.poses).map(k=>'<div style="aspect-ratio:1">'+ILLU.gymnast(k)+'<div style="text-align:center;font:700 14px Figtree">'+k+'</div></div>').join('')+'<div style="aspect-ratio:1">'+ILLU.maca('idle')+'</div><div style="aspect-ratio:1">'+ILLU.maca('cheer')+'</div><div style="grid-column:span 2">'+ILLU.reminderScene()+'</div>'+[ 'first','streak3','bridge','balance','ten','split','candle','week','fifty','gold'].map(k=>'<div style="aspect-ratio:1">'+ILLU.badge(k,true)+'</div>').join('')+'</div>';document.body.style.overflow='auto';1`);
-await sleep(400);
-await shot("20-poses");
+/* the illustration contact sheet lives in tools/poses.mjs */
 
 if (errors.length) {
   console.log("\nCONSOLE ERRORS:");

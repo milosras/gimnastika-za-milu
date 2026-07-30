@@ -60,10 +60,14 @@ Everything starts at zero and is earned:
   yesterday if today is still empty, so it doesn't reset every morning.
 - **Nalepnice** — ten awards with real conditions (10 mostića, 50 minuta, 7
   dana u nizu…). Locked ones show exactly how much is left.
+- **Plan** — a different session every weekday, warm-up first and a calm
+  stretch last. Nineteen exercises in the library.
+- **Trening** — nothing auto-starts. Each exercise waits on KRENI, then counts
+  in for five seconds (gold dial) before the exercise timer runs (pink).
 - **Napredak** — the chart is the current week, one point per day, from the
   plan items actually ticked off. The skill bars measure the last fortnight
   against a target of six sessions per skill; OCENA is their average.
-- **Plan** — real dates for the current week; ticking an exercise counts it.
+Ticking an exercise off the plan counts it too, not just running the workout.
 
 Time is stored in seconds and rounded only for display, so the totals on
 Početna, Napredak and the finish screen always agree.

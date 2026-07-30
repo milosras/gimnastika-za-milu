@@ -1,7 +1,7 @@
-/* Illustrations — the design marks every image as a dashed "ILUSTRACIJA" slot.
-   These are the real drawings that fill those slots: one poseable gymnast,
-   Maca the mascot, the reminder scene, and the sticker badges. All inline SVG,
-   all themed from the CSS custom properties the app already carries. */
+/* Drawn fallbacks. Lili's photographs in www/img are the real illustrations,
+   but not every exercise has one yet, so this file supplies a poseable gymnast
+   for those, plus the reminder scene and the sticker badges. All inline SVG,
+   themed from the CSS custom properties the app already carries. */
 (function (global) {
   "use strict";
 
@@ -67,6 +67,61 @@
       hip: [100, 118], shoulder: [100, 158], head: [98, 180], rot: 180,
       arms: [[[76, 152], [88, 126]], [[124, 152], [112, 126]]],
       legs: [[[99, 86], [98, 50]], [[107, 88], [108, 52]]]
+    },
+    /* jumping jack, caught mid-air */
+    zvezdice: {
+      hip: [100, 118], shoulder: [100, 78], head: [100, 54], rot: 0,
+      arms: [[[68, 58], [50, 30]], [[132, 58], [150, 30]]],
+      legs: [[[74, 148], [56, 174]], [[126, 148], [144, 174]]]
+    },
+    /* downward dog — an A shape on straight limbs */
+    psic: {
+      hip: [116, 66], shoulder: [64, 112], head: [46, 130], rot: 118,
+      arms: [[[56, 140], [50, 168]], [[64, 140], [58, 168]]],
+      legs: [[[140, 118], [150, 168]], [[132, 120], [142, 168]]]
+    },
+    /* forearm plank — one straight line, head to heels */
+    daska: {
+      hip: [136, 132], shoulder: [80, 122], head: [56, 118], rot: -96,
+      arms: [[[76, 150], [54, 158]], [[84, 152], [62, 160]]],
+      legs: [[[158, 148], [178, 166]], [[150, 150], [170, 166]]]
+    },
+    /* superman — prone, arms and legs lifted off the floor */
+    lastavica: {
+      hip: [134, 140], shoulder: [80, 144], head: [56, 136], rot: -100,
+      arms: [[[54, 126], [30, 116]], [[58, 132], [34, 122]]],
+      legs: [[[158, 128], [180, 114]], [[152, 134], [174, 120]]]
+    },
+    /* cobra — hips down, chest lifted on straight arms */
+    kobra: {
+      hip: [142, 154], shoulder: [88, 118], head: [70, 98], rot: -58,
+      arms: [[[88, 140], [86, 168]], [[96, 142], [94, 168]]],
+      legs: [[[162, 160], [184, 164]], [[156, 162], [178, 166]]]
+    },
+    /* seated pike fold — sitting on the floor, folded over straight legs */
+    pretklon: {
+      hip: [64, 148], shoulder: [106, 126], head: [126, 134], rot: 62,
+      arms: [[[128, 142], [158, 150]], [[122, 146], [152, 154]]],
+      legs: [[[112, 156], [162, 158]], [[106, 150], [156, 152]]]
+    },
+    /* forward lunge */
+    iskorak: {
+      hip: [104, 118], shoulder: [98, 80], head: [92, 56], rot: -8,
+      arms: [[[78, 106], [70, 128]], [[124, 106], [132, 128]]],
+      legs: [[[62, 140], [56, 170]], [[142, 148], [162, 170]]]
+    },
+    /* heel-to-toe walk, arms out for balance */
+    linija: {
+      hip: [100, 116], shoulder: [100, 78], head: [100, 54], rot: 0,
+      arms: [[[72, 82], [44, 74]], [[128, 82], [156, 74]]],
+      legs: [[[94, 144], [78, 170]], [[108, 146], [126, 172]]]
+    },
+    /* child's pose — sitting back on the heels, forehead down, arms forward */
+    dete: {
+      hip: [150, 148], shoulder: [98, 160], head: [76, 166], rot: -68,
+      curve: [124, 146],
+      arms: [[[72, 168], [40, 172]], [[78, 170], [46, 174]]],
+      legs: [[[160, 168], [140, 174]], [[154, 170], [134, 176]]]
     }
   };
 
@@ -156,66 +211,6 @@
     return out + '</svg>';
   }
 
-  /* Maca — the mascot. variant: "idle" | "cheer" | "peek" */
-  function maca(variant, opts) {
-    opts = opts || {};
-    var v = variant || "idle";
-    var body = "#f0e2ff", edge = "#c3a4ee", pink = "#ff8fc0";
-    var accent = opts.accent || "var(--a)";
-    var cheer = v === "cheer";
-    var o = '<svg class="illu" viewBox="0 0 120 120" role="img" aria-label="Maca, maskota">';
-
-    if (cheer) {
-      o += sparkle(20, 26, 8, accent) + sparkle(100, 22, 6, "var(--gd)") + sparkle(106, 60, 5, accent);
-    }
-    /* tail */
-    o += '<path d="M92,96 C112,94 112,72 98,74" fill="none" stroke="' + edge +
-      '" stroke-width="9" stroke-linecap="round"/>';
-    /* body */
-    o += '<path d="M60,52 C82,52 92,70 92,86 C92,98 78,104 60,104 C42,104 28,98 28,86 C28,70 38,52 60,52 Z" fill="' +
-      body + '" stroke="' + edge + '" stroke-width="3"/>';
-    /* paws */
-    if (cheer) {
-      o += '<path d="M38,74 L24,54" stroke="' + edge + '" stroke-width="9" stroke-linecap="round"/>';
-      o += '<path d="M82,74 L96,54" stroke="' + edge + '" stroke-width="9" stroke-linecap="round"/>';
-    } else {
-      o += '<ellipse cx="46" cy="98" rx="9" ry="6" fill="#fff" stroke="' + edge + '" stroke-width="2.5"/>';
-      o += '<ellipse cx="74" cy="98" rx="9" ry="6" fill="#fff" stroke="' + edge + '" stroke-width="2.5"/>';
-    }
-    /* ears */
-    o += '<path d="M36,32 L34,12 L52,24 Z" fill="' + body + '" stroke="' + edge +
-      '" stroke-width="3" stroke-linejoin="round"/>';
-    o += '<path d="M84,32 L86,12 L68,24 Z" fill="' + body + '" stroke="' + edge +
-      '" stroke-width="3" stroke-linejoin="round"/>';
-    o += '<path d="M39,29 L38,19 L47,25 Z" fill="' + pink + '"/>';
-    o += '<path d="M81,29 L82,19 L73,25 Z" fill="' + pink + '"/>';
-    /* head */
-    o += '<circle cx="60" cy="42" r="26" fill="' + body + '" stroke="' + edge + '" stroke-width="3"/>';
-    /* eyes */
-    if (cheer) {
-      o += '<path d="M45,42 Q51,34 57,42" fill="none" stroke="' + INK +
-        '" stroke-width="3.2" stroke-linecap="round"/>';
-      o += '<path d="M63,42 Q69,34 75,42" fill="none" stroke="' + INK +
-        '" stroke-width="3.2" stroke-linecap="round"/>';
-    } else {
-      o += '<ellipse cx="51" cy="41" rx="4.2" ry="5" fill="' + INK + '"/>';
-      o += '<ellipse cx="69" cy="41" rx="4.2" ry="5" fill="' + INK + '"/>';
-      o += '<circle cx="52.6" cy="39" r="1.5" fill="#fff"/><circle cx="70.6" cy="39" r="1.5" fill="#fff"/>';
-    }
-    /* cheeks, nose, mouth, whiskers */
-    o += '<circle cx="43" cy="50" r="4.4" fill="' + pink + '" opacity=".55"/>';
-    o += '<circle cx="77" cy="50" r="4.4" fill="' + pink + '" opacity=".55"/>';
-    o += '<path d="M57,50 L60,53 L63,50 Z" fill="' + pink + '"/>';
-    o += '<path d="M53,56 Q60,61 67,56" fill="none" stroke="' + INK +
-      '" stroke-width="2.4" stroke-linecap="round"/>';
-    o += '<g stroke="' + edge + '" stroke-width="2" stroke-linecap="round">' +
-      '<path d="M34,46 H24"/><path d="M35,53 H26"/><path d="M86,46 H96"/><path d="M85,53 H94"/></g>';
-    /* a little bow, so she matches the leotard */
-    o += '<path d="M78,22 l7,-5 0,10 z M78,22 l-7,-5 0,10 z" fill="' + accent + '"/>';
-    o += '<circle cx="78" cy="22" r="2.6" fill="' + accent + '"/>';
-    return o + '</svg>';
-  }
-
   /* Reminder scene — the design asks for "budilnik i flašica". */
   function reminderScene(opts) {
     opts = opts || {};
@@ -275,7 +270,7 @@
   }
 
   global.ILLU = {
-    gymnast: gymnast, maca: maca, reminderScene: reminderScene,
+    gymnast: gymnast, reminderScene: reminderScene,
     badge: badge, sparkle: sparkle, poses: POSES
   };
 })(window);

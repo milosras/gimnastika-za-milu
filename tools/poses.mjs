@@ -38,8 +38,6 @@ document.body.innerHTML = '<div style="display:grid;grid-template-columns:repeat
   Object.keys(ILLU.poses).map(k =>
     '<div style="background:#fff;border-radius:16px"><div style="height:210px">' + ILLU.gymnast(k) +
     '</div><div style="text-align:center;font:700 15px Figtree;padding-bottom:6px">' + k + '</div></div>').join('') +
-  ['idle','cheer'].map(v => '<div style="background:#fff;border-radius:16px"><div style="height:210px">' + ILLU.maca(v) +
-    '</div><div style="text-align:center;font:700 15px Figtree;padding-bottom:6px">maca ' + v + '</div></div>').join('') +
   '<div style="background:#fff;border-radius:16px;grid-column:span 2"><div style="height:210px">' + ILLU.reminderScene() +
   '</div><div style="text-align:center;font:700 15px Figtree;padding-bottom:6px">podsetnik</div></div>' +
   ['first','streak3','bridge','balance','ten','split','candle','week','fifty','gold'].map(k =>

@@ -94,9 +94,18 @@ ones can report exactly how much is left. Serbian plurals are not optional here
 
 ### Illustrations
 
-`www/illustrations.js` draws everything; there are no image assets besides the
-generated icons. The gymnast is one character rendered through a skeleton per
-pose in `POSES` — hip, shoulder, head, plus elbow/hand and knee/foot pairs.
+Two sources, in this order of preference:
+
+1. **Lili's photographs** in `www/img` — the mascot, a purple-leotard bunny.
+   An exercise opts in with an `img` field naming the file; `exPic()` renders it.
+   `tools/crop-lili.py` cuts poses out of `assets/source/lili-sheet.png` by
+   flood-filling the flat background inward from each crop's edges.
+2. **The drawn gymnast** in `www/illustrations.js`, used for every exercise that
+   has no photo yet. `assets/PROMPTS.md` holds a generation prompt per missing
+   pose; dropping a file in `www/img` and adding `img:` swaps it over, one
+   exercise at a time.
+
+The gymnast is one character rendered through a skeleton per pose in `POSES` — hip, shoulder, head, plus elbow/hand and knee/foot pairs.
 Index `1` of `arms`/`legs` is the far side and is drawn behind the torso in a
 darker skin tone. `curve` bends the torso (used by the bridge and cat poses).
 
@@ -104,8 +113,30 @@ darker skin tone. `curve` bends the torso (used by the bridge and cat poses).
 square, so a wide split and a tall candle both fill whatever slot they land in.
 Do not replace this with a fixed viewBox — poses vary too much in shape.
 
-Colors come from CSS custom properties (`var(--a)`, `var(--v)`), so
-illustrations re-theme for free.
+Colors come from CSS custom properties (`var(--a)`, `var(--v)`), so drawn
+illustrations re-theme for free; the photographs do not.
+
+### Exercises, plans and the workout
+
+`EX` is the exercise library. **`id` is the stable handle** — plans, stickers,
+favourites and saved history all refer to exercises by id, never by array index,
+so the list can be reordered or extended safely. `idxOf(id)` maps back.
+
+`PLAN` holds a different session per weekday (0 = Monday), each opening with a
+warm-up and closing with something calm. `planFor(day)` returns exercise
+indices. A date's plan is always `planFor(weekday(date))`, which is why
+`dayRec().done` can store positions within it.
+
+The workout runs three phases per exercise, in `ui.phase`:
+
+- `ready` — nothing counts down; waiting for her to press KRENI.
+- `prep` — a 5s count-in (`PREP_SEC`) while she gets into position.
+- `go` — the exercise timer.
+
+Each phase has its own dial colour (`.timer--ready/prep/go`): violet for
+waiting, gold for counting in, pink for working. `tick()` promotes prep → go.
+Nothing auto-starts — that was deliberate, a timer running before she is in
+position is useless.
 
 ### Theming and scale
 
@@ -137,6 +168,9 @@ serving its stored copy and your deploy appears to do nothing.
 
 ## Conventions
 
+- The display face is **Baloo 2**, not the design's Caprasimo: Caprasimo ships
+  no `č ć ž š đ`, so Chrome substitutes a different font mid-word. Any
+  replacement must be checked against `Sveća Ćuk Streličar Mačka Špaga Đak`.
 - ES5-style JavaScript (`var`, `function`, no arrow functions or template
   literals in `www/`) for old-Safari safety. `tools/` is modern ESM — it only
   ever runs on the Mac.
@@ -144,6 +178,8 @@ serving its stored copy and your deploy appears to do nothing.
   addressed to a child.
 - Icons are Lucide paths at `stroke-width: 2.75`, per the source design system
   (`design/_ds/.../readme.md`).
+- Serbian plurals are not optional. `plural(n, one, few, many)` covers the
+  1 / 2–4 / 5+ forms; sticker units carry all three.
 - `design/` is reference only. It is never served or built; it holds the
   original `.dc.html` and its design-system tokens.
 

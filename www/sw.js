@@ -1,7 +1,7 @@
 /* Offline cache. Once the iPad has opened the app one time it keeps working
    with no network at all — which is the point, since it gets used on a mat
    in the living room, not next to a router. Bump CACHE to ship an update. */
-var CACHE = "gimnastika-v1";
+var CACHE = "gimnastika-v2";
 var ASSETS = [
   "./",
   "index.html",
@@ -12,7 +12,12 @@ var ASSETS = [
   "icons/icon.svg",
   "icons/icon-180.png",
   "icons/icon-192.png",
-  "icons/icon-512.png"
+  "icons/icon-512.png",
+  "img/lili-split.jpg",
+  "img/lili-bridge.png",
+  "img/lili-sit.png",
+  "img/lili-scale.png",
+  "img/lili-happy.png"
 ];
 
 self.addEventListener("install", function (e) {
