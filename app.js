@@ -14,51 +14,110 @@
 
   /* ═══ vežbe ═════════════════════════════════════════════════════════ */
 
+  /* `id` is the stable handle — plans, stickers and saved history all refer to
+     exercises by id, so the list can be reordered or extended safely.
+     `img` is a photo of Lili in the pose; without one the SVG figure is drawn.
+     `group`: warm (zagrevanje) · bal (ravnoteža) · str (snaga) · flex (gipkost) */
   var EX = [
-    { pose: "leptiric", name: "Leptirić", cat: "Istezanje", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
-      desc: "Otvara kukove i opušta noge. Savršena vežba za početak treninga.",
-      steps: ["Sedi na podlogu i skupi stopala.", "Uhvati stopala rukama.", "Blago pritisni kolena ka podu.", "Zadrži 20 sekundi i diši mirno."] },
-    { pose: "mostic", name: "Mostić", cat: "Fleksibilnost", group: "flex", min: "2 min", sec: 120, lvl: 2, opr: "Podloga",
-      desc: "Jača ruke i leđa i pomaže da ti telo bude gibko kao guma.",
-      steps: ["Lezi na leđa i savij kolena.", "Stavi ruke pored glave, prsti gledaju ka ramenima.", "Podigni kukove i grudi ka gore.", "Zadrži 5 sekundi i polako se spusti."] },
-    { pose: "macka", name: "Mačka–krava", cat: "Mobilnost kičme", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
+    { id: "zvezdice", pose: "zvezdice", name: "Zvezdice u mestu", cat: "Zagrevanje", group: "warm", min: "1 min", sec: 60, lvl: 1, opr: "Bez opreme",
+      desc: "Zagreva celo telo i budi mišiće. Uvek prva vežba na treningu.",
+      steps: ["Stani uspravno, ruke pored tela.", "Skoči i raširi noge, ruke gore iznad glave.", "Skoči nazad u početni položaj.", "Ponovi 20 puta, diši ravnomerno."] },
+    { id: "macka", pose: "macka", name: "Mačka–krava", cat: "Mobilnost kičme", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
       desc: "Zagreva kičmu. Udahni kao krava, izdahni kao mačka.",
       steps: ["Stani na sve četiri, ruke pod ramenima.", "Udahni i spusti stomak, pogledaj gore.", "Izdahni i zaokruži leđa, spusti glavu.", "Ponovi 8 puta lagano."] },
-    { pose: "arabeska", name: "Streličar (arabeska)", cat: "Ravnoteža i elegancija", group: "bal", min: "2 min", sec: 120, lvl: 2, opr: "Podloga",
+    { id: "psic", pose: "psic", name: "Psić", cat: "Istezanje celog tela", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga", img: "lili-bridge.png",
+      desc: "Isteže noge i leđa odjednom. Napravi slovo A svojim telom.",
+      steps: ["Stani na sve četiri.", "Podigni kukove ka gore i ispravi noge.", "Spusti glavu između ruku, pete ka podu.", "Zadrži 15 sekundi i diši mirno."] },
+    { id: "leptiric", pose: "leptiric", name: "Leptirić", cat: "Istezanje", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
+      desc: "Otvara kukove i opušta noge. Savršena vežba za početak treninga.",
+      steps: ["Sedi na podlogu i skupi stopala.", "Uhvati stopala rukama.", "Blago pritisni kolena ka podu.", "Zadrži 20 sekundi i diši mirno."] },
+    { id: "pretklon", pose: "pretklon", name: "Sedeći pretklon", cat: "Istezanje nogu", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
+      desc: "Isteže zadnju ložu — prvi korak ka špagi.",
+      steps: ["Sedi i ispruži noge napred.", "Ispravi leđa i udahni.", "Izdahni i lagano se spusti ka stopalima.", "Zadrži 20 sekundi, ne trzaj."] },
+    { id: "kobra", pose: "kobra", name: "Kobra", cat: "Gipkost leđa", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
+      desc: "Otvara grudi i priprema leđa za mostić.",
+      steps: ["Lezi na stomak, ruke pored ramena.", "Lagano podigni grudi i pogledaj napred.", "Ramena spusti dole, laktovi uz telo.", "Zadrži 10 sekundi i spusti se."] },
+    { id: "mostic", pose: "mostic", name: "Mostić", cat: "Fleksibilnost", group: "flex", min: "2 min", sec: 120, lvl: 2, opr: "Podloga",
+      desc: "Jača ruke i leđa i pomaže da ti telo bude gibko kao guma.",
+      steps: ["Lezi na leđa i savij kolena.", "Stavi ruke pored glave, prsti gledaju ka ramenima.", "Podigni kukove i grudi ka gore.", "Zadrži 5 sekundi i polako se spusti."] },
+    { id: "spaga", pose: "spaga", name: "Špaga", cat: "Fleksibilnost", group: "flex", min: "2 min", sec: 120, lvl: 3, opr: "Podloga", img: "lili-split.jpg",
+      desc: "Veliki cilj svake gimnastičarke. Idi polako — svaki dan po malo.",
+      steps: ["Klekni, pa isturi jednu nogu napred.", "Rukama se osloni na pod sa strane.", "Spuštaj se koliko možeš bez bola.", "Zadrži 20 sekundi, pa promeni nogu."] },
+    { id: "arabeska", pose: "arabeska", name: "Streličar (arabeska)", cat: "Ravnoteža i elegancija", group: "bal", min: "2 min", sec: 120, lvl: 2, opr: "Podloga", img: "lili-scale.png",
       desc: "Ojačava leđa, ramena i noge. Pomaže ti da budeš stabilna i graciozna.",
       steps: ["Stani uspravno i podigni ruke u stranu.", "Podigni jednu nogu nazad, telo lagano nagni napred.", "Drži leđa prava i pogled napred.", "Zadrži 2–3 sekunde i polako se vrati."] },
-    { pose: "noge", name: "Podigni noge", cat: "Snaga trupa", group: "str", min: "2 min", sec: 120, lvl: 2, opr: "Podloga",
-      desc: "Pravi jak stomak — to je motor za svaki skok i preskok.",
-      steps: ["Lezi na leđa, ruke pored tela.", "Podigni ispravljene noge do 90 stepeni.", "Spuštaj ih polako, ne dodiruj pod.", "Ponovi 10 puta."] },
-    { pose: "cucanj", name: "Polučučanj + ruke napred", cat: "Snaga nogu", group: "str", min: "2 min", sec: 120, lvl: 2, opr: "Bez opreme",
-      desc: "Jake noge znače viši skok i sigurno doskakanje.",
-      steps: ["Stopala u širini kukova.", "Spusti se do pola čučnja.", "Ispruži ruke napred u visini ramena.", "Zadrži 3 sekunde i vrati se gore."] },
-    { pose: "prsti", name: "Ravnoteža na prstima", cat: "Ravnoteža", group: "bal", min: "1–2 min", sec: 90, lvl: 3, opr: "Bez opreme",
+    { id: "linija", pose: "linija", name: "Hodanje po liniji", cat: "Ravnoteža", group: "bal", min: "1–2 min", sec: 90, lvl: 1, opr: "Bez opreme",
+      desc: "Vežba za gredu — samo što je greda na podu i ne može da se padne.",
+      steps: ["Zamisli liniju na podu ili stavi kanap.", "Ruke raširi u stranu.", "Hodaj peta uz prste, polako.", "Napravi 10 koraka napred i 10 nazad."] },
+    { id: "prsti", pose: "prsti", name: "Ravnoteža na prstima", cat: "Ravnoteža", group: "bal", min: "1–2 min", sec: 90, lvl: 3, opr: "Bez opreme",
       desc: "Uči te da stojiš mirno kao statua — i na gredi.",
       steps: ["Stani uspravno, ruke u stranu.", "Podigni se na prste.", "Gledaj u jednu tačku pred sobom.", "Zadrži 10 sekundi, pa opusti."] },
-    { pose: "cuk", name: "Ćuk (držanje)", cat: "Snaga i držanje", group: "str", min: "1–2 min", sec: 90, lvl: 3, opr: "Podloga",
+    { id: "sveca", pose: "sveca", name: "Sveća", cat: "Ravnoteža naglavce", group: "bal", min: "1–2 min", sec: 90, lvl: 2, opr: "Podloga",
+      desc: "Prva vežba za stav na rukama — telo pravo kao sveća.",
+      steps: ["Lezi na leđa i podigni noge gore.", "Podupri kukove rukama.", "Ispravi telo u jednu liniju.", "Zadrži 10 sekundi i polako se spusti."] },
+    { id: "daska", pose: "daska", name: "Daska", cat: "Snaga trupa", group: "str", min: "1 min", sec: 60, lvl: 2, opr: "Podloga",
+      desc: "Celo telo pravo kao daska. Najbolja vežba za jak stomak.",
+      steps: ["Osloni se na podlaktice i prste stopala.", "Telo drži pravo od glave do peta.", "Stomak uvuci, ne spuštaj kukove.", "Izdrži 20 sekundi."] },
+    { id: "noge", pose: "noge", name: "Podigni noge", cat: "Snaga trupa", group: "str", min: "2 min", sec: 120, lvl: 2, opr: "Podloga",
+      desc: "Pravi jak stomak — to je motor za svaki skok i preskok.",
+      steps: ["Lezi na leđa, ruke pored tela.", "Podigni ispravljene noge do 90 stepeni.", "Spuštaj ih polako, ne dodiruj pod.", "Ponovi 10 puta."] },
+    { id: "cuk", pose: "cuk", name: "Ćuk (držanje)", cat: "Snaga i držanje", group: "str", min: "1–2 min", sec: 90, lvl: 3, opr: "Podloga",
       desc: "Skupljeno telo koje se drži samo — kao klupko snage.",
       steps: ["Sedi i skupi kolena ka grudima.", "Uhvati potkolenice rukama.", "Podigni stopala od poda i balansiraj.", "Zadrži 8 sekundi."] },
-    { pose: "sveca", name: "Sveća", cat: "Ravnoteža naglavce", group: "bal", min: "1–2 min", sec: 90, lvl: 2, opr: "Podloga",
-      desc: "Prva vežba za stav na rukama — telo pravo kao sveća.",
-      steps: ["Lezi na leđa i podigni noge gore.", "Podupri kukove rukama.", "Ispravi telo u jednu liniju.", "Zadrži 10 sekundi i polako se spusti."] }
+    { id: "lastavica", pose: "lastavica", name: "Lastavica na podu", cat: "Snaga leđa", group: "str", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
+      desc: "Jaka leđa drže telo uspravno u svakoj vežbi.",
+      steps: ["Lezi na stomak, ruke ispruži napred.", "Podigni istovremeno ruke i noge.", "Gledaj u pod da vrat bude miran.", "Zadrži 5 sekundi, ponovi 8 puta."] },
+    { id: "cucanj", pose: "cucanj", name: "Polučučanj + ruke napred", cat: "Snaga nogu", group: "str", min: "2 min", sec: 120, lvl: 2, opr: "Bez opreme",
+      desc: "Jake noge znače viši skok i sigurno doskakanje.",
+      steps: ["Stopala u širini kukova.", "Spusti se do pola čučnja.", "Ispruži ruke napred u visini ramena.", "Zadrži 3 sekunde i vrati se gore."] },
+    { id: "iskorak", pose: "iskorak", name: "Iskorak", cat: "Snaga nogu", group: "str", min: "1–2 min", sec: 90, lvl: 2, opr: "Bez opreme",
+      desc: "Uči noge da rade svaka za sebe — važno za doskok i okret.",
+      steps: ["Stani uspravno, ruke na kukovima.", "Zakorači jednom nogom napred.", "Spusti zadnje koleno ka podu.", "Vrati se gore i promeni nogu, 8 puta."] },
+    { id: "dete", pose: "dete", name: "Dete poza", cat: "Opuštanje", group: "flex", min: "1 min", sec: 60, lvl: 1, opr: "Podloga",
+      desc: "Kraj treninga. Odmori leđa i smiri disanje.",
+      steps: ["Klekni i sedi na pete.", "Spusti čelo ka podu.", "Ruke ispruži napred ili pored tela.", "Diši polako 30 sekundi."] }
   ];
 
-  var WORKOUT = [3, 0, 2, 4, 5, 6];
-  var WORKOUT_MIN = Math.round(WORKOUT.reduce(function (n, i) { return n + EX[i].sec; }, 0) / 60);
+  var BY_ID = {};
+  EX.forEach(function (e, i) { BY_ID[e.id] = i; });
+  function idxOf(id) { return BY_ID[id]; }
 
   var DAY_SHORT = ["Pon", "Uto", "Sre", "Čet", "Pet", "Sub", "Ned"];
   var DAY_LETTER = ["P", "U", "S", "Č", "P", "S", "N"];
-  var PLAN_TITLES = [
-    "Dan 1 — Zagrevanje i istezanje", "Dan 2 — Fleksibilnost", "Dan 3 — Snaga, ravnoteža i fleksibilnost",
-    "Dan 4 — Lagani dan", "Dan 5 — Snaga trupa", "Dan 6 — Ravnoteža", "Dan 7 — Odmor i istezanje"
+
+  /* A different session each weekday — always a warm-up first and something
+     calm last, with hard days followed by lighter ones. */
+  var PLAN = [
+    { title: "Dan 1 — Zagrevanje i istezanje",
+      ex: ["zvezdice", "macka", "psic", "leptiric", "pretklon", "dete"] },
+    { title: "Dan 2 — Gipkost",
+      ex: ["zvezdice", "macka", "kobra", "mostic", "spaga", "dete"] },
+    { title: "Dan 3 — Snaga i ravnoteža",
+      ex: ["zvezdice", "daska", "arabeska", "noge", "cucanj", "dete"] },
+    { title: "Dan 4 — Lagani dan",
+      ex: ["zvezdice", "macka", "linija", "leptiric", "dete"] },
+    { title: "Dan 5 — Snaga trupa",
+      ex: ["zvezdice", "daska", "noge", "cuk", "lastavica", "dete"] },
+    { title: "Dan 6 — Ravnoteža",
+      ex: ["zvezdice", "linija", "arabeska", "prsti", "sveca", "dete"] },
+    { title: "Dan 7 — Odmor i istezanje",
+      ex: ["macka", "psic", "leptiric", "pretklon", "kobra", "dete"] }
   ];
+
+  /* exercise indices for a weekday (0 = Monday) */
+  function planFor(day) {
+    return PLAN[day].ex.map(idxOf);
+  }
+  function planSec(day) {
+    return planFor(day).reduce(function (n, i) { return n + EX[i].sec; }, 0);
+  }
 
   var FILTERS = [
     { label: "Sve", group: null },
+    { label: "Zagrevanje", group: "warm" },
     { label: "Ravnoteža", group: "bal" },
     { label: "Snaga", group: "str" },
-    { label: "Fleksibilnost", group: "flex" }
+    { label: "Gipkost", group: "flex" }
   ];
 
   /* Nagrade — svaka ima pravi uslov i savet koliko još fali.
@@ -68,15 +127,15 @@
       unit: ["trening", "treninga", "treninga"] },
     { key: "streak3", name: "3 dana u nizu", goal: 3, val: function (m) { return m.bestStreak; },
       unit: ["dan", "dana", "dana"], tail: "u nizu" },
-    { key: "bridge", name: "Mostić majstor", goal: 10, val: function (m) { return m.exCount[1] || 0; },
+    { key: "bridge", name: "Mostić majstor", goal: 10, val: function (m) { return m.exCount.mostic || 0; },
       unit: ["mostić", "mostića", "mostića"] },
     { key: "balance", name: "Ravnoteža", goal: 12, val: function (m) { return m.groupCount.bal; },
       unit: ["vežba", "vežbe", "vežbi"], tail: "ravnoteže" },
     { key: "ten", name: "10 treninga", goal: 10, val: function (m) { return m.workouts; },
       unit: ["trening", "treninga", "treninga"] },
-    { key: "split", name: "Špaga", goal: 20, val: function (m) { return m.exCount[0] || 0; },
-      unit: ["leptirić", "leptirića", "leptirića"] },
-    { key: "candle", name: "Sveća", goal: 10, val: function (m) { return m.exCount[8] || 0; },
+    { key: "split", name: "Špaga", goal: 20, val: function (m) { return m.exCount.spaga || 0; },
+      unit: ["vežba za špagu", "vežbe za špagu", "vežbi za špagu"] },
+    { key: "candle", name: "Sveća", goal: 10, val: function (m) { return m.exCount.sveca || 0; },
       unit: ["sveća", "sveće", "sveća"] },
     { key: "week", name: "Nedelja bez pauze", goal: 7, val: function (m) { return m.bestStreak; },
       unit: ["dan", "dana", "dana"], tail: "u nizu" },
@@ -113,7 +172,7 @@
 
   /* ═══ stanje ════════════════════════════════════════════════════════ */
 
-  var KEY = "mila-gimnastika-v1";
+  var KEY = "mila-gimnastika-v2";
   var memoryOnly = false;
 
   function today() { return ymd(new Date()); }
@@ -129,13 +188,13 @@
 
   function defaults() {
     return {
-      v: 1,
+      v: 2,
       ime: "Mila",
       tema: "roze",
       stars: 0,
       favs: [],
       bestStreak: 0,
-      days: {},            /* "YYYY-MM-DD": { sec, workouts, ex:{i:n}, done:[i] } */
+      days: {},            /* "YYYY-MM-DD": { sec, workouts, ex:{id:n}, done:[i] } */
       rem: { on: true, time: "18:00", days: { 0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 0, 6: 0 }, lastFired: "" }
     };
   }
@@ -147,7 +206,7 @@
       var raw = localStorage.getItem(KEY);
       if (raw) {
         var got = JSON.parse(raw);
-        if (got && got.v === 1) {
+        if (got && got.v === 2) {
           st = Object.assign(defaults(), got);
           st.rem = Object.assign(defaults().rem, got.rem || {});
         }
@@ -190,13 +249,12 @@
       var r = dayRec(date), dt = fromYmd(date);
       m.workouts += r.workouts || 0;
       m.sec += r.sec || 0;
-      Object.keys(r.ex).forEach(function (i) {
-        var n = r.ex[i];
-        m.exCount[i] = (m.exCount[i] || 0) + n;
-        var g = EX[i] && EX[i].group;
-        if (g) {
-          m.groupCount[g] += n;
-          if (dt >= d14) m.recent[g] += n;
+      Object.keys(r.ex).forEach(function (id) {
+        var n = r.ex[id], e = EX[idxOf(id)];
+        m.exCount[id] = (m.exCount[id] || 0) + n;
+        if (e && m.groupCount[e.group] !== undefined) {
+          m.groupCount[e.group] += n;
+          if (dt >= d14) m.recent[e.group] += n;
         }
       });
       if (dt >= ws) { m.weekSec += r.sec || 0; m.weekWorkouts += r.workouts || 0; }
@@ -213,10 +271,11 @@
 
     /* najbolja vežba */
     var best = null;
-    Object.keys(m.exCount).forEach(function (i) {
-      if (!best || m.exCount[i] > m.exCount[best]) best = i;
+    Object.keys(m.exCount).forEach(function (id) {
+      if (idxOf(id) === undefined) return;
+      if (!best || m.exCount[id] > m.exCount[best]) best = id;
     });
-    m.bestEx = best === null ? null : { name: EX[best].name, n: m.exCount[best] };
+    m.bestEx = best === null ? null : { name: EX[idxOf(best)].name, n: m.exCount[best] };
 
     /* Target of 6 in a fortnight ≈ three full workouts — reachable enough
        that the bars and the OCENA move after real effort, not months of it. */
@@ -255,9 +314,11 @@
 
   var ui = {
     screen: "home",
-    sel: 3,
+    sel: 0,
     filter: "Sve",
+    wday: 0,
     wi: 0,
+    phase: "ready",   /* ready → prep → go */
     sec: 0,
     run: true,
     day: weekday(new Date()),
@@ -338,12 +399,36 @@
           icon("star", 34, { fill: "var(--gd)", stroke: "none", w: 0 }) + "</button>" +
       "</div>" +
       '<div class="home__right">' +
-        '<div class="slot hero">' + ILLU.gymnast("spaga", { label: "Gimnastičarka u špagi" }) + "</div>" +
-        '<div class="macacard"><div class="macacard__pic">' + ILLU.maca("idle") + "</div><div>" +
-          '<div class="macacard__t">' + (m.streak > 0 ? "Spremna sam da vežbam s tobom!" : "Hajde da počnemo zajedno!") + "</div>" +
-          '<div class="macacard__s">Danas radimo ravnotežu i snagu.</div>' +
+        '<div class="slot hero"><img class="expic" src="img/lili-split.jpg" ' +
+          'alt="Lili u špagi" decoding="async"></div>' +
+        '<div class="lilicard"><div class="lilicard__pic">' + lili("sit") + "</div><div>" +
+          '<div class="lilicard__t">' + (m.streak > 0 ? "Spremna sam da vežbam s tobom!" : "Hajde da počnemo zajedno!") + "</div>" +
+          '<div class="lilicard__s">' + esc(todayFocus()) + "</div>" +
         "</div></div>" +
       "</div></div></div>";
+  }
+
+  /* "Gipkost — 6 vežbi." — what today's session actually is. */
+  function todayFocus() {
+    var d = weekday(new Date());
+    var n = planFor(d).length;
+    var title = PLAN[d].title.split("— ")[1] || PLAN[d].title;
+    return title + " — " + n + " " + plural(n, "vežba", "vežbe", "vežbi") + ".";
+  }
+
+  /* Lili herself, for the mascot slots. */
+  function lili(pose, alt) {
+    return '<img class="expic" src="img/lili-' + pose + '.png" alt="' +
+      esc(alt || "Lili") + '" decoding="async">';
+  }
+
+  /* Lili photographed in the pose when one exists, the drawn figure when not. */
+  function exPic(e, small) {
+    if (e.img) {
+      return '<img class="expic" src="img/' + e.img + '" alt="Lili radi: ' +
+        esc(e.name) + '" loading="lazy" decoding="async">';
+    }
+    return ILLU.gymnast(e.pose, { decor: !small, label: e.name });
   }
 
   function stat(k, v, color) {
@@ -365,9 +450,9 @@
       "</div></div>" +
       '<div class="exgrid scroll">' +
         (cards.length ? cards.map(function (x) {
-          var e = x.e, fav = st.favs.indexOf(x.i) > -1;
+          var e = x.e, fav = st.favs.indexOf(e.id) > -1;
           return '<button class="excard" ' + act("open", x.i) + ">" +
-            '<div class="excard__thumb">' + ILLU.gymnast(e.pose, { decor: false, label: e.name }) + "</div>" +
+            '<div class="excard__thumb">' + exPic(e, true) + "</div>" +
             '<div class="excard__body"><div class="excard__name">' + esc(e.name) + "</div>" +
             '<div class="excard__cat">' + esc(e.cat) + "</div>" +
             '<div class="excard__meta"><span class="excard__min">' + esc(e.min) + "</span>" +
@@ -381,7 +466,7 @@
   }
 
   function detailHtml() {
-    var e = EX[ui.sel], fav = st.favs.indexOf(ui.sel) > -1;
+    var e = EX[ui.sel], fav = st.favs.indexOf(e.id) > -1;
     return '<div class="screen">' +
       '<div class="headrow" style="margin-bottom:1.125rem">' +
         '<button class="iconbtn" ' + act("go", "list") + ' aria-label="Nazad">' + icon("back", 26) + "</button>" +
@@ -390,7 +475,7 @@
           icon("heart", 26, { fill: fav ? "var(--a)" : "none", stroke: "var(--a)" }) + "</button>" +
       "</div>" +
       '<div class="det">' +
-        '<div class="slot det__media">' + ILLU.gymnast(e.pose, { label: e.name }) + "</div>" +
+        '<div class="slot det__media">' + exPic(e) + "</div>" +
         '<div class="det__side scroll">' +
           '<span class="tag">' + esc(e.cat) + "</span>" +
           '<p class="desc">' + esc(e.desc) + "</p>" +
@@ -418,27 +503,47 @@
   }
 
   function workHtml() {
-    var e = EX[WORKOUT[ui.wi]];
+    var plan = curPlan();
+    var e = EX[plan[ui.wi]];
+    var last = ui.wi === plan.length - 1;
+    var prep = ui.phase === "prep";
     var mm = Math.floor(ui.sec / 60), ss = String(ui.sec % 60).padStart(2, "0");
-    var last = ui.wi === WORKOUT.length - 1;
+
+    /* Three phases per exercise: ready (waiting on her), prep (5s count-in),
+       go (the exercise timer). Each gets its own colour on the dial. */
+    var dial, label, ctl;
+    if (ui.phase === "ready") {
+      dial = "Spremna?"; label = "PRITISNI KRENI";
+      ctl = '<button class="timerctl__go" ' + act("go1") + ">KRENI" +
+        icon("arrow", 24, { stroke: "#fff" }) + "</button>" +
+        "<p>Zauzmi položaj, pa pritisni <b>Kreni</b>.</p>";
+    } else if (prep) {
+      dial = String(ui.sec); label = "SPREMI SE";
+      ctl = '<button ' + act("run") + ">" + (ui.run ? "Pauza" : "Nastavi") + "</button>" +
+        "<p>Zauzmi položaj — krećemo za <b>" + ui.sec + "</b>!</p>";
+    } else {
+      dial = ui.sec > 0 ? mm + ":" + ss : "Bravo!"; label = "PREOSTALO";
+      ctl = '<button ' + act("run") + ">" + (ui.run ? "Pauza" : "Nastavi") + "</button>" +
+        "<p>Kad završiš, pritisni <b>Sledeće</b>. Nema žurbe!</p>";
+    }
+
     return '<div class="screen work">' +
       '<div class="work__top">' +
         '<button class="iconbtn" ' + act("quit") + ' aria-label="Prekini trening">' + icon("close", 24) + "</button>" +
-        '<div class="dots">' + WORKOUT.map(function (_, i) {
+        '<div class="dots">' + plan.map(function (_, i) {
           return "<i" + (i < ui.wi ? ' class="past"' : i === ui.wi ? ' class="now"' : "") + "></i>";
         }).join("") + "</div>" +
-        '<div class="work__count">' + (ui.wi + 1) + " / " + WORKOUT.length + "</div>" +
+        '<div class="work__count">' + (ui.wi + 1) + " / " + plan.length + "</div>" +
       "</div>" +
       '<div class="work__main">' +
-        '<div class="work__media">' + ILLU.gymnast(e.pose, { label: e.name }) + "</div>" +
+        '<div class="work__media' + (prep ? " work__media--prep" : "") + '">' + exPic(e) + "</div>" +
         '<div class="work__side">' +
-          '<div class="work__kicker">VEŽBA ' + (ui.wi + 1) + " / " + WORKOUT.length + "</div>" +
+          '<div class="work__kicker">VEŽBA ' + (ui.wi + 1) + " / " + plan.length + "</div>" +
           "<h2>" + esc(e.name) + "</h2>" +
           '<div class="timerrow">' +
-            '<div class="timer' + (ui.sec === 0 ? " done" : "") + '"><div class="timer__v">' +
-              (ui.sec > 0 ? mm + ":" + ss : "Bravo!") + '</div><div class="timer__k">PREOSTALO</div></div>' +
-            '<div class="timerctl"><button ' + act("run") + ">" + (ui.run ? "Pauza" : "Nastavi") + "</button>" +
-              "<p>Kad završiš, pritisni <b>Sledeće</b>. Nema žurbe!</p></div>" +
+            '<div class="timer timer--' + ui.phase + (ui.sec === 0 && ui.phase === "go" ? " done" : "") +
+              '"><div class="timer__v">' + dial + '</div><div class="timer__k">' + label + "</div></div>" +
+            '<div class="timerctl">' + ctl + "</div>" +
           "</div>" +
           '<div class="work__steps scroll"><div class="steps__h">Koraci</div>' + stepsHtml(e.steps) + "</div>" +
           '<button class="cta work__cta" ' + act("next") + ">" + (last ? "ZAVRŠI" : "SLEDEĆE") +
@@ -447,7 +552,8 @@
   }
 
   function doneHtml(m) {
-    var r = ui.lastReward || { stars: 0, min: WORKOUT_MIN, streak: m.streak, sticker: null };
+    var r = ui.lastReward || { stars: 0, min: mins(planSec(ui.wday)), count: curPlan().length,
+      streak: m.streak, sticker: null };
     var conf = "";
     for (var i = 0; i < 18; i++) {
       var c = ["var(--a)", "var(--v)", "var(--gd)", "#fff"][i % 4];
@@ -456,9 +562,10 @@
         ((i % 7) * 0.35).toFixed(2) + 's"></i>';
     }
     return '<div class="screen done"><div class="confetti" aria-hidden="true">' + conf + "</div>" +
-      '<div class="done__pic">' + ILLU.maca("cheer") + "</div>" +
+      '<div class="done__pic">' + lili("happy") + "</div>" +
       "<h1>Bravo, " + esc(ime()) + "!</h1>" +
-      '<div class="done__sub">Završila si ceo trening — ' + WORKOUT.length + " vežbi, " + r.min + " minuta.</div>" +
+      '<div class="done__sub">Završila si ceo trening — ' + r.count + " " +
+        plural(r.count, "vežbu", "vežbe", "vežbi") + ", " + r.min + " minuta.</div>" +
       '<div class="done__stats">' +
         stat("ZVEZDICE", "+" + r.stars, "var(--gd)") +
         stat("SERIJA", dani(r.streak), "var(--v)") +
@@ -477,9 +584,10 @@
     });
     var sel = days[ui.day];
     var rec = dayRec(sel.date);
+    var plan = planFor(ui.day);
     var doneCount = rec.done.length;
-    var p = Math.round(doneCount / WORKOUT.length * 100);
-    var allDone = doneCount === WORKOUT.length;
+    var p = Math.round(doneCount / plan.length * 100);
+    var allDone = doneCount === plan.length;
 
     return '<div class="screen">' +
       '<h2 class="h2" style="margin-bottom:1.25rem">Plan treninga</h2>' +
@@ -488,11 +596,11 @@
           act("day", i) + '><span class="day__d">' + d.d + '</span><span class="day__w">' + d.w + "</span></button>";
       }).join("") + "</div>" +
       '<div class="plan">' +
-        '<div class="plan__main"><div class="plan__title">' + esc(PLAN_TITLES[ui.day]) + "</div>" +
-          '<div class="planlist scroll">' + WORKOUT.map(function (exi, i) {
+        '<div class="plan__main"><div class="plan__title">' + esc(PLAN[ui.day].title) + "</div>" +
+          '<div class="planlist scroll">' + plan.map(function (exi, i) {
             var e = EX[exi], on = rec.done.indexOf(i) > -1;
             return '<div class="planitem"><div class="planitem__pic">' +
-              ILLU.gymnast(e.pose, { decor: false, label: e.name }) + "</div>" +
+              exPic(e, true) + "</div>" +
               '<div style="flex:1;min-width:0"><div class="planitem__n">' + esc(e.name) + "</div>" +
               '<div class="planitem__m">' + esc(e.min) + "</div></div>" +
               '<button class="check' + (on ? " on" : "") + '" ' + act("check", sel.date + ":" + i) +
@@ -501,17 +609,17 @@
           }).join("") + "</div></div>" +
         '<div class="plan__side">' +
           '<div class="msgcard"><div class="msgcard__row"><div class="msgcard__pic">' +
-            ILLU.maca(allDone ? "cheer" : "idle") + '</div><div class="msgcard__t">' +
+            lili(allDone ? "happy" : "sit") + '</div><div class="msgcard__t">' +
             (allDone ? "Sve za danas — bravo!" : "Sjajno! Ti to možeš!") + "</div></div>" +
             '<div class="msgcard__b">' + (allDone
               ? "Završila si sve vežbe za danas. Odmori se, sutra nastavljamo."
-              : "Nastavi tako i bićeš još jača. Ostalo ti je još " + (WORKOUT.length - doneCount) +
-                " " + plural(WORKOUT.length - doneCount, "vežba", "vežbe", "vežbi") + " za današnji dan.") +
+              : "Nastavi tako i bićeš još jača. Ostalo ti je još " + (plan.length - doneCount) +
+                " " + plural(plan.length - doneCount, "vežba", "vežbe", "vežbi") + " za ovaj dan.") +
             "</div></div>" +
           '<div class="progcard"><div class="progcard__k">NAPREDAK DANA</div>' +
             '<div class="progcard__v">' + p + '%</div>' +
             '<div class="bar"><div class="bar__fill" style="width:' + p + '%;background:var(--a)"></div></div></div>' +
-          '<button class="cta cta--sm" ' + act("start") + ">" +
+          '<button class="cta cta--sm" ' + act("startDay", ui.day) + ">" +
             (allDone ? "PONOVI TRENING" : "NASTAVI TRENING") + "</button>" +
         "</div></div></div>";
   }
@@ -524,7 +632,8 @@
     for (var i = 0; i < 7; i++) {
       var d = addDays(ws, i);
       var rec = st.days[ymd(d)];
-      var v = rec && rec.done ? Math.round(rec.done.length / WORKOUT.length * 100) : 0;
+      var v = rec && rec.done
+        ? Math.round(rec.done.length / planFor(weekday(d)).length * 100) : 0;
       pts.push({
         x: Math.round(96 + i * 83.3), y: Math.round(460 - v * 4.4),
         v: v, today: ymd(d) === today()
@@ -623,8 +732,8 @@
             return "<button" + (r.days[i] ? ' class="on"' : "") + " " + act("remDay", i) +
               ' aria-label="' + DAY_SHORT[i] + '" aria-pressed="' + !!r.days[i] + '">' + l + "</button>";
           }).join("") + "</div></div>" +
-        '<div class="note"><div class="note__pic">' + ILLU.maca("idle") + "</div>" +
-          "<p>Maca će te pozvati na trening u " + esc(r.time) +
+        '<div class="note"><div class="note__pic">' + lili("sit") + "</div>" +
+          "<p>Lili će te pozvati na trening u " + esc(r.time) +
           ". Možeš i da je isključiš kad putujete.</p></div>" +
         '<div class="panel"><h3>Podešavanja</h3>' +
           '<div class="field" style="margin-bottom:1.125rem"><label for="ime">IME</label>' +
@@ -675,6 +784,12 @@
     var el = document.querySelector(".timer");
     if (!el) { render(); return; }
     var mm = Math.floor(ui.sec / 60), ss = String(ui.sec % 60).padStart(2, "0");
+    if (ui.phase === "prep") {
+      el.querySelector(".timer__v").textContent = String(ui.sec);
+      var p = document.querySelector(".timerctl p b");
+      if (p) p.textContent = String(ui.sec);
+      return;
+    }
     el.querySelector(".timer__v").textContent = ui.sec > 0 ? mm + ":" + ss : "Bravo!";
     el.classList.toggle("done", ui.sec === 0);
   }
@@ -687,22 +802,45 @@
     render();
   }
 
-  function startWorkout(fromIndex) {
-    ui.screen = "work";
-    ui.wi = fromIndex || 0;
-    ui.sec = EX[WORKOUT[ui.wi]].sec;
+  var PREP_SEC = 5;
+
+  /* Nothing counts down until she says so: each exercise opens in "ready",
+     KRENI starts a 5s "prep" count-in, then "go" runs the exercise timer. */
+  function armExercise(i) {
+    ui.wi = i;
+    ui.phase = "ready";
+    ui.sec = EX[curPlan()[i]].sec;
     ui.run = true;
+  }
+
+  function beginPrep() {
+    ui.phase = "prep";
+    ui.sec = PREP_SEC;
+    ui.run = true;
+    render();
+  }
+
+  function startWorkout(day, fromIndex) {
+    ui.wday = day === undefined || day === null ? weekday(new Date()) : day;
+    ui.screen = "work";
+    armExercise(fromIndex || 0);
     requestWake();
     render();
   }
 
-  function logExercise(exIdx, seconds) {
+  function curPlan() { return planFor(ui.wday); }
+
+  function logExercise(i, seconds) {
     var r = dayRec(today());
-    r.ex[exIdx] = (r.ex[exIdx] || 0) + 1;
+    var id = EX[i].id;
+    r.ex[id] = (r.ex[id] || 0) + 1;
     r.sec += seconds;
     st.stars += 1;
-    var pi = WORKOUT.indexOf(exIdx);
-    if (pi > -1 && r.done.indexOf(pi) === -1) r.done.push(pi);
+    /* only credit the plan tick when training today's own plan */
+    if (ui.wday === weekday(new Date())) {
+      var pi = curPlan().indexOf(i);
+      if (pi > -1 && r.done.indexOf(pi) === -1) r.done.push(pi);
+    }
   }
 
   function finishWorkout() {
@@ -717,8 +855,9 @@
     var fresh = after.filter(function (s, i) { return s.on && !before[i].on; });
 
     ui.lastReward = {
-      stars: WORKOUT.length + 5,
-      min: WORKOUT_MIN,
+      stars: curPlan().length + 5,
+      count: curPlan().length,
+      min: mins(planSec(ui.wday)),
       streak: m.streak,
       sticker: fresh.length ? fresh[0].name : null
     };
@@ -729,47 +868,53 @@
   }
 
   function nextEx() {
-    logExercise(WORKOUT[ui.wi], EX[WORKOUT[ui.wi]].sec);
-    if (ui.wi === WORKOUT.length - 1) { finishWorkout(); return; }
-    ui.wi += 1;
-    ui.sec = EX[WORKOUT[ui.wi]].sec;
-    ui.run = true;
+    var plan = curPlan();
+    logExercise(plan[ui.wi], EX[plan[ui.wi]].sec);
+    if (ui.wi === plan.length - 1) { finishWorkout(); return; }
+    armExercise(ui.wi + 1);
     save();
     render();
   }
 
   var ACTIONS = {
     go: function (v) { go(v); },
-    start: function () { startWorkout(0); },
+    start: function () { startWorkout(null, 0); },
+    startDay: function (v) { startWorkout(+v, 0); },
     startFrom: function () {
-      var i = WORKOUT.indexOf(ui.sel);
-      startWorkout(i < 0 ? 0 : i);
+      /* jump straight to this exercise inside whichever day contains it */
+      var today0 = weekday(new Date());
+      for (var d = 0; d < 7; d++) {
+        var day = (today0 + d) % 7, at = planFor(day).indexOf(ui.sel);
+        if (at > -1) { startWorkout(day, at); return; }
+      }
+      startWorkout(null, 0);
     },
+    go1: beginPrep,
     quit: function () { ui.run = false; go("home"); },
     run: function () { ui.run = !ui.run; render(); },
     next: nextEx,
     open: function (v) { ui.sel = +v; go("detail"); },
     filter: function (v) { ui.filter = v; render(); },
     fav: function () {
-      var i = st.favs.indexOf(ui.sel);
-      if (i > -1) st.favs.splice(i, 1); else st.favs.push(ui.sel);
+      var id = EX[ui.sel].id, i = st.favs.indexOf(id);
+      if (i > -1) st.favs.splice(i, 1); else st.favs.push(id);
       save(); render();
     },
     day: function (v) { ui.day = +v; render(); },
     check: function (v) {
       var parts = v.split(":"), date = parts[0], i = +parts[1];
       var r = dayRec(date), at = r.done.indexOf(i);
+      var e = EX[planFor(weekday(fromYmd(date)))[i]];
       if (at > -1) {
         r.done.splice(at, 1);
-        var exi = WORKOUT[i];
-        if (r.ex[exi]) r.ex[exi] -= 1;
-        r.sec = Math.max(0, r.sec - EX[exi].sec);
+        if (r.ex[e.id]) r.ex[e.id] -= 1;
+        r.sec = Math.max(0, r.sec - e.sec);
         st.stars = Math.max(0, st.stars - 1);
       } else {
         var before = stickerState(metrics());
         r.done.push(i);
-        r.ex[WORKOUT[i]] = (r.ex[WORKOUT[i]] || 0) + 1;
-        r.sec += EX[WORKOUT[i]].sec;
+        r.ex[e.id] = (r.ex[e.id] || 0) + 1;
+        r.sec += e.sec;
         st.stars += 1;
         var m = metrics();
         st.bestStreak = Math.max(st.bestStreak || 0, m.streak);
@@ -842,7 +987,7 @@
     if (hm !== r.time) return;
     r.lastFired = stamp;
     save();
-    var msg = "Vreme je za trening! Maca te čeka.";
+    var msg = "Vreme je za trening! Lili te čeka.";
     if ("Notification" in window && Notification.permission === "granted") {
       try { new Notification("Gimnastika za " + ime(), { body: msg, icon: "icons/icon-180.png" }); } catch (e) {}
     }
@@ -850,9 +995,16 @@
   }
 
   function tick() {
-    if (ui.screen === "work" && ui.run && ui.sec > 0) {
+    if (ui.screen === "work" && ui.run && ui.phase !== "ready" && ui.sec > 0) {
       ui.sec -= 1;
-      tickPaint();
+      if (ui.phase === "prep" && ui.sec === 0) {
+        /* count-in finished — roll straight into the exercise */
+        ui.phase = "go";
+        ui.sec = EX[curPlan()[ui.wi]].sec;
+        render();
+      } else {
+        tickPaint();
+      }
     }
     checkReminder();
   }
@@ -863,7 +1015,9 @@
   document.addEventListener("dblclick", function (e) { e.preventDefault(); });
 
   load();
-  ui.sec = EX[WORKOUT[0]].sec;
+  ui.wday = weekday(new Date());
+  ui.day = ui.wday;
+  ui.sec = EX[curPlan()[0]].sec;
   render();
   timer = setInterval(tick, 1000);
 
