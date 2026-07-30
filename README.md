@@ -23,10 +23,12 @@ tools/                  icon generator, local server, screenshot harness
 
 ## Putting it on the iPad
 
+**https://milosras.github.io/gimnastika-za-milu/**
+
 The app installs to the home screen — its own icon, full screen, no Safari
 chrome, and it keeps working with no network once it has loaded one time.
 
-1. On the iPad, open the app's URL **in Safari** (not Chrome — only Safari can
+1. On the iPad, open that address **in Safari** (not Chrome — only Safari can
    install to the home screen).
 2. Tap the **Share** button → **Add to Home Screen** → *Dodaj*.
 3. Launch it from the new icon.
@@ -34,18 +36,20 @@ chrome, and it keeps working with no network once it has loaded one time.
 Progress is stored on the iPad itself. It is not synced anywhere and nothing is
 sent off the device.
 
-### Testing a change before deploying
+### Shipping a change
 
 ```bash
-npm run lan
+npm run lan       # try it on the iPad first: prints a http://192.168.x.x:8123/ address
+npm run deploy    # pushes www/ to the gh-pages branch; live in about a minute
 ```
 
-Prints a `http://192.168.x.x:8123/` address; open that on the iPad while both
-devices are on the same Wi-Fi.
+Bump `CACHE` in `www/sw.js` (`gimnastika-v1` → `gimnastika-v2`) with every
+release. The offline cache serves its stored copy first, so without the bump an
+already-installed app keeps running the old version.
 
-Note: the offline cache serves the stored copy first, so a redeploy does not
-reach an already-installed app until `CACHE` in `www/sw.js` is bumped
-(`gimnastika-v1` → `gimnastika-v2`). Do that with every release.
+Hosting is GitHub Pages from the `gh-pages` branch of a public repo. The page
+holds no personal data — the name and all progress live only in the iPad's own
+storage — but the URL itself is reachable by anyone who has it.
 
 ## How the app behaves
 
