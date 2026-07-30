@@ -1,0 +1,12 @@
+{
+  "appId": "rs.raskovic.gimnastika",
+  "appName": "Gimnastika",
+  "webDir": "www",
+  "ios": {
+    "contentInset": "never",
+    "backgroundColor": "#fff0f7"
+  },
+  "server": {
+    "iosScheme": "app"
+  }
+}

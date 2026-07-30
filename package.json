@@ -1,0 +1,16 @@
+{
+  "name": "gimnastika-za-milu",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Gimnastika za Milu — iPad aplikacija za vežbanje",
+  "scripts": {
+    "start": "python3 -m http.server 8123 --directory www",
+    "lan": "node tools/serve-lan.mjs",
+    "icons": "python3 tools/make-icons.py",
+    "shots": "node tools/shots.mjs",
+    "ios:add": "npm i @capacitor/core @capacitor/cli @capacitor/ios && npx cap add ios",
+    "ios:sync": "npx cap sync ios",
+    "ios:open": "npx cap open ios"
+  },
+  "license": "UNLICENSED"
+}
