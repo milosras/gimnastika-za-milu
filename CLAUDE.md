@@ -223,9 +223,26 @@ Two branches, deliberately:
 
 Committing to `main` does not publish. `npm run deploy` does.
 
-**Bump `CACHE` in `www/sw.js` on every release** (`gimnastika-v1` →
-`gimnastika-v2`). The service worker is cache-first, so an installed app keeps
-serving its stored copy and your deploy appears to do nothing.
+**Bump `CACHE` in `www/sw.js` and `BUILD` in `www/app.js` on every release**
+(`gimnastika-v4` → `gimnastika-v5`). `BUILD` shows at the bottom of Podešavanja
+and is the only way to tell from the iPad which build is actually running.
+
+The service worker is **network-first for the shell** (navigations and
+`.html/.js/.css/.webmanifest`) and cache-first for everything else. That split
+is deliberate: pictures and icons never change without changing their name, but
+the shell decides which version is running, and serving it from cache was why a
+deploy used to appear to do nothing on an installed iPad. `freshest()` gives the
+network 3s before falling back to the cache, so a bad connection cannot leave
+her staring at nothing.
+
+The page also registers with `updateViaCache: "none"` (Safari otherwise serves
+`sw.js` out of its own HTTP cache for ten minutes), asks for an update check on
+launch and on every return to the app, and reloads once when a new worker takes
+over — except during a workout, where a reload would throw away where she is.
+
+Verified end to end in `tools/`-style CDP scripts: with the network emulated
+off the app still renders from cache, and a fresh build lands on the *first*
+launch after a deploy.
 
 `www/.nojekyll` disables GitHub's Jekyll processing. Leave it.
 

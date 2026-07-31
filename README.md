@@ -45,9 +45,15 @@ npm run lan       # try it on the iPad first: prints a http://192.168.x.x:8123/ 
 npm run deploy    # pushes www/ to the gh-pages branch; live in about a minute
 ```
 
-Bump `CACHE` in `www/sw.js` (`gimnastika-v1` → `gimnastika-v2`) with every
-release. The offline cache serves its stored copy first, so without the bump an
-already-installed app keeps running the old version.
+Bump two things with every release: `CACHE` in `www/sw.js` (`gimnastika-v4` →
+`gimnastika-v5`) and `BUILD` in `www/app.js`. `BUILD` is printed at the bottom
+of *Podešavanja*, so you can tell from the iPad which version it is really
+running.
+
+The installed app picks a deploy up on the **next launch**: the service worker
+fetches the shell from the network and falls back to its cache only when the
+network is slow or gone. If the iPad is offline it keeps running the last
+version it saw, which is the point.
 
 Hosting is GitHub Pages from the `gh-pages` branch of a public repo. The page
 holds no personal data — the name and all progress live only in the iPad's own
