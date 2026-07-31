@@ -964,3 +964,15 @@ h1, h2, h3 {
      it leaves a hole between the last item and Lili's card */
   .todolist { overflow: visible; flex: none; }
 }
+
+.filebtns { display: flex; gap: 0.75rem; }
+.filebtns button {
+  flex: 1;
+  border-radius: 1.25rem;
+  padding: 0.875rem 0.75rem;
+  font: 800 1.125rem/1.2 var(--font-heading);
+  background: rgba(123, 47, 242, 0.08);
+  color: var(--v);
+  transition: background 0.18s ease;
+}
+.filebtns button:hover { background: rgba(123, 47, 242, 0.16); }
