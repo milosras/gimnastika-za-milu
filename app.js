@@ -617,10 +617,12 @@
   /* ═══ ekrani ════════════════════════════════════════════════════════ */
 
   function railHtml() {
+    /* Obaveze sits last: it is hers, not part of the gymnastics run through
+       Početna → Vežbe → Plan → Napredak → Nagrade. */
     var items = [
       ["home", "home", "Početna"], ["list", "heart", "Vežbe"], ["plan", "cal", "Plan"],
-      ["todo", "todo", "Obaveze"], ["prog", "chart", "Napredak"],
-      ["prize", "trophy", "Nagrade"], ["rem", "bell", "Podsetnik"]
+      ["prog", "chart", "Napredak"], ["prize", "trophy", "Nagrade"],
+      ["rem", "bell", "Podsetnik"], ["todo", "todo", "Obaveze"]
     ];
     /* mid-workout nothing is highlighted — she isn't "in" a tab, she's training */
     var on = { detail: "list", work: "", done: "" }[ui.screen];
