@@ -4,18 +4,32 @@ The app is getting a mascot chooser: Mila picks the animal and types its name.
 Whichever she picks has to cover **every** place a mascot appears, so a set is
 only usable when it is complete. This file is the checklist for getting there.
 
-Two sets exist so far, in `Mascots/Rabbit` and `Mascots/Fox`. Contact sheets of
-everything, with the names I gave each file, are `pregled-rabbit.jpg` and
-`pregled-fox.jpg` — **look at those first and correct me** where a pose is
-labelled wrong. Nothing in `www/` has been changed yet.
+Three sets exist so far, in `Mascots/Rabbit`, `Mascots/Fox` and `Mascots/Bear`.
+Contact sheets of everything, with the names I gave each file, are
+`pregled-rabbit.jpg`, `pregled-fox.jpg` and `pregled-bear.jpg` — **look at those
+first and correct me** where a pose is labelled wrong. Nothing in `www/` has
+been changed yet.
+
+Where each set stands, counting only what actually ships:
+
+| | Exercise poses (of 19) | Mascot states (of 5) |
+| --- | --- | --- |
+| Rabbit | 15 | 3 — `sit`, `happy`, `spava` |
+| Fox | 16 | 3 — `sit`, `happy`, `spava` |
+| **Bear** | **9** | **1 — `sit` only** |
+
+The bear is the newest and the furthest behind: it has the first batch of ten
+and nothing after it, including no `happy`, which is the picture the app shows
+most often after `sit`.
 
 ## Naming
 
-`<species>-<pose>.png` — `rabbit-mostic.png`, `fox-mostic.png`.
+`<species>-<pose>.png` — `rabbit-mostic.png`, `fox-mostic.png`, `bear-mostic.png`.
 
 The prefix is the **species, not the name**. Mila can call the fox anything she
-likes, and the filenames must not care. It also avoids `lili-` and `luli-`
-sitting next to each other, one letter apart, in the same folder.
+likes, and the filenames must not care — which matters more now that there are
+three of them and only one has a name so far. It also avoids `lili-` and
+`luli-` sitting next to each other, one letter apart, in the same folder.
 
 ## What a complete set is
 
@@ -24,27 +38,27 @@ sitting next to each other, one letter apart, in the same folder.
 Every exercise in `EX` needs one. The pose has to be recognisable at 96 px in
 the list and hold up at ~500 px on the workout screen.
 
-| Pose file | Exercise | What it must show | Rabbit | Fox |
-| --- | --- | --- | :---: | :---: |
-| `zvezdice` | Zvezdice u mestu | jumping jack mid-air, arms up in a V, legs apart | ✅ | ✅ |
-| `macka` | Mačka–krava | on all fours, back arched up, head tucked, side view | ✅ | ✅ |
-| `psic` | Psić | downward dog, hips high, straight legs, head between paws | ✅ | ✅ |
-| `leptiric` | Leptirić | sitting, soles pressed together, knees out, paws holding feet | ❌ | ✅ |
-| `pretklon` | Sedeći pretklon | sitting, legs straight out, folding forward to the toes | ✅ | ❌ |
-| `kobra` | Kobra | on tummy, chest lifted on straight front paws, legs flat | ⚠️ | ⚠️ |
-| `mostic` | Mostić | **backbend bridge, tummy facing up**, all four paws down | ❌ | ❌ |
-| `spaga` | Špaga | a split, held, paws on the floor | ✅ | ✅ |
-| `arabeska` | Streličar (arabeska) | **one leg straight back, body tipped forward**, arms out | ❌ | ❌ |
-| `linija` | Hodanje po liniji | **walking heel-to-toe along a line**, arms out sideways | ⚠️ | ⚠️ |
-| `prsti` | Ravnoteža na prstima | standing tall **on tiptoes**, arms out, both feet up | ⚠️ | ⚠️ |
-| `sveca` | Sveća | shoulder stand, legs straight up, paws supporting the hips | ✅ | ✅ |
-| `daska` | Daska | forearm plank, body one straight line head to heels | ⚠️ | ⚠️ |
-| `noge` | Podigni noge | on her back, legs raised straight up to ninety degrees | ✅ | ✅ |
-| `cuk` | Ćuk (držanje) | tucked, knees hugged in, feet off the floor | ✅ | ✅ |
-| `lastavica` | Lastavica na podu | on tummy, arms forward and legs lifted, flying | ✅ | ✅ |
-| `cucanj` | Polučučanj + ruke napred | half squat, both arms straight forward | ✅ | ✅ |
-| `iskorak` | Iskorak | forward lunge, back knee toward the floor, paws on hips | ❌ | ⚠️ |
-| `dete` | Dete poza | kneeling, sitting back on heels, forehead down, arms forward | ✅ | ✅ |
+| Pose file | Exercise | What it must show | Rabbit | Fox | Bear |
+| --- | --- | --- | :---: | :---: | :---: |
+| `zvezdice` | Zvezdice u mestu | jumping jack mid-air, arms up in a V, legs apart | ✅ | ✅ | ✅ |
+| `macka` | Mačka–krava | on all fours, back arched up, head tucked, side view | ✅ | ✅ | ✅ |
+| `psic` | Psić | downward dog, hips high, straight legs, head between paws | ✅ | ✅ | ✅ |
+| `leptiric` | Leptirić | sitting, soles pressed together, knees out, paws holding feet | ❌ | ✅ | ✅ |
+| `pretklon` | Sedeći pretklon | sitting, legs straight out, folding forward to the toes | ✅ | ❌ | ❌ |
+| `kobra` | Kobra | on tummy, chest lifted on straight front paws, legs flat | ⚠️ | ⚠️ | ❌ |
+| `mostic` | Mostić | **backbend bridge, tummy facing up**, all four paws down | ❌ | ❌ | ❌ |
+| `spaga` | Špaga | a split, held, paws on the floor | ✅ | ✅ | ✅ |
+| `arabeska` | Streličar (arabeska) | **one leg straight back, body tipped forward**, arms out | ❌ | ❌ | ❌ |
+| `linija` | Hodanje po liniji | **walking heel-to-toe along a line**, arms out sideways | ⚠️ | ⚠️ | ⚠️ |
+| `prsti` | Ravnoteža na prstima | standing tall **on tiptoes**, arms out, both feet up | ⚠️ | ⚠️ | ⚠️ |
+| `sveca` | Sveća | shoulder stand, legs straight up, paws supporting the hips | ✅ | ✅ | ❌ |
+| `daska` | Daska | forearm plank, body one straight line head to heels | ⚠️ | ⚠️ | ⚠️ |
+| `noge` | Podigni noge | on her back, legs raised straight up to ninety degrees | ✅ | ✅ | ❌ |
+| `cuk` | Ćuk (držanje) | tucked, knees hugged in, feet off the floor | ✅ | ✅ | ❌ |
+| `lastavica` | Lastavica na podu | on tummy, arms forward and legs lifted, flying | ✅ | ✅ | ✅ |
+| `cucanj` | Polučučanj + ruke napred | half squat, both arms straight forward | ✅ | ✅ | ❌ |
+| `iskorak` | Iskorak | forward lunge, back knee toward the floor, paws on hips | ❌ | ⚠️ | ❌ |
+| `dete` | Dete poza | kneeling, sitting back on heels, forehead down, arms forward | ✅ | ✅ | ❌ |
 
 ✅ have it · ⚠️ have something close, see "Provisional" below · ❌ missing
 
@@ -53,13 +67,13 @@ the list and hold up at ~500 px on the workout screen.
 These are not exercises — they are the mascot being a character. They appear far
 more often than any single pose, so they matter more.
 
-| File | Where it is used | Rabbit | Fox |
-| --- | --- | :---: | :---: |
-| `sit` | the card on Početna, on Plan, on Obaveze, on Podsetnik — the everyday face | ✅ | ✅ |
-| `happy` | every congratulation after an exercise, the finish screen, "sve gotovo" | ✅ | ✅ |
-| `hero` | the big picture on Početna. Portrait, roughly 4:5, the most flattering pose there is | ❌ | ❌ |
-| `spava` | sleeping. Not used yet — it would suit the Podsetnik screen far better than today's drawn alarm clock | ✅ | ✅ |
-| `portret` | head and shoulders, for the chooser itself: two cards, "which one do you want?" | ❌ | ❌ |
+| File | Where it is used | Rabbit | Fox | Bear |
+| --- | --- | :---: | :---: | :---: |
+| `sit` | the card on Početna, on Plan, on Obaveze, on Podsetnik — the everyday face | ✅ | ✅ | ✅ |
+| `happy` | every congratulation after an exercise, the finish screen, "sve gotovo" | ✅ | ✅ | ❌ |
+| `hero` | the big picture on Početna. Portrait, roughly 4:5, the most flattering pose there is | ❌ | ❌ | ❌ |
+| `spava` | sleeping. Not used yet — it would suit the Podsetnik screen far better than today's drawn alarm clock | ✅ | ✅ | ❌ |
+| `portret` | head and shoulders, for the chooser itself: one card per mascot, "which one do you want?" | ❌ | ❌ | ❌ |
 
 `hero` can be faked from `zvezdice` or `happy` for a first pass, but both are
 landscape-ish and the slot is portrait, so it will letterbox.
@@ -69,14 +83,14 @@ landscape-ish and the slot is portrait, so it will letterbox.
 The sticker badges (`ILLU.badge`), the app icon and the rail logo are not the
 mascot and do not need a version per animal. The Podsetnik illustration
 (`ILLU.reminderScene`) is a drawn alarm clock — it can stay, or `spava` can
-replace it once both sets have one.
+replace it once every set has one.
 
 ## The shopping list
 
-**Both mascots, three each:**
+**All three:**
 
-- `mostic` — the bridge. Neither set has any backbend at all.
-- `arabeska` — a real arabesque. Both sets have several one-leg balances, but in
+- `mostic` — the bridge. No set has any backbend at all.
+- `arabeska` — a real arabesque. Every set has several one-leg balances, but in
   all of them the lifted leg is forward or bent; arabesque needs it straight
   back with the body tipped forward.
 - `hero` — the portrait for Početna.
@@ -84,8 +98,21 @@ replace it once both sets have one.
 
 **Rabbit only:** `leptiric`, `iskorak`
 **Fox only:** `pretklon`
+**Bear:** `pretklon`, `kobra`, `sveca`, `noge`, `cuk`, `cucanj`, `iskorak`,
+`dete` — and **`happy`**, which matters more than any of them: it is what she
+sees after every single exercise. The bear only has the first batch of ten.
 
-**Both, worth redoing:** `linija`, `prsti`, `daska`, `kobra` — see below.
+**All three, worth redoing:** `linija`, `prsti`, `daska` — and `kobra` for the
+two that have one. See below.
+
+### Order to fetch them in
+
+1. **`happy` for the bear.** Without it the bear cannot ship at all.
+2. **`mostic` and `arabeska` for all three** — the only two exercises with no
+   picture anywhere, for any mascot.
+3. **The bear's remaining eight**, to bring it level.
+4. `leptiric` and `iskorak` for the rabbit, `pretklon` for the fox.
+5. `hero`, then the four worth redoing, then `portret`.
 
 ### Provisional identifications ⚠️
 
@@ -109,7 +136,7 @@ time — that is what keeps it the same character rather than a new animal.
 
 ### Style block — put this in front of every pose
 
-> 3D Pixar-style cartoon **[rabbit / fox]** character, exactly the same
+> 3D Pixar-style cartoon **[rabbit / fox / bear]** character, exactly the same
 > character as the reference image: same fur colours, same eyes, same purple
 > bow, same purple and pink gymnastics leotard with a heart on the chest.
 > Full body visible, head to toe, nothing cropped or cut off by the frame.
@@ -153,7 +180,7 @@ transparent PNG if the tool can do it — turns the cutout into a solved problem
 Nothing in `www/` changes until then. When it is:
 
 1. Cut the backgrounds out and downscale into `www/img/<species>-<pose>.png`.
-2. `MASCOTS` in `app.js` gets the species, its default name and its file prefix;
+2. `MASCOTS` in `app.js` gets each species, its default name and its file prefix;
    `st.mascot` and `st.mascotIme` join the saved state (additive, so no
    migration — see `CLAUDE.md`).
 3. `exPic()` and `lili()` take the prefix from the chosen mascot instead of
@@ -166,7 +193,7 @@ replacing all eighteen existing pictures, not adding to them.
 
 ## Repository note
 
-These masters are ~114 MB. They are deliberately **not** committed: the repo is
+These masters are ~140 MB. They are deliberately **not** committed: the repo is
 public and GitHub Pages serves it. The processed versions that ship are tiny —
 the eighteen currently in `www/img` come to 248 KB in total. Keep this folder
 backed up somewhere outside the repo.
@@ -175,6 +202,20 @@ backed up somewhere outside the repo.
 
 Everything arrived as `ChatGPT Image Jul 31, 2026, …`. The mapping, in case a
 label needs checking against the original download:
+
+### Bear
+| Original | Now |
+| --- | --- |
+| `…01_02_20 PM (1).png` | `bear-zvezdice.png` |
+| `…01_02_20 PM (2).png` | `bear-sit.png` |
+| `…01_02_20 PM (3).png` | `bear-psic.png` |
+| `…01_02_20 PM (4).png` | `bear-prsti.png` |
+| `…01_02_20 PM (5).png` | `bear-daska.png` |
+| `…01_02_21 PM (10).png` | `bear-linija.png` |
+| `…01_02_21 PM (6).png` | `bear-lastavica.png` |
+| `…01_02_21 PM (7).png` | `bear-macka.png` |
+| `…01_02_21 PM (8).png` | `bear-leptiric.png` |
+| `…01_02_21 PM (9).png` | `bear-spaga.png` |
 
 ### Rabbit
 | Original | Now |
