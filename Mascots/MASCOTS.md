@@ -12,21 +12,14 @@ been changed yet.
 
 Where each set stands, counting only what actually ships:
 
-| | Exercise poses (of 19) | Mascot states (of 5) | Usable? |
+| | Exercise poses (of 19) | Mascot states (of 5) | What is left |
 | --- | --- | --- | --- |
-| Rabbit | **19** | **5** | yes — complete |
-| Fox | 19 | 5 | complete, but **five files have a bad cutout** |
-| Bear | 17 | **5** | yes — only `mostic` and `cucanj` fall back to the drawing |
+| Rabbit | **19** | **5** | `linija` — it is the same one-leg balance as `prsti` |
+| Fox | **19** | **5** | `mostic`, `arabeska`, `pretklon` have ragged cutouts |
+| Bear | 17 | **5** | `mostic` and `cucanj` missing, `arabeska` wrong pose |
 
-**The bear** now has everything except the bridge (`mostic`) and the half squat
-(`cucanj`). It is perfectly choosable: those two exercises show the drawn figure
-and nothing else does.
-
-**The fox's five newest files** (`mostic`, `arabeska`, `pretklon`, `hero`,
-`portret`) came back with the background removal done badly: a blocky, ragged
-patch of the old background is baked into the alpha and shows as a brown halo
-behind her, obvious at hero size. They need generating again — the prompt is in
-`PROMPTS.md`.
+All three are usable today; anything missing falls back to the drawn figure.
+**`STILL-NEEDED.md` is the working list** — it carries the prompts.
 
 ## Naming
 
