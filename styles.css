@@ -94,11 +94,10 @@ h1, h2, h3 {
   padding: 3%;
 }
 .slot .expic { padding: 0; }
-/* Contain, never cover: the hero art is a fixed composition and cropping it
-   loses her legs. The card takes the artwork's own background colour so the
-   letterboxing is invisible at any container shape. */
-.hero { background: #faebf6; }
-.hero .expic { object-fit: contain; border-radius: var(--r-lg); }
+/* The hero picture is a cut-out mascot on transparency now, so the card can
+   carry the app's own gradient and re-theme with everything else. */
+.hero { background: linear-gradient(160deg, var(--lc), var(--sf)); }
+.hero .expic { object-fit: contain; padding: 4%; }
 .spacer { flex: 1; }
 .scroll { overflow: auto; -webkit-overflow-scrolling: touch; }
 .muted { opacity: 0.55; }
@@ -976,3 +975,32 @@ h1, h2, h3 {
   transition: background 0.18s ease;
 }
 .filebtns button:hover { background: rgba(123, 47, 242, 0.16); }
+
+/* ── izbor maskote ──────────────────────────────────────────────────── */
+
+.masks { display: flex; gap: 0.75rem; }
+.mask {
+  flex: 1;
+  min-width: 0;
+  border-radius: 1.5rem;
+  padding: 0.75rem 0.5rem 0.875rem;
+  background: rgba(123, 47, 242, 0.07);
+  border: 0.1875rem solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+.mask.on { border-color: var(--v); background: rgba(123, 47, 242, 0.13); }
+.mask__pic {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 1.125rem;
+  background: linear-gradient(160deg, var(--lc), var(--sf));
+  overflow: hidden;
+  display: flex;
+}
+.mask__pic .expic { padding: 6%; }
+.mask__n { font: 800 1.25rem/1 var(--font-heading); }
+.mask__gap { font: 700 0.75rem var(--font-body); color: var(--a); opacity: 0.75; }
