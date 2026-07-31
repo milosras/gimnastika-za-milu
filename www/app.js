@@ -174,13 +174,19 @@
 
   /* ═══ stanje ════════════════════════════════════════════════════════ */
 
-  var KEY = "mila-gimnastika-v2";
+  /* The key is permanent and carries no version — the version lives inside the
+     payload, so a schema change migrates the data instead of orphaning it.
+     `mila-gimnastika-v1` and `-v2` are the two keys older builds wrote; they
+     are read once, migrated, and then left alone as a free backup. */
+  var KEY = "mila-gimnastika";
+  var OLD_KEYS = ["mila-gimnastika-v2", "mila-gimnastika-v1"];
+  var VERSION = 3;
   var memoryOnly = false;
 
   /* Shown at the bottom of Podešavanja. Bump it with `CACHE` in sw.js on every
      release — it is the only way to tell from the iPad which build is running,
      which matters because the app keeps working offline out of its own cache. */
-  var BUILD = "4 · 31.07.2026.";
+  var BUILD = "5 · 31.07.2026.";
 
   function today() { return ymd(new Date()); }
   function ymd(d) {
@@ -195,14 +201,14 @@
 
   function defaults() {
     return {
-      v: 2,
+      v: VERSION,
       ime: "Mila",
       tema: "roze",
       stars: 0,
       favs: [],
       bestStreak: 0,
       zvuk: true,
-      days: {},            /* "YYYY-MM-DD": { sec, workouts, ex:{id:n}, done:[i] } */
+      days: {},            /* "YYYY-MM-DD": { sec, workouts, ex:{id:n}, done:[id] } */
       todos: [],           /* [{ id, t, done }] — njena lista, ne dira gimnastiku */
       rem: { on: true, time: "18:00", days: { 0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 0, 6: 0 }, lastFired: "" }
     };
@@ -210,25 +216,168 @@
 
   var st = defaults();
 
+  /* ── migracije ────────────────────────────────────────────────────────
+     Forward-only, one step per entry, applied in sequence until the payload
+     reaches VERSION. Data is transformed, never dropped: a payload we cannot
+     place is kept and read as best we can rather than replaced with a blank
+     one. Losing a child's progress to a release is not an acceptable cost. */
+
+  /* v1 had one fixed session and referred to exercises by their position in
+     that build's own EX array. Both lists are frozen here so the mapping stays
+     correct no matter how EX and PLAN change from now on. */
+  var V1_IDS = ["leptiric", "mostic", "macka", "arabeska", "noge", "cucanj",
+                "prsti", "cuk", "sveca"];
+  var V1_WORKOUT = [3, 0, 2, 4, 5, 6];
+
+  var MIGRATIONS = {
+    /* 1 → 2: exercise *indices* become ids. `done` held positions in the one
+       fixed workout, so it becomes ids too — migration 2 passes ids through. */
+    1: function (p) {
+      Object.keys(p.days || {}).forEach(function (date) {
+        var r = p.days[date] || {};
+        var ex = {};
+        Object.keys(r.ex || {}).forEach(function (k) {
+          var id = V1_IDS[+k];
+          if (id) ex[id] = (ex[id] || 0) + r.ex[k];
+        });
+        r.ex = ex;
+        r.done = (r.done || []).map(function (i) {
+          return V1_IDS[V1_WORKOUT[i]];
+        }).filter(Boolean);
+        p.days[date] = r;
+      });
+      p.favs = (p.favs || []).map(function (i) { return V1_IDS[i]; }).filter(Boolean);
+      p.v = 2;
+      return p;
+    },
+    /* 2 → 3: `done` held positions inside that weekday's plan, which silently
+       re-pointed every historical record whenever PLAN was edited. Positions
+       become ids, resolved through the plan as it is *right now* — which is
+       the plan they were written against. */
+    2: function (p) {
+      Object.keys(p.days || {}).forEach(function (date) {
+        var r = p.days[date] || {};
+        var plan = planFor(weekday(fromYmd(date)));
+        var seen = {};
+        r.done = (r.done || []).map(function (d) {
+          if (typeof d === "string") return d;          /* already an id */
+          var i = plan[d];
+          return i === undefined ? null : EX[i].id;
+        }).filter(function (id) {
+          if (!id || seen[id]) return false;
+          seen[id] = 1;
+          return true;
+        });
+        p.days[date] = r;
+      });
+      p.v = 3;
+      return p;
+    }
+  };
+
+  function backup(name, raw) {
+    try {
+      if (localStorage.getItem(name) === null) localStorage.setItem(name, raw);
+    } catch (e) {}
+  }
+
+  /* Any payload in, a usable state out. Used by load() and by import. */
+  function hydrate(got, raw) {
+    if (!got || typeof got !== "object") return defaults();
+    var v = typeof got.v === "number" ? got.v : 1;
+
+    if (v > VERSION) {
+      /* Newer than this build — a rollback, or Safari restoring an old bundle.
+         Read what we can and leave it alone. Wiping is always the wrong
+         answer, and saving over it would destroy what the newer build wrote. */
+      return normalize(got);
+    }
+    if (v < VERSION && raw) backup(KEY + "-backup-v" + v, raw);
+    while (v < VERSION && MIGRATIONS[v]) {
+      got = MIGRATIONS[v](got);
+      v = got.v;
+    }
+    return normalize(got);
+  }
+
+  /* Fill in anything a payload could not have known about, without touching
+     what it did carry. This is what makes adding a field a safe change. */
+  function normalize(got) {
+    var out = Object.assign(defaults(), got);
+    out.rem = Object.assign(defaults().rem, got.rem || {});
+    /* A payload from a newer build keeps its own version number: stamping this
+       build's version on it would make a later load migrate it a second time.
+       Object.assign already carried over every field this build knows nothing
+       about, so nothing that newer build wrote is lost either. */
+    out.v = typeof got.v === "number" && got.v > VERSION ? got.v : VERSION;
+    if (!out.days || typeof out.days !== "object") out.days = {};
+    if (!Array.isArray(out.todos)) out.todos = [];
+    if (!Array.isArray(out.favs)) out.favs = [];
+    if (typeof out.zvuk !== "boolean") out.zvuk = true;
+    if (typeof out.stars !== "number") out.stars = 0;
+    return out;
+  }
+
+  function readKey(k) {
+    try {
+      var raw = localStorage.getItem(k);
+      if (!raw) return null;
+      return { raw: raw, got: JSON.parse(raw) };
+    } catch (e) { return null; }
+  }
+
+  /* The v1 release was orphaned rather than migrated, so that history may still
+     be sitting in localStorage untouched. Fold it in once, for dates the
+     current record does not already have. */
+  function recoverV1() {
+    if (st.recoveredV1) return 0;
+    st.recoveredV1 = 1;
+    var hit = readKey("mila-gimnastika-v1");
+    if (!hit || !hit.got || hit.got.v !== 1) return 0;
+    var old = MIGRATIONS[1](hit.got);
+    var added = 0;
+    Object.keys(old.days || {}).forEach(function (date) {
+      if (st.days[date]) return;               /* her current record wins */
+      st.days[date] = old.days[date];
+      added++;
+    });
+    if (added) {
+      st.stars = (st.stars || 0) + (old.stars || 0);
+      st.bestStreak = Math.max(st.bestStreak || 0, old.bestStreak || 0);
+    }
+    return added;
+  }
+
+  var recovered = 0;
+
   function load() {
     try {
-      var raw = localStorage.getItem(KEY);
-      if (raw) {
-        var got = JSON.parse(raw);
-        if (got && got.v === 2) {
-          st = Object.assign(defaults(), got);
-          st.rem = Object.assign(defaults().rem, got.rem || {});
-          /* fields added after a save was written: keep the old payload,
-             just fill in what it could not have known about */
-          if (!Array.isArray(st.todos)) st.todos = [];
-          if (typeof st.zvuk !== "boolean") st.zvuk = true;
-        }
+      var hit = readKey(KEY);
+      if (!hit) {
+        /* first run on this build: adopt whatever an older one left behind */
+        for (var i = 0; i < OLD_KEYS.length && !hit; i++) hit = readKey(OLD_KEYS[i]);
+      }
+      if (hit) {
+        st = hydrate(hit.got, hit.raw);
+        recovered = recoverV1();
+        save();          /* write the migrated shape back under the new key */
       }
     } catch (e) { memoryOnly = true; }
   }
+
   function save() {
     if (memoryOnly) return;
     try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) { memoryOnly = true; }
+  }
+
+  /* iOS can evict a web app's storage under pressure. This asks it not to. */
+  function askPersist() {
+    if (!navigator.storage || !navigator.storage.persist) return;
+    try {
+      navigator.storage.persisted().then(function (ok) {
+        if (!ok) navigator.storage.persist();
+      }).catch(function () {});
+    } catch (e) {}
   }
 
   /* Time is kept in seconds and only rounded for display, so the totals on
@@ -239,6 +388,16 @@
     if (!r.ex) r.ex = {};
     if (!r.done) r.done = [];
     if (typeof r.sec !== "number") r.sec = 0;
+    /* Belt and braces: a record written by an older build stores positions in
+       that weekday's plan. The migration converts them, but a payload restored
+       from a file or a rolled-back build can still arrive with numbers. */
+    for (var i = 0; i < r.done.length; i++) {
+      if (typeof r.done[i] === "number") {
+        var at = planFor(weekday(fromYmd(date)))[r.done[i]];
+        r.done[i] = at === undefined ? null : EX[at].id;
+      }
+    }
+    r.done = r.done.filter(Boolean);
     return r;
   }
   function mins(sec) { return Math.round(sec / 60); }
@@ -708,7 +867,11 @@
     var sel = days[ui.day];
     var rec = dayRec(sel.date);
     var plan = planFor(ui.day);
-    var doneCount = rec.done.length;
+    /* count what this day's plan actually contains, so a tick left behind by
+       an older plan can never push the day over 100% */
+    var doneCount = plan.filter(function (exi) {
+      return rec.done.indexOf(EX[exi].id) > -1;
+    }).length;
     var p = Math.round(doneCount / plan.length * 100);
     var allDone = doneCount === plan.length;
 
@@ -720,13 +883,13 @@
       }).join("") + "</div>" +
       '<div class="plan">' +
         '<div class="plan__main"><div class="plan__title">' + esc(PLAN[ui.day].title) + "</div>" +
-          '<div class="planlist scroll">' + plan.map(function (exi, i) {
-            var e = EX[exi], on = rec.done.indexOf(i) > -1;
+          '<div class="planlist scroll">' + plan.map(function (exi) {
+            var e = EX[exi], on = rec.done.indexOf(e.id) > -1;
             return '<div class="planitem"><div class="planitem__pic">' +
               exPic(e, true) + "</div>" +
               '<div style="flex:1;min-width:0"><div class="planitem__n">' + esc(e.name) + "</div>" +
               '<div class="planitem__m">' + esc(e.min) + "</div></div>" +
-              '<button class="check' + (on ? " on" : "") + '" ' + act("check", sel.date + ":" + i) +
+              '<button class="check' + (on ? " on" : "") + '" ' + act("check", sel.date + ":" + e.id) +
               ' aria-label="' + esc(e.name) + '" aria-pressed="' + on + '">' +
               icon("check", 24, { w: 3 }) + "</button></div>";
           }).join("") + "</div></div>" +
@@ -815,8 +978,12 @@
     for (var i = 0; i < 7; i++) {
       var d = addDays(ws, i);
       var rec = st.days[ymd(d)];
-      var v = rec && rec.done
-        ? Math.round(rec.done.length / planFor(weekday(d)).length * 100) : 0;
+      /* only ticks that belong to that day's own plan count toward its percent */
+      var plan = planFor(weekday(d));
+      var hit = rec && rec.done ? plan.filter(function (exi) {
+        return rec.done.indexOf(EX[exi].id) > -1;
+      }).length : 0;
+      var v = Math.round(hit / plan.length * 100);
       pts.push({
         x: Math.round(96 + i * 83.3), y: Math.round(460 - v * 4.4),
         v: v, today: ymd(d) === today()
@@ -936,11 +1103,77 @@
                 '><span class="theme__sw"><i style="background:' + t.a + '"></i><i style="background:' +
                 t.v + '"></i><i style="background:' + t.gd + '"></i></span>' + t.label + "</button>";
             }).join("") + "</div></div>" +
+          '<div class="field" style="margin-top:1.375rem"><label>KOPIJA NAPRETKA</label>' +
+            '<div class="panel__s" style="margin:-0.125rem 0 0.75rem;line-height:1.4">' +
+              "Sačuvaj sve — zvezdice, nalepnice, istoriju i obaveze — u jedan fajl. " +
+              "Ako se iPad zameni ili se aplikacija obriše, odatle se sve vraća." +
+            "</div>" +
+            '<div class="filebtns">' +
+              "<button " + act("saveCopy") + ">Sačuvaj kopiju</button>" +
+              "<button " + act("loadCopy") + ">Vrati iz kopije</button>" +
+            "</div>" +
+            '<input type="file" id="uvoz" accept="application/json,.json" ' +
+              'style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none" ' +
+              'aria-hidden="true" tabindex="-1"></div>' +
           '<div style="margin-top:1.25rem;display:flex;align-items:center;gap:1rem">' +
             '<button class="danger" ' + act("reset") + ">Resetuj napredak</button>" +
             '<span style="font:700 0.8125rem var(--font-body);opacity:.35">Verzija ' +
             esc(BUILD) + "</span></div>" +
         "</div></div></div>";
+  }
+
+  /* ═══ kopija napretka ═══════════════════════════════════════════════ */
+
+  function copyName() {
+    return "gimnastika-" + ime().toLowerCase().replace(/[^a-z0-9]+/g, "") + "-" + today() + ".json";
+  }
+
+  /* iOS has no plain "save file" from a home-screen web app, but the share
+     sheet does have "Save to Files" — try that first, then a download link. */
+  function saveCopy() {
+    var text = JSON.stringify(st, null, 2);
+    var name = copyName();
+    try {
+      var file = new File([text], name, { type: "application/json" });
+      if (navigator.canShare && navigator.canShare({ files: [file] }) && navigator.share) {
+        navigator.share({ files: [file], title: "Gimnastika — kopija napretka" })
+          .catch(function () {});
+        return;
+      }
+    } catch (e) {}
+    try {
+      var url = URL.createObjectURL(new Blob([text], { type: "application/json" }));
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 1500);
+      toast("Kopija je sačuvana: " + name);
+    } catch (e2) {
+      toast("Nije uspelo čuvanje kopije na ovom uređaju.");
+    }
+  }
+
+  function adoptCopy(got) {
+    if (!got || typeof got !== "object" || !got.days) {
+      toast("Ovaj fajl nije kopija napretka.");
+      return;
+    }
+    var days = Object.keys(got.days).length;
+    if (!confirm("Vratiti napredak iz ove kopije (" + days + " " +
+        plural(days, "dan", "dana", "dana") +
+        " istorije)?\n\nTrenutno stanje na ovom iPadu biće zamenjeno.")) return;
+    /* keep what is being replaced — an import is the one action here that
+       throws data away, so it gets its own snapshot */
+    try { localStorage.setItem(KEY + "-backup-pre-import", JSON.stringify(st)); } catch (e) {}
+    st = hydrate(got, null);
+    save();
+    render();
+    toast("Napredak je vraćen — " + days + " " + plural(days, "dan", "dana", "dana") + ".");
   }
 
   /* ═══ render ════════════════════════════════════════════════════════ */
@@ -1047,9 +1280,9 @@
     r.sec += seconds;
     st.stars += 1;
     /* only credit the plan tick when training today's own plan */
-    if (ui.wday === weekday(new Date())) {
-      var pi = curPlan().indexOf(i);
-      if (pi > -1 && r.done.indexOf(pi) === -1) r.done.push(pi);
+    if (ui.wday === weekday(new Date()) && curPlan().indexOf(i) > -1 &&
+        r.done.indexOf(id) === -1) {
+      r.done.push(id);
     }
   }
 
@@ -1116,9 +1349,10 @@
     },
     day: function (v) { ui.day = +v; render(); },
     check: function (v) {
-      var parts = v.split(":"), date = parts[0], i = +parts[1];
-      var r = dayRec(date), at = r.done.indexOf(i);
-      var e = EX[planFor(weekday(fromYmd(date)))[i]];
+      var parts = v.split(":"), date = parts[0], id = parts[1];
+      var e = EX[idxOf(id)];
+      if (!e) return;
+      var r = dayRec(date), at = r.done.indexOf(id);
       if (at > -1) {
         r.done.splice(at, 1);
         if (r.ex[e.id]) r.ex[e.id] -= 1;
@@ -1126,7 +1360,7 @@
         st.stars = Math.max(0, st.stars - 1);
       } else {
         var before = stickerState(metrics());
-        r.done.push(i);
+        r.done.push(id);
         r.ex[e.id] = (r.ex[e.id] || 0) + 1;
         r.sec += e.sec;
         st.stars += 1;
@@ -1160,6 +1394,11 @@
     todoClear: function () {
       st.todos = st.todos.filter(function (t) { return !t.done; });
       save(); render();
+    },
+    saveCopy: saveCopy,
+    loadCopy: function () {
+      var el = document.getElementById("uvoz");
+      if (el) el.click();
     },
     zvuk: function () {
       st.zvuk = !st.zvuk;
@@ -1212,6 +1451,21 @@
       ev.preventDefault();
       ACTIONS.todoAdd();
     }
+  });
+
+  document.addEventListener("change", function (ev) {
+    if (ev.target.id !== "uvoz") return;
+    var file = ev.target.files && ev.target.files[0];
+    ev.target.value = "";              /* so the same file can be picked twice */
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function () {
+      var got = null;
+      try { got = JSON.parse(String(reader.result)); } catch (e) {}
+      adoptCopy(got);
+    };
+    reader.onerror = function () { toast("Fajl nije mogao da se pročita."); };
+    reader.readAsText(file);
   });
 
   /* ═══ tajmer, ekran, podsetnik ══════════════════════════════════════ */
@@ -1279,11 +1533,19 @@
   document.addEventListener("dblclick", function (e) { e.preventDefault(); });
 
   load();
+  askPersist();
   ui.wday = weekday(new Date());
   ui.day = ui.wday;
   ui.sec = EX[curPlan()[0]].sec;
   render();
   timer = setInterval(tick, 1000);
+
+  if (recovered) {
+    setTimeout(function () {
+      toast("Našla sam stariji napredak i vratila ga: " +
+        recovered + " " + plural(recovered, "dan", "dana", "dana") + ".");
+    }, 1200);
+  }
 
   /* Keeping an installed iPad up to date.
 

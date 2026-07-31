@@ -38,50 +38,33 @@ Second round, from Mila's own list (July 2026):
 
 ---
 
-## 1. Storage must survive updates — HIGH, do this first
+## 1. Storage survives updates — done
 
-**The problem.** Shipping the per-day plans changed the shape of saved history,
-and the release discarded everything Mila had done. That is unacceptable as a
-normal cost of shipping, and right now it would happen again on the next schema
-change. Two separate faults cause it:
+The key is now permanent (`mila-gimnastika`), the version lives inside the
+payload, and `hydrate()` migrates forward one step at a time instead of
+dropping anything it does not recognise. Specifically:
 
-1. `KEY = "mila-gimnastika-v2"` puts the version *in the key*, and `load()`
-   accepts only an exact `got.v === 2`. Anything else is silently dropped.
-2. `dayRec().done` stores **positions within that weekday's plan**, not exercise
-   ids. Editing any day's `PLAN` therefore silently re-points every historical
-   record at different exercises. This is a live bug today, not just a future
-   risk — reordering Monday would rewrite Monday's past.
+- `MIGRATIONS` covers 1 → 2 (exercise indices become ids) and 2 → 3 (plan ticks
+  become exercise ids, so editing `PLAN` no longer re-points history).
+- A payload *newer* than the build is kept and read, never wiped, and keeps its
+  own version number.
+- Snapshots: `mila-gimnastika-backup-v<n>` before migrating, the old keys left
+  in place, `mila-gimnastika-backup-pre-import` before an import.
+- `recoverV1()` folds the history orphaned by the v1 → v2 release back in, once,
+  for dates the current record does not already have — so if that payload is
+  still on the iPad, the progress lost back then comes back on next launch.
+- Export / import as a JSON file in Podešavanja, and `navigator.storage.persist()`
+  on launch.
+- `npm test` (`tools/test-storage.mjs`) seeds each old shape, loads the app in
+  Chrome and checks what survived. Twenty-six checks, including a junk import.
 
-**The fix.**
+**What is still not protected:** deleting the home-screen app takes its storage
+with it — iOS gives each installed web app its own — and no code can prevent
+that. The saved copy is the answer; it is worth exporting one after a big week.
 
-- **One permanent key.** `mila-gimnastika`, with no version in the name. The
-  version stays inside the payload as `v`.
-- **Forward-only migrations.** A `MIGRATIONS` map keyed by source version, each
-  entry transforming the payload one step. `load()` applies them in sequence
-  until `v === CURRENT`. Data is transformed, never discarded.
-- **Never wipe on an unknown version.** If the payload is *newer* than the build
-  (a rollback, or Safari restoring an old bundle), keep it and render what can
-  be read. Wiping is always the wrong answer.
-- **Store plan completion by exercise id.** `done: ["zvezdice", "macka"]`
-  instead of `done: [0, 1]`. This decouples saved history from the `PLAN`
-  arrays and is what makes editing plans safe. Requires a migration that maps
-  each old index through the plan the date's weekday *used to have* — so do it
-  before `PLAN` changes again, while the mapping is still known.
-- **Snapshot before migrating.** Copy the raw payload to
-  `mila-gimnastika-backup-v<n>` before transforming. Cheap insurance, and it
-  makes a bad migration recoverable rather than fatal.
-- **Ask for persistent storage.** `navigator.storage.persist()` on first launch.
-  iOS can evict a home-screen app's storage under pressure; this reduces it.
-- **Export and import** in Podešavanja. A JSON file she can keep, and the only
-  real answer to a lost or replaced iPad. Also makes testing migrations easy.
-
-**Test it.** This is the first thing in the project genuinely worth a test: feed
-a saved v2 payload through the migration chain and assert the totals, streak and
-sticker states come out unchanged. A silent regression here costs real progress.
-
-**Also worth deciding:** whether a schema change should ever be able to alter
+**Still worth deciding:** whether a schema change should ever be able to alter
 past *derived* numbers. Stars are stored, but streaks and skill percentages are
-recomputed from history — so changing `metrics()` retroactively changes what her
+recomputed from history, so changing `metrics()` retroactively changes what her
 past looks like. Probably fine, but it should be a decision rather than an
 accident.
 

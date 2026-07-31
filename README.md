@@ -38,6 +38,21 @@ chrome, and it keeps working with no network once it has loaded one time.
 Progress is stored on the iPad itself. It is not synced anywhere and nothing is
 sent off the device.
 
+### Backing it up
+
+A release can no longer cost her anything: the storage key is permanent and old
+saves are migrated forward, never dropped. Two things are still outside the
+app's control — **deleting the home-screen icon takes its storage with it**, and
+so does replacing the iPad. So *Podešavanja → Kopija napretka* has:
+
+- **Sačuvaj kopiju** — writes everything (stars, stickers, history, to-dos) to a
+  JSON file, through the iOS share sheet, so it can go to Files or iCloud.
+- **Vrati iz kopije** — reads one back. It asks first, and snapshots what it is
+  about to replace.
+
+Worth doing after a good week. `npm test` checks the whole migration and import
+path against every save shape that has ever shipped.
+
 ### Shipping a change
 
 ```bash
@@ -92,8 +107,9 @@ Ticking an exercise off the plan counts it too, not just running the workout.
 Time is stored in seconds and rounded only for display, so the totals on
 Početna, Napredak and the finish screen always agree.
 
-Ime, tema (three palettes) and *Resetuj napredak* live at the bottom of the
-**Podsetnik** screen.
+Ime, tema (three palettes), the sound switch, the backup buttons, *Resetuj
+napredak* and the running version live at the bottom of the **Podsetnik**
+screen.
 
 ### The reminder
 
@@ -119,10 +135,13 @@ notifications — the reminder firing when the app is closed.
 
 ```bash
 npm run icons   # regenerate www/icons/* (pure Python, no image libraries)
+npm run crop    # re-cut www/img/lili-<id>.png from assets/source/gimi-sheet.png
 npm run shots   # screenshot every screen through headless Chrome
+npm test        # load every old save shape and check nothing was lost
 ```
 
-`npm run shots` needs Chrome running with `--remote-debugging-port=9222`.
+`npm run shots` and `npm test` need Chrome running with
+`--remote-debugging-port=9222`, and the app served locally (`npm start`).
 
 ## Notes on the implementation
 

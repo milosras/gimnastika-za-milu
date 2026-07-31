@@ -11,8 +11,11 @@ installed to the iPad home screen as a PWA and runs offline.
 No build step, no framework, no runtime dependencies. `www/` is shipped verbatim.
 
 **`TODO.md` holds the open work and the current state** — read it before
-starting anything. The top item (making saved progress survive schema changes)
-is high priority and blocks editing `PLAN` or the storage shape.
+starting anything.
+
+The saved progress is a real child's, and a release has already destroyed it
+once. `npm test` exists for exactly that: run it after touching anything under
+"Two kinds of state" below.
 
 ## Commands
 
@@ -23,9 +26,12 @@ npm run deploy    # publish www/ to the gh-pages branch (live in ~60s)
 npm run icons     # regenerate www/icons/* from tools/make-icons.py (~30s, pure Python)
 npm run crop      # re-cut www/img/lili-<id>.png from the pose board (~40s)
 npm run shots     # screenshot every screen through headless Chrome
+npm test          # migrate every old save shape and check nothing was lost
 ```
 
-There are no tests and no linter. Verification is visual, via `npm run shots`.
+`npm test` is the only automated test — it guards the saved progress, which is
+the one thing in the project that cannot be regenerated. Everything else is
+verified visually, via `npm run shots`. There is no linter.
 
 ### Visual verification
 
@@ -76,23 +82,49 @@ same tap so the keyboard stays up.
 
 Keeping these separate matters:
 
-- **`st`** — persisted to `localStorage` under `mila-gimnastika-v2`. Name, theme,
+- **`st`** — persisted to `localStorage` under `mila-gimnastika`. Name, theme,
   stars, favourites, best streak, per-day history, reminder settings, the sound
   switch (`zvuk`) and her own to-do list (`todos`). Call `save()` after
   mutating. If storage throws (e.g. opened over `file://`), `memoryOnly` is set
   and the app degrades to in-memory with a warning toast.
 
-  Adding a *new* field is the one safe schema change: `load()` merges the saved
-  payload over `defaults()`, so an older save keeps everything it had and picks
-  up the default for what it never knew about. `v` stays 2. Anything that
-  changes an *existing* field still needs the migration work below.
+  **The key carries no version — the version lives inside the payload as `v`.**
+  That is the whole point: `mila-gimnastika-v1` and `-v2` put it in the *key*,
+  so shipping v2 orphaned every v1 save and wiped a child's real progress.
+  Never version the key again.
 
-  **Do not change the storage key or the saved shape without a migration.**
-  `load()` currently accepts only an exact version match and drops anything
-  else, which has already cost one wipe of real progress. `dayRec().done` also
-  stores *positions* within a weekday's plan rather than exercise ids, so
-  editing `PLAN` silently re-points historical records. Both are item 1 in
-  `TODO.md`; fix them before touching either.
+  `load()` reads the permanent key, falls back to the two old ones, and hands
+  whatever it finds to `hydrate()`:
+
+  - **Forward-only migrations.** `MIGRATIONS[v]` transforms a payload one step;
+    `hydrate()` applies them until `v === VERSION`. Data is transformed, never
+    dropped. Adding a new *field* still needs no migration at all — `normalize()`
+    merges over `defaults()`.
+  - **A payload newer than the build is kept, not wiped.** It keeps its own `v`
+    (stamping ours on it would make a later load migrate it twice) and every
+    field this build knows nothing about survives `Object.assign`.
+  - **Snapshots before touching anything.** `mila-gimnastika-backup-v<n>` holds
+    the pre-migration payload; the old keys are left in place as a second copy;
+    an import writes `mila-gimnastika-backup-pre-import` first.
+  - **`recoverV1()`** folds the orphaned v1 history back in, once, for dates the
+    current record doesn't have. `V1_IDS` and `V1_WORKOUT` freeze that build's
+    exercise order so the mapping stays correct however `EX` and `PLAN` change.
+
+  `days[date].done` stores **exercise ids**, not positions in that weekday's
+  plan. That is what makes editing `PLAN` safe: positions silently re-pointed
+  every historical record. `dayRec()` still converts a stray number, so a
+  restored file or a rolled-back build cannot reintroduce the bug.
+
+  Podešavanja has **Sačuvaj kopiju / Vrati iz kopije** — a JSON file, shared
+  through the iOS share sheet where that exists and downloaded where it doesn't.
+  It is the only answer to a replaced or wiped iPad, since deleting a
+  home-screen web app takes its storage with it. `askPersist()` asks iOS not to
+  evict the storage under pressure.
+
+  **`npm test` covers all of this** (`tools/test-storage.mjs`): it seeds
+  localStorage as each older build left it, loads the app for real in Chrome,
+  and checks what came out — including that an import cannot be tricked by a
+  junk file. Run it after any change here.
 - **`ui`** — ephemeral. Current screen, selected exercise, filter, the weekday
   being trained (`wday`), workout index, phase, seconds remaining. Never
   persisted; resets on launch.
