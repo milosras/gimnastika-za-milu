@@ -19,58 +19,58 @@
      `img` is a photo of Lili in the pose; without one the SVG figure is drawn.
      `group`: warm (zagrevanje) · bal (ravnoteža) · str (snaga) · flex (gipkost) */
   var EX = [
-    { id: "zvezdice", pose: "zvezdice", name: "Zvezdice u mestu", cat: "Zagrevanje", group: "warm", min: "1 min", sec: 60, lvl: 1, opr: "Bez opreme",
+    { id: "zvezdice", pose: "zvezdice", name: "Zvezdice u mestu", cat: "Zagrevanje", group: "warm", min: "1 min", sec: 60, lvl: 1, opr: "Bez opreme", img: "lili-zvezdice.png",
       desc: "Zagreva celo telo i budi mišiće. Uvek prva vežba na treningu.",
       steps: ["Stani uspravno, ruke pored tela.", "Skoči i raširi noge, ruke gore iznad glave.", "Skoči nazad u početni položaj.", "Ponovi 20 puta, diši ravnomerno."] },
-    { id: "macka", pose: "macka", name: "Mačka–krava", cat: "Mobilnost kičme", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
+    { id: "macka", pose: "macka", name: "Mačka–krava", cat: "Mobilnost kičme", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga", img: "lili-macka.png",
       desc: "Zagreva kičmu. Udahni kao krava, izdahni kao mačka.",
       steps: ["Stani na sve četiri, ruke pod ramenima.", "Udahni i spusti stomak, pogledaj gore.", "Izdahni i zaokruži leđa, spusti glavu.", "Ponovi 8 puta lagano."] },
-    { id: "psic", pose: "psic", name: "Psić", cat: "Istezanje celog tela", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga", img: "lili-bridge.png",
+    { id: "psic", pose: "psic", name: "Psić", cat: "Istezanje celog tela", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga", img: "lili-psic.png",
       desc: "Isteže noge i leđa odjednom. Napravi slovo A svojim telom.",
       steps: ["Stani na sve četiri.", "Podigni kukove ka gore i ispravi noge.", "Spusti glavu između ruku, pete ka podu.", "Zadrži 15 sekundi i diši mirno."] },
-    { id: "leptiric", pose: "leptiric", name: "Leptirić", cat: "Istezanje", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
+    { id: "leptiric", pose: "leptiric", name: "Leptirić", cat: "Istezanje", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga", img: "lili-leptiric.png",
       desc: "Otvara kukove i opušta noge. Savršena vežba za početak treninga.",
       steps: ["Sedi na podlogu i skupi stopala.", "Uhvati stopala rukama.", "Blago pritisni kolena ka podu.", "Zadrži 20 sekundi i diši mirno."] },
-    { id: "pretklon", pose: "pretklon", name: "Sedeći pretklon", cat: "Istezanje nogu", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
+    { id: "pretklon", pose: "pretklon", name: "Sedeći pretklon", cat: "Istezanje nogu", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga", img: "lili-pretklon.png",
       desc: "Isteže zadnju ložu — prvi korak ka špagi.",
       steps: ["Sedi i ispruži noge napred.", "Ispravi leđa i udahni.", "Izdahni i lagano se spusti ka stopalima.", "Zadrži 20 sekundi, ne trzaj."] },
-    { id: "kobra", pose: "kobra", name: "Kobra", cat: "Gipkost leđa", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
+    { id: "kobra", pose: "kobra", name: "Kobra", cat: "Gipkost leđa", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga", img: "lili-kobra.png",
       desc: "Otvara grudi i priprema leđa za mostić.",
       steps: ["Lezi na stomak, ruke pored ramena.", "Lagano podigni grudi i pogledaj napred.", "Ramena spusti dole, laktovi uz telo.", "Zadrži 10 sekundi i spusti se."] },
-    { id: "mostic", pose: "mostic", name: "Mostić", cat: "Fleksibilnost", group: "flex", min: "2 min", sec: 120, lvl: 2, opr: "Podloga",
+    { id: "mostic", pose: "mostic", name: "Mostić", cat: "Fleksibilnost", group: "flex", min: "2 min", sec: 120, lvl: 2, opr: "Podloga", img: "lili-mostic.png",
       desc: "Jača ruke i leđa i pomaže da ti telo bude gibko kao guma.",
       steps: ["Lezi na leđa i savij kolena.", "Stavi ruke pored glave, prsti gledaju ka ramenima.", "Podigni kukove i grudi ka gore.", "Zadrži 5 sekundi i polako se spusti."] },
-    { id: "spaga", pose: "spaga", name: "Špaga", cat: "Fleksibilnost", group: "flex", min: "2 min", sec: 120, lvl: 3, opr: "Podloga", img: "lili-split.jpg",
+    { id: "spaga", pose: "spaga", name: "Špaga", cat: "Fleksibilnost", group: "flex", min: "2 min", sec: 120, lvl: 3, opr: "Podloga", img: "lili-spaga.png",
       desc: "Veliki cilj svake gimnastičarke. Idi polako — svaki dan po malo.",
       steps: ["Klekni, pa isturi jednu nogu napred.", "Rukama se osloni na pod sa strane.", "Spuštaj se koliko možeš bez bola.", "Zadrži 20 sekundi, pa promeni nogu."] },
-    { id: "arabeska", pose: "arabeska", name: "Streličar (arabeska)", cat: "Ravnoteža i elegancija", group: "bal", min: "2 min", sec: 120, lvl: 2, opr: "Podloga", img: "lili-scale.png",
+    { id: "arabeska", pose: "arabeska", name: "Streličar (arabeska)", cat: "Ravnoteža i elegancija", group: "bal", min: "2 min", sec: 120, lvl: 2, opr: "Podloga", img: "lili-arabeska.png",
       desc: "Ojačava leđa, ramena i noge. Pomaže ti da budeš stabilna i graciozna.",
       steps: ["Stani uspravno i podigni ruke u stranu.", "Podigni jednu nogu nazad, telo lagano nagni napred.", "Drži leđa prava i pogled napred.", "Zadrži 2–3 sekunde i polako se vrati."] },
-    { id: "linija", pose: "linija", name: "Hodanje po liniji", cat: "Ravnoteža", group: "bal", min: "1–2 min", sec: 90, lvl: 1, opr: "Bez opreme",
+    { id: "linija", pose: "linija", name: "Hodanje po liniji", cat: "Ravnoteža", group: "bal", min: "1–2 min", sec: 90, lvl: 1, opr: "Bez opreme", img: "lili-linija.png",
       desc: "Vežba za gredu — samo što je greda na podu i ne može da se padne.",
       steps: ["Zamisli liniju na podu ili stavi kanap.", "Ruke raširi u stranu.", "Hodaj peta uz prste, polako.", "Napravi 10 koraka napred i 10 nazad."] },
-    { id: "prsti", pose: "prsti", name: "Ravnoteža na prstima", cat: "Ravnoteža", group: "bal", min: "1–2 min", sec: 90, lvl: 3, opr: "Bez opreme",
+    { id: "prsti", pose: "prsti", name: "Ravnoteža na prstima", cat: "Ravnoteža", group: "bal", min: "1–2 min", sec: 90, lvl: 3, opr: "Bez opreme", img: "lili-prsti.png",
       desc: "Uči te da stojiš mirno kao statua — i na gredi.",
       steps: ["Stani uspravno, ruke u stranu.", "Podigni se na prste.", "Gledaj u jednu tačku pred sobom.", "Zadrži 10 sekundi, pa opusti."] },
-    { id: "sveca", pose: "sveca", name: "Sveća", cat: "Ravnoteža naglavce", group: "bal", min: "1–2 min", sec: 90, lvl: 2, opr: "Podloga",
+    { id: "sveca", pose: "sveca", name: "Sveća", cat: "Ravnoteža naglavce", group: "bal", min: "1–2 min", sec: 90, lvl: 2, opr: "Podloga", img: "lili-sveca.png",
       desc: "Prva vežba za stav na rukama — telo pravo kao sveća.",
       steps: ["Lezi na leđa i podigni noge gore.", "Podupri kukove rukama.", "Ispravi telo u jednu liniju.", "Zadrži 10 sekundi i polako se spusti."] },
-    { id: "daska", pose: "daska", name: "Daska", cat: "Snaga trupa", group: "str", min: "1 min", sec: 60, lvl: 2, opr: "Podloga",
+    { id: "daska", pose: "daska", name: "Daska", cat: "Snaga trupa", group: "str", min: "1 min", sec: 60, lvl: 2, opr: "Podloga", img: "lili-daska.png",
       desc: "Celo telo pravo kao daska. Najbolja vežba za jak stomak.",
       steps: ["Osloni se na podlaktice i prste stopala.", "Telo drži pravo od glave do peta.", "Stomak uvuci, ne spuštaj kukove.", "Izdrži 20 sekundi."] },
-    { id: "noge", pose: "noge", name: "Podigni noge", cat: "Snaga trupa", group: "str", min: "2 min", sec: 120, lvl: 2, opr: "Podloga",
+    { id: "noge", pose: "noge", name: "Podigni noge", cat: "Snaga trupa", group: "str", min: "2 min", sec: 120, lvl: 2, opr: "Podloga", img: "lili-noge.png",
       desc: "Pravi jak stomak — to je motor za svaki skok i preskok.",
       steps: ["Lezi na leđa, ruke pored tela.", "Podigni ispravljene noge do 90 stepeni.", "Spuštaj ih polako, ne dodiruj pod.", "Ponovi 10 puta."] },
-    { id: "cuk", pose: "cuk", name: "Ćuk (držanje)", cat: "Snaga i držanje", group: "str", min: "1–2 min", sec: 90, lvl: 3, opr: "Podloga",
+    { id: "cuk", pose: "cuk", name: "Ćuk (držanje)", cat: "Snaga i držanje", group: "str", min: "1–2 min", sec: 90, lvl: 3, opr: "Podloga", img: "lili-cuk.png",
       desc: "Skupljeno telo koje se drži samo — kao klupko snage.",
       steps: ["Sedi i skupi kolena ka grudima.", "Uhvati potkolenice rukama.", "Podigni stopala od poda i balansiraj.", "Zadrži 8 sekundi."] },
-    { id: "lastavica", pose: "lastavica", name: "Lastavica na podu", cat: "Snaga leđa", group: "str", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
+    { id: "lastavica", pose: "lastavica", name: "Lastavica na podu", cat: "Snaga leđa", group: "str", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga", img: "lili-lastavica.png",
       desc: "Jaka leđa drže telo uspravno u svakoj vežbi.",
       steps: ["Lezi na stomak, ruke ispruži napred.", "Podigni istovremeno ruke i noge.", "Gledaj u pod da vrat bude miran.", "Zadrži 5 sekundi, ponovi 8 puta."] },
-    { id: "cucanj", pose: "cucanj", name: "Polučučanj + ruke napred", cat: "Snaga nogu", group: "str", min: "2 min", sec: 120, lvl: 2, opr: "Bez opreme",
+    { id: "cucanj", pose: "cucanj", name: "Polučučanj + ruke napred", cat: "Snaga nogu", group: "str", min: "2 min", sec: 120, lvl: 2, opr: "Bez opreme", img: "lili-cucanj.png",
       desc: "Jake noge znače viši skok i sigurno doskakanje.",
       steps: ["Stopala u širini kukova.", "Spusti se do pola čučnja.", "Ispruži ruke napred u visini ramena.", "Zadrži 3 sekunde i vrati se gore."] },
-    { id: "iskorak", pose: "iskorak", name: "Iskorak", cat: "Snaga nogu", group: "str", min: "1–2 min", sec: 90, lvl: 2, opr: "Bez opreme",
+    { id: "iskorak", pose: "iskorak", name: "Iskorak", cat: "Snaga nogu", group: "str", min: "1–2 min", sec: 90, lvl: 2, opr: "Bez opreme", img: "lili-iskorak.png",
       desc: "Uči noge da rade svaka za sebe — važno za doskok i okret.",
       steps: ["Stani uspravno, ruke na kukovima.", "Zakorači jednom nogom napred.", "Spusti zadnje koleno ka podu.", "Vrati se gore i promeni nogu, 8 puta."] },
     { id: "dete", pose: "dete", name: "Dete poza", cat: "Opuštanje", group: "flex", min: "1 min", sec: 60, lvl: 1, opr: "Podloga",
@@ -159,7 +159,9 @@
     back: '<path d="M15 5l-7 7 7 7"/>',
     close: '<path d="M6 6l12 12M18 6 6 18"/>',
     arrow: '<path d="M5 12h13M13 6l6 6-6 6"/>',
-    check: '<path d="M5 13l4.5 4.5L19 7"/>'
+    check: '<path d="M5 13l4.5 4.5L19 7"/>',
+    todo: '<path d="M3.5 7.5 5.5 9.5 9 5.5"/><path d="M3.5 16.5 5.5 18.5 9 14.5"/><path d="M13 7.5h8M13 16.5h8"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>'
   };
 
   function icon(name, size, opts) {
@@ -194,7 +196,9 @@
       stars: 0,
       favs: [],
       bestStreak: 0,
+      zvuk: true,
       days: {},            /* "YYYY-MM-DD": { sec, workouts, ex:{id:n}, done:[i] } */
+      todos: [],           /* [{ id, t, done }] — njena lista, ne dira gimnastiku */
       rem: { on: true, time: "18:00", days: { 0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 0, 6: 0 }, lastFired: "" }
     };
   }
@@ -209,6 +213,10 @@
         if (got && got.v === 2) {
           st = Object.assign(defaults(), got);
           st.rem = Object.assign(defaults().rem, got.rem || {});
+          /* fields added after a save was written: keep the old payload,
+             just fill in what it could not have known about */
+          if (!Array.isArray(st.todos)) st.todos = [];
+          if (typeof st.zvuk !== "boolean") st.zvuk = true;
         }
       }
     } catch (e) { memoryOnly = true; }
@@ -229,6 +237,77 @@
     return r;
   }
   function mins(sec) { return Math.round(sec / 60); }
+
+  /* ═══ zvuk ══════════════════════════════════════════════════════════ */
+
+  /* Synthesised, not sampled: no audio files to download or cache, so it works
+     with the app fully offline and adds nothing to the bundle. iOS only lets
+     an AudioContext make noise if it was started inside a user gesture, so the
+     first tap anywhere in the app unlocks it. */
+  var actx = null;
+
+  function audible() { return st.zvuk !== false; }
+
+  /* Called on every tap, not just the first: iOS suspends the context again
+     whenever the app is backgrounded, and only a gesture may resume it. */
+  function unlockAudio() {
+    if (!audible()) return;
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      if (!actx) actx = new AC();
+      if (actx.state === "suspended") actx.resume();
+    } catch (e) { actx = null; }
+  }
+
+  /* One note. `at` is an offset in seconds so a whole arpeggio can be
+     scheduled up front and still play in time while the timer ticks. */
+  function note(freq, at, dur, vol, type) {
+    if (!actx || !audible()) return;
+    try {
+      var t0 = actx.currentTime + at;
+      var osc = actx.createOscillator();
+      var g = actx.createGain();
+      osc.type = type || "sine";
+      osc.frequency.setValueAtTime(freq, t0);
+      /* fade both ends — a square edge clicks audibly on the iPad speaker */
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.exponentialRampToValueAtTime(vol, t0 + 0.012);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      osc.connect(g);
+      g.connect(actx.destination);
+      osc.start(t0);
+      osc.stop(t0 + dur + 0.03);
+    } catch (e) {}
+  }
+
+  var SOUND = {
+    /* count-in: a soft tick a second, the last one a note higher */
+    tick: function (last) { note(last ? 1046 : 660, 0, 0.11, 0.15, "triangle"); },
+    /* the exercise itself starts: two bright rising notes */
+    go: function () {
+      note(880, 0, 0.16, 0.2, "triangle");
+      note(1318, 0.13, 0.3, 0.2, "triangle");
+    },
+    /* exercise finished: a little four-note "well done", then a sparkle */
+    cheer: function () {
+      [523, 659, 784, 1046].forEach(function (f, i) {
+        note(f, i * 0.1, 0.32, 0.17, "triangle");
+      });
+      note(1568, 0.44, 0.55, 0.12, "sine");
+    },
+    /* the whole workout is done — the one sound that gets to be a fanfare */
+    finish: function () {
+      [523, 659, 784, 1046, 1318].forEach(function (f, i) {
+        note(f, i * 0.11, 0.3, 0.17, "triangle");
+      });
+      /* held major chord under it, so the run lands on something */
+      [523, 659, 784, 1046].forEach(function (f) {
+        note(f, 0.58, 1.1, 0.11, "sine");
+      });
+      note(2093, 0.72, 0.7, 0.07, "sine");
+    }
+  };
 
   /* ═══ izvedene brojke ═══════════════════════════════════════════════ */
 
@@ -318,15 +397,25 @@
     filter: "Sve",
     wday: 0,
     wi: 0,
-    phase: "ready",   /* ready → prep → go */
+    phase: "ready",   /* ready → prep → go → cheer */
     sec: 0,
     run: true,
     day: weekday(new Date()),
+    praise: "",       /* which congratulation Lili is giving right now */
+    todoDraft: "",    /* what she has typed but not added yet */
     lastReward: null,
     toast: null
   };
 
-  var timer = null, wakeLock = null, toastTimer = null;
+  var timer = null, wakeLock = null, toastTimer = null, cheerTimer = null;
+
+  /* Lili's congratulations. Kept short — they are read aloud in the head at a
+     glance, mid-workout, by a child who is out of breath. */
+  var PRAISE = [
+    "Bravo!", "Sjajno!", "Odlično!", "Super si!", "Tako se to radi!",
+    "Vau, kako lepo!", "Ponosna sam na tebe!", "Prava gimnastičarka!",
+    "Još jedna gotova!", "Jaka si!", "Svaka čast!", "To je to!"
+  ];
 
   /* ═══ pomoćno ═══════════════════════════════════════════════════════ */
 
@@ -366,7 +455,8 @@
   function railHtml() {
     var items = [
       ["home", "home", "Početna"], ["list", "heart", "Vežbe"], ["plan", "cal", "Plan"],
-      ["prog", "chart", "Napredak"], ["prize", "trophy", "Nagrade"], ["rem", "bell", "Podsetnik"]
+      ["todo", "todo", "Obaveze"], ["prog", "chart", "Napredak"],
+      ["prize", "trophy", "Nagrade"], ["rem", "bell", "Podsetnik"]
     ];
     /* mid-workout nothing is highlighted — she isn't "in" a tab, she's training */
     var on = { detail: "list", work: "", done: "" }[ui.screen];
@@ -509,10 +599,14 @@
     var prep = ui.phase === "prep";
     var mm = Math.floor(ui.sec / 60), ss = String(ui.sec % 60).padStart(2, "0");
 
-    /* Three phases per exercise: ready (waiting on her), prep (5s count-in),
-       go (the exercise timer). Each gets its own colour on the dial. */
+    /* Four phases per exercise: ready (waiting on her), prep (5s count-in),
+       go (the exercise timer), cheer (Lili congratulates her). Each gets its
+       own colour on the dial. */
     var dial, label, ctl;
-    if (ui.phase === "ready") {
+    if (ui.phase === "cheer") {
+      dial = "Bravo!"; label = "GOTOVO";
+      ctl = "<p>Odlično! Idemo dalje.</p>";
+    } else if (ui.phase === "ready") {
       dial = "Spremna?"; label = "PRITISNI KRENI";
       ctl = '<button class="timerctl__go" ' + act("go1") + ">KRENI" +
         icon("arrow", 24, { stroke: "#fff" }) + "</button>" +
@@ -528,6 +622,7 @@
     }
 
     return '<div class="screen work">' +
+      (ui.phase === "cheer" ? cheerHtml(e, last) : "") +
       '<div class="work__top">' +
         '<button class="iconbtn" ' + act("quit") + ' aria-label="Prekini trening">' + icon("close", 24) + "</button>" +
         '<div class="dots">' + plan.map(function (_, i) {
@@ -549,6 +644,29 @@
           '<button class="cta work__cta" ' + act("next") + ">" + (last ? "ZAVRŠI" : "SLEDEĆE") +
             icon("arrow", 30, { stroke: "#fff" }) + "</button>" +
         "</div></div></div>";
+  }
+
+  /* The moment the exercise ends: Lili jumps in, congratulates her and hands
+     over the star. It clears itself after CHEER_MS, or the moment she taps. */
+  function cheerHtml(e, last) {
+    /* The rays keep their own angle in a custom property, because the flying-
+       outward keyframes animate `transform` and would otherwise erase it. */
+    var burst = "";
+    for (var i = 0; i < 12; i++) {
+      burst += '<i style="--ang:' + (i * 30) + "deg;animation-delay:" +
+        ((i % 4) * 0.07).toFixed(2) + "s;background:" +
+        (i % 2 ? "var(--a)" : "var(--gd)") + '"></i>';
+    }
+    return '<div class="cheer" role="status"><div class="cheer__card">' +
+      '<div class="cheer__burst" aria-hidden="true">' + burst + "</div>" +
+      '<div class="cheer__pic">' + lili("happy", "Lili ti čestita") + "</div>" +
+      '<div class="cheer__t">' + esc(ui.praise) + "</div>" +
+      '<div class="cheer__s">Završila si vežbu <b>' + esc(e.name) + "</b>.</div>" +
+      '<div class="cheer__star">' +
+        icon("star", 30, { fill: "var(--gd)", stroke: "none", w: 0 }) + "+1 zvezdica</div>" +
+      '<button class="cta cheer__cta" ' + act("next") + ">" +
+        (last ? "ZAVRŠI TRENING" : "SLEDEĆA VEŽBA") + icon("arrow", 28, { stroke: "#fff" }) +
+      "</button></div></div>";
   }
 
   function doneHtml(m) {
@@ -621,6 +739,66 @@
             '<div class="bar"><div class="bar__fill" style="width:' + p + '%;background:var(--a)"></div></div></div>' +
           '<button class="cta cta--sm" ' + act("startDay", ui.day) + ">" +
             (allDone ? "PONOVI TRENING" : "NASTAVI TRENING") + "</button>" +
+        "</div></div></div>";
+  }
+
+  /* Mila's own list. Deliberately outside the gymnastics numbers: ticking a
+     chore must not move her streak, her stars or her stickers. */
+  function todoHtml() {
+    var list = st.todos || [];
+    var done = list.filter(function (t) { return t.done; }).length;
+    var left = list.length - done;
+    var p = list.length ? Math.round(done / list.length * 100) : 0;
+    var allDone = list.length > 0 && left === 0;
+
+    return '<div class="screen">' +
+      '<div class="headrow"><h2 class="h2">Moje obaveze</h2>' +
+        '<div style="font:600 1.125rem var(--font-body);opacity:.6">' +
+          (list.length
+            ? "Urađeno <b style=\"color:var(--a)\">" + done + " od " + list.length + "</b>"
+            : "Napiši šta sve treba da uradiš danas") +
+        "</div></div>" +
+      '<div class="plan">' +
+        '<div class="plan__main">' +
+          '<div class="todoadd">' +
+            '<input class="input todoadd__in" id="novaObaveza" type="text" maxlength="60" ' +
+              'placeholder="Npr. domaći iz matematike" value="' + esc(ui.todoDraft) +
+              '" autocomplete="off" autocapitalize="sentences" spellcheck="false" ' +
+              'enterkeyhint="done" aria-label="Nova obaveza">' +
+            '<button class="todoadd__btn" ' + act("todoAdd") + ' aria-label="Dodaj obavezu">' +
+              icon("plus", 32, { w: 3 }) + "</button>" +
+          "</div>" +
+          '<div class="todolist scroll">' +
+            (list.length ? list.map(function (t) {
+              return '<div class="todoitem' + (t.done ? " on" : "") + '">' +
+                '<button class="check' + (t.done ? " on" : "") + '" ' + act("todoToggle", t.id) +
+                  ' aria-pressed="' + !!t.done + '" aria-label="' + esc(t.t) + '">' +
+                  icon("check", 24, { w: 3 }) + "</button>" +
+                '<div class="todoitem__t">' + esc(t.t) + "</div>" +
+                '<button class="todoitem__x" ' + act("todoDel", t.id) +
+                  ' aria-label="Obriši: ' + esc(t.t) + '">' + icon("close", 22) + "</button>" +
+              "</div>";
+            }).join("") : '<div class="empty">Lista je prazna. Upiši prvu obavezu gore i pritisni +.</div>') +
+          "</div></div>" +
+        '<div class="plan__side">' +
+          '<div class="msgcard"><div class="msgcard__row"><div class="msgcard__pic">' +
+            lili(allDone ? "happy" : "sit") + '</div><div class="msgcard__t">' +
+            (allDone ? "Sve si završila!" : list.length ? "Ti to možeš!" : "Šta je danas na redu?") +
+            "</div></div>" +
+            '<div class="msgcard__b">' +
+              (allDone
+                ? "Nijedna obaveza nije ostala. Uživaj u ostatku dana!"
+                : list.length
+                  ? "Ostalo ti je još " + left + " " + plural(left, "obaveza", "obaveze", "obaveza") +
+                    ". Idi jednu po jednu."
+                  : "Ovde upisuješ svoje obaveze — domaći, sprema sobe, trening. Ja ću ti čuvati spisak.") +
+            "</div></div>" +
+          '<div class="progcard"><div class="progcard__k">URAĐENO</div>' +
+            '<div class="progcard__v">' + p + "%</div>" +
+            '<div class="bar"><div class="bar__fill" style="width:' + p +
+            '%;background:var(--a)"></div></div></div>' +
+          (done ? '<button class="danger" style="align-self:stretch;text-align:center" ' +
+            act("todoClear") + ">Skloni završene</button>" : "") +
         "</div></div></div>";
   }
 
@@ -736,6 +914,13 @@
           "<p>Lili će te pozvati na trening u " + esc(r.time) +
           ". Možeš i da je isključiš kad putujete.</p></div>" +
         '<div class="panel"><h3>Podešavanja</h3>' +
+          '<div class="panel__row" style="margin-bottom:1.375rem"><div style="flex:1">' +
+            '<div class="panel__t">Zvuk</div><div class="panel__s">' +
+            (st.zvuk ? "Odbrojavanje, start vežbe, čestitka i kraj treninga"
+                     : "Isključen — vežba teče u tišini") +
+            "</div></div>" +
+            '<button class="switch' + (st.zvuk ? " on" : "") + '" ' + act("zvuk") +
+            ' role="switch" aria-checked="' + !!st.zvuk + '" aria-label="Zvuk"><span></span></button></div>' +
           '<div class="field" style="margin-bottom:1.125rem"><label for="ime">IME</label>' +
             '<input class="input" id="ime" type="text" maxlength="16" value="' + esc(st.ime) +
             '" autocomplete="off" spellcheck="false"></div>' +
@@ -768,6 +953,7 @@
       case "work": body = workHtml(); break;
       case "done": body = doneHtml(m); break;
       case "plan": body = planHtml(m); break;
+      case "todo": body = todoHtml(); break;
       case "prog": body = progHtml(m); break;
       case "prize": body = prizeHtml(m); break;
       case "rem": body = remHtml(); break;
@@ -798,11 +984,28 @@
 
   function go(screen) {
     ui.screen = screen;
-    if (screen !== "work") releaseWake();
+    if (screen !== "work") { releaseWake(); stopCheer(); }
     render();
   }
 
   var PREP_SEC = 5;
+  var CHEER_MS = 3400;   /* long enough to enjoy, short enough not to stall */
+
+  /* The exercise is over — Lili congratulates her, then the next exercise
+     arms itself (still waiting on KRENI, nothing starts on its own). */
+  function beginCheer() {
+    if (ui.phase === "cheer") return;
+    ui.phase = "cheer";
+    ui.run = false;
+    ui.praise = PRAISE[Math.floor(Math.random() * PRAISE.length)];
+    SOUND.cheer();
+    render();
+    stopCheer();
+    cheerTimer = setTimeout(function () { cheerTimer = null; nextEx(); }, CHEER_MS);
+  }
+  function stopCheer() {
+    if (cheerTimer) { clearTimeout(cheerTimer); cheerTimer = null; }
+  }
 
   /* Nothing counts down until she says so: each exercise opens in "ready",
      KRENI starts a 5s "prep" count-in, then "go" runs the exercise timer. */
@@ -864,10 +1067,12 @@
     save();
     ui.screen = "done";
     releaseWake();
+    SOUND.finish();
     render();
   }
 
   function nextEx() {
+    stopCheer();
     var plan = curPlan();
     logExercise(plan[ui.wi], EX[plan[ui.wi]].sec);
     if (ui.wi === plan.length - 1) { finishWorkout(); return; }
@@ -892,7 +1097,9 @@
     go1: beginPrep,
     quit: function () { ui.run = false; go("home"); },
     run: function () { ui.run = !ui.run; render(); },
-    next: nextEx,
+    /* Every exercise ends with a congratulation — whether the timer ran out or
+       she finished early. A second tap skips straight on. */
+    next: function () { if (ui.phase === "cheer") nextEx(); else beginCheer(); },
     open: function (v) { ui.sel = +v; go("detail"); },
     filter: function (v) { ui.filter = v; render(); },
     fav: function () {
@@ -923,6 +1130,36 @@
       }
       save(); render();
     },
+    todoAdd: function () {
+      var el = document.getElementById("novaObaveza");
+      var text = ((el ? el.value : ui.todoDraft) || "").trim();
+      if (!text) { if (el) el.focus(); return; }
+      st.todos.push({ id: "t" + Date.now() + "-" + st.todos.length, t: text.slice(0, 60), done: 0 });
+      ui.todoDraft = "";
+      save();
+      render();
+      /* still inside her tap, so the iPad keyboard stays up for the next one */
+      var again = document.getElementById("novaObaveza");
+      if (again) again.focus();
+    },
+    todoToggle: function (v) {
+      st.todos.forEach(function (t) { if (t.id === v) t.done = t.done ? 0 : 1; });
+      save(); render();
+    },
+    todoDel: function (v) {
+      st.todos = st.todos.filter(function (t) { return t.id !== v; });
+      save(); render();
+    },
+    todoClear: function () {
+      st.todos = st.todos.filter(function (t) { return !t.done; });
+      save(); render();
+    },
+    zvuk: function () {
+      st.zvuk = !st.zvuk;
+      save();
+      if (st.zvuk) { unlockAudio(); SOUND.go(); }
+      render();
+    },
     remOn: function () {
       st.rem.on = !st.rem.on;
       if (st.rem.on) askNotify();
@@ -942,12 +1179,15 @@
   };
 
   document.addEventListener("click", function (ev) {
+    unlockAudio();
     var el = ev.target.closest ? ev.target.closest("[data-act]") : null;
     if (!el) return;
     var fn = ACTIONS[el.getAttribute("data-act")];
     if (fn) { ev.preventDefault(); fn(el.getAttribute("data-arg")); }
   });
 
+  /* Both text fields update state without re-rendering — a full repaint would
+     take the input out from under her finger and lose the keyboard. */
   document.addEventListener("input", function (ev) {
     if (ev.target.id === "ime") {
       st.ime = ev.target.value;
@@ -955,6 +1195,15 @@
       var n = document.querySelector(".rail__name"), a = document.querySelector(".rail__avatar");
       if (n) n.textContent = ime();
       if (a) a.textContent = ime().charAt(0).toUpperCase();
+    } else if (ev.target.id === "novaObaveza") {
+      ui.todoDraft = ev.target.value;
+    }
+  });
+
+  document.addEventListener("keydown", function (ev) {
+    if (ev.target.id === "novaObaveza" && ev.key === "Enter") {
+      ev.preventDefault();
+      ACTIONS.todoAdd();
     }
   });
 
@@ -995,13 +1244,21 @@
   }
 
   function tick() {
-    if (ui.screen === "work" && ui.run && ui.phase !== "ready" && ui.sec > 0) {
+    if (ui.screen === "work" && ui.run && (ui.phase === "prep" || ui.phase === "go") && ui.sec > 0) {
       ui.sec -= 1;
-      if (ui.phase === "prep" && ui.sec === 0) {
-        /* count-in finished — roll straight into the exercise */
-        ui.phase = "go";
-        ui.sec = EX[curPlan()[ui.wi]].sec;
-        render();
+      if (ui.phase === "prep") {
+        if (ui.sec === 0) {
+          /* count-in finished — roll straight into the exercise */
+          ui.phase = "go";
+          ui.sec = EX[curPlan()[ui.wi]].sec;
+          SOUND.go();
+          render();
+        } else {
+          tickPaint();
+          SOUND.tick(ui.sec === 1);
+        }
+      } else if (ui.sec === 0) {
+        beginCheer();
       } else {
         tickPaint();
       }

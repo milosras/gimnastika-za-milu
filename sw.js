@@ -1,7 +1,7 @@
 /* Offline cache. Once the iPad has opened the app one time it keeps working
    with no network at all — which is the point, since it gets used on a mat
    in the living room, not next to a router. Bump CACHE to ship an update. */
-var CACHE = "gimnastika-v2";
+var CACHE = "gimnastika-v3";
 var ASSETS = [
   "./",
   "index.html",
@@ -14,10 +14,28 @@ var ASSETS = [
   "icons/icon-192.png",
   "icons/icon-512.png",
   "img/lili-split.jpg",
-  "img/lili-bridge.png",
   "img/lili-sit.png",
-  "img/lili-scale.png",
-  "img/lili-happy.png"
+  "img/lili-happy.png",
+  /* one photograph of Lili per exercise, cut from the board by
+     tools/crop-gimi.py — every id in EX that has an `img` */
+  "img/lili-zvezdice.png",
+  "img/lili-macka.png",
+  "img/lili-psic.png",
+  "img/lili-leptiric.png",
+  "img/lili-pretklon.png",
+  "img/lili-kobra.png",
+  "img/lili-mostic.png",
+  "img/lili-spaga.png",
+  "img/lili-arabeska.png",
+  "img/lili-linija.png",
+  "img/lili-prsti.png",
+  "img/lili-sveca.png",
+  "img/lili-daska.png",
+  "img/lili-noge.png",
+  "img/lili-cuk.png",
+  "img/lili-lastavica.png",
+  "img/lili-cucanj.png",
+  "img/lili-iskorak.png"
 ];
 
 self.addEventListener("install", function (e) {
