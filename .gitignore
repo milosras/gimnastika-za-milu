@@ -7,3 +7,8 @@ ios/
 # dropped in this folder must never be committed by accident.
 gimnastika-*.json
 *backup*.json
+
+# Mascot masters: ~114 MB of 1024px+ PNGs. Only the processed, cut-out copies
+# in www/img ship (all eighteen of today's come to 248 KB). Keep the originals
+# backed up outside the repo — see Mascots/MASCOTS.md.
+Mascots/**/*.png
