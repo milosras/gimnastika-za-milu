@@ -1,0 +1,24 @@
+#!/bin/sh
+# Delete the branch that was just merged in — it is already part of this
+# history, and leaving it behind only accumulates clutter.
+#
+# `git branch -d` refuses to delete anything that is not fully merged, so this
+# cannot lose work: if the merge was partial, or the branch has commits that
+# did not come across, the delete fails and the branch stays.
+
+branch=$(git reflog -1 --format=%gs | sed -n 's/^merge \(.*\): .*$/\1/p')
+[ -z "$branch" ] && exit 0
+
+# never the branch we are standing on, and never the long-lived ones
+current=$(git rev-parse --abbrev-ref HEAD)
+case "$branch" in
+  "$current"|main|master|gh-pages) exit 0 ;;
+esac
+
+# only a local branch; "origin/foo" is not ours to delete
+git rev-parse --verify --quiet "refs/heads/$branch" >/dev/null || exit 0
+
+if git branch -d "$branch" >/dev/null 2>&1; then
+  echo "post-merge: obrisana spojena grana '$branch'"
+fi
+exit 0

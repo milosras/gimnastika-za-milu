@@ -244,6 +244,19 @@ lands proportionally on any iPad. **Portrait needs its own clamp** — the media
 query overrides it, because the landscape formula uses `vw` and collapses to its
 floor when the viewport is narrow.
 
+### Branches
+
+Work on a branch, merge to `main`, and the branch goes away with it:
+`tools/hooks/post-merge` deletes whatever was just merged in. It is a local
+hook, so a fresh clone needs it installed once:
+
+```bash
+cp tools/hooks/post-merge .git/hooks/ && chmod +x .git/hooks/post-merge
+```
+
+It refuses anything that is not fully merged (`git branch -d`, never `-D`) and
+never touches `main` or `gh-pages`, so it cannot lose work.
+
 ## Deployment
 
 Two branches, deliberately:
