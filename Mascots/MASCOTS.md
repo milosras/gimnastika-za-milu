@@ -12,15 +12,22 @@ been changed yet.
 
 Where each set stands, counting only what actually ships:
 
-| | Exercise poses (of 19) | Mascot states (of 5) |
-| --- | --- | --- |
-| Rabbit | 15 | 3 — `sit`, `happy`, `spava` |
-| Fox | 16 | 3 — `sit`, `happy`, `spava` |
-| **Bear** | **9** | **1 — `sit` only** |
+| | Exercise poses (of 19) | Mascot states (of 5) | Usable? |
+| --- | --- | --- | --- |
+| Rabbit | **19** | **5** | yes — complete |
+| Fox | 19 | 5 | complete, but **five files have a bad cutout** |
+| Bear | 10 | 4 — no `happy` | choosable, with drawn figures for the gaps |
 
-The bear is the newest and the furthest behind: it has the first batch of ten
-and nothing after it, including no `happy`, which is the picture the app shows
-most often after `sit`.
+**The fox's five newest files** (`mostic`, `arabeska`, `pretklon`, `hero`,
+`portret`) came back with the background removal done badly: a blocky, ragged
+patch of the old background is baked into the alpha and shows as a brown halo
+behind her. It is obvious at hero size. They need generating again — the prompt
+is in `PROMPTS.md`.
+
+**The bear** is missing ten pictures, including `happy`, which is what the app
+shows after every exercise. It can still be chosen — the app falls back to the
+drawn figure for anything missing — but half its exercises look like the old
+drawing.
 
 ## Naming
 

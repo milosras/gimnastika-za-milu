@@ -12,65 +12,103 @@
     suncano: { label: "Sunčano", a: "#ff6b4a", v: "#c2185b", bg: "#fff6ec", sf: "#ffe4d3", lc: "#ffeedd", gd: "#ffb703", ink: "#3d2419" }
   };
 
+  /* ═══ maskota ═══════════════════════════════════════════════════════ */
+
+  /* Mila picks the animal and names it. `id` is the file prefix and is never
+     the name — she can call the fox whatever she likes and the filenames must
+     not care. `ime` is only the starting name, replaced the moment she types
+     one. Which pictures each of them actually has comes from MASCOT_ART, which
+     tools/build-mascots.py generates from the folders. */
+  var MASCOTS = [
+    { id: "rabbit", vrsta: "Zeka", ime: "Lili" },
+    { id: "fox", vrsta: "Lisica", ime: "Luli" },
+    { id: "bear", vrsta: "Meda", ime: "Meda" }
+  ];
+
+  var ART = typeof MASCOT_ART === "object" && MASCOT_ART ? MASCOT_ART : {};
+
+  function maskota() {
+    for (var i = 0; i < MASCOTS.length; i++) {
+      if (MASCOTS[i].id === st.maskota) return MASCOTS[i];
+    }
+    return MASCOTS[0];
+  }
+  function maskotaIme() {
+    return (st.maskotaIme || "").trim() || maskota().ime;
+  }
+  /* Does this mascot have this picture yet? A set can be incomplete and the app
+     still has to work — the drawn figure covers whatever is missing. */
+  function hasArt(pose, id) {
+    var list = ART[id || maskota().id];
+    return !!list && list.indexOf(pose) > -1;
+  }
+  function artSrc(pose, id) {
+    return "img/" + (id || maskota().id) + "-" + pose + ".png";
+  }
+  function artCount(id) {
+    return (ART[id] || []).length;
+  }
+
   /* ═══ vežbe ═════════════════════════════════════════════════════════ */
 
   /* `id` is the stable handle — plans, stickers and saved history all refer to
      exercises by id, so the list can be reordered or extended safely.
-     `img` is a photo of Lili in the pose; without one the SVG figure is drawn.
+     The picture is `img/<mascot>-<pose>.png` when the chosen mascot has that
+     pose, and the drawn SVG figure when it does not.
      `group`: warm (zagrevanje) · bal (ravnoteža) · str (snaga) · flex (gipkost) */
   var EX = [
-    { id: "zvezdice", pose: "zvezdice", name: "Zvezdice u mestu", cat: "Zagrevanje", group: "warm", min: "1 min", sec: 60, lvl: 1, opr: "Bez opreme", img: "lili-zvezdice.png",
+    { id: "zvezdice", pose: "zvezdice", name: "Zvezdice u mestu", cat: "Zagrevanje", group: "warm", min: "1 min", sec: 60, lvl: 1, opr: "Bez opreme",
       desc: "Zagreva celo telo i budi mišiće. Uvek prva vežba na treningu.",
       steps: ["Stani uspravno, ruke pored tela.", "Skoči i raširi noge, ruke gore iznad glave.", "Skoči nazad u početni položaj.", "Ponovi 20 puta, diši ravnomerno."] },
-    { id: "macka", pose: "macka", name: "Mačka–krava", cat: "Mobilnost kičme", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga", img: "lili-macka.png",
+    { id: "macka", pose: "macka", name: "Mačka–krava", cat: "Mobilnost kičme", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
       desc: "Zagreva kičmu. Udahni kao krava, izdahni kao mačka.",
       steps: ["Stani na sve četiri, ruke pod ramenima.", "Udahni i spusti stomak, pogledaj gore.", "Izdahni i zaokruži leđa, spusti glavu.", "Ponovi 8 puta lagano."] },
-    { id: "psic", pose: "psic", name: "Psić", cat: "Istezanje celog tela", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga", img: "lili-psic.png",
+    { id: "psic", pose: "psic", name: "Psić", cat: "Istezanje celog tela", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
       desc: "Isteže noge i leđa odjednom. Napravi slovo A svojim telom.",
       steps: ["Stani na sve četiri.", "Podigni kukove ka gore i ispravi noge.", "Spusti glavu između ruku, pete ka podu.", "Zadrži 15 sekundi i diši mirno."] },
-    { id: "leptiric", pose: "leptiric", name: "Leptirić", cat: "Istezanje", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga", img: "lili-leptiric.png",
+    { id: "leptiric", pose: "leptiric", name: "Leptirić", cat: "Istezanje", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
       desc: "Otvara kukove i opušta noge. Savršena vežba za početak treninga.",
       steps: ["Sedi na podlogu i skupi stopala.", "Uhvati stopala rukama.", "Blago pritisni kolena ka podu.", "Zadrži 20 sekundi i diši mirno."] },
-    { id: "pretklon", pose: "pretklon", name: "Sedeći pretklon", cat: "Istezanje nogu", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga", img: "lili-pretklon.png",
+    { id: "pretklon", pose: "pretklon", name: "Sedeći pretklon", cat: "Istezanje nogu", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
       desc: "Isteže zadnju ložu — prvi korak ka špagi.",
       steps: ["Sedi i ispruži noge napred.", "Ispravi leđa i udahni.", "Izdahni i lagano se spusti ka stopalima.", "Zadrži 20 sekundi, ne trzaj."] },
-    { id: "kobra", pose: "kobra", name: "Kobra", cat: "Gipkost leđa", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga", img: "lili-kobra.png",
+    { id: "kobra", pose: "kobra", name: "Kobra", cat: "Gipkost leđa", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
       desc: "Otvara grudi i priprema leđa za mostić.",
       steps: ["Lezi na stomak, ruke pored ramena.", "Lagano podigni grudi i pogledaj napred.", "Ramena spusti dole, laktovi uz telo.", "Zadrži 10 sekundi i spusti se."] },
-    { id: "mostic", pose: "mostic", name: "Mostić", cat: "Fleksibilnost", group: "flex", min: "2 min", sec: 120, lvl: 2, opr: "Podloga", img: "lili-mostic.png",
+    { id: "mostic", pose: "mostic", name: "Mostić", cat: "Fleksibilnost", group: "flex", min: "2 min", sec: 120, lvl: 2, opr: "Podloga",
       desc: "Jača ruke i leđa i pomaže da ti telo bude gibko kao guma.",
       steps: ["Lezi na leđa i savij kolena.", "Stavi ruke pored glave, prsti gledaju ka ramenima.", "Podigni kukove i grudi ka gore.", "Zadrži 5 sekundi i polako se spusti."] },
-    { id: "spaga", pose: "spaga", name: "Špaga", cat: "Fleksibilnost", group: "flex", min: "2 min", sec: 120, lvl: 3, opr: "Podloga", img: "lili-spaga.png",
+    { id: "spaga", pose: "spaga", name: "Špaga", cat: "Fleksibilnost", group: "flex", min: "2 min", sec: 120, lvl: 3, opr: "Podloga",
       desc: "Veliki cilj svake gimnastičarke. Idi polako — svaki dan po malo.",
       steps: ["Klekni, pa isturi jednu nogu napred.", "Rukama se osloni na pod sa strane.", "Spuštaj se koliko možeš bez bola.", "Zadrži 20 sekundi, pa promeni nogu."] },
-    { id: "arabeska", pose: "arabeska", name: "Streličar (arabeska)", cat: "Ravnoteža i elegancija", group: "bal", min: "2 min", sec: 120, lvl: 2, opr: "Podloga", img: "lili-arabeska.png",
+    { id: "arabeska", pose: "arabeska", name: "Streličar (arabeska)", cat: "Ravnoteža i elegancija", group: "bal", min: "2 min", sec: 120, lvl: 2, opr: "Podloga",
       desc: "Ojačava leđa, ramena i noge. Pomaže ti da budeš stabilna i graciozna.",
       steps: ["Stani uspravno i podigni ruke u stranu.", "Podigni jednu nogu nazad, telo lagano nagni napred.", "Drži leđa prava i pogled napred.", "Zadrži 2–3 sekunde i polako se vrati."] },
-    { id: "linija", pose: "linija", name: "Hodanje po liniji", cat: "Ravnoteža", group: "bal", min: "1–2 min", sec: 90, lvl: 1, opr: "Bez opreme", img: "lili-linija.png",
+    { id: "linija", pose: "linija", name: "Hodanje po liniji", cat: "Ravnoteža", group: "bal", min: "1–2 min", sec: 90, lvl: 1, opr: "Bez opreme",
       desc: "Vežba za gredu — samo što je greda na podu i ne može da se padne.",
       steps: ["Zamisli liniju na podu ili stavi kanap.", "Ruke raširi u stranu.", "Hodaj peta uz prste, polako.", "Napravi 10 koraka napred i 10 nazad."] },
-    { id: "prsti", pose: "prsti", name: "Ravnoteža na prstima", cat: "Ravnoteža", group: "bal", min: "1–2 min", sec: 90, lvl: 3, opr: "Bez opreme", img: "lili-prsti.png",
+    { id: "prsti", pose: "prsti", name: "Ravnoteža na prstima", cat: "Ravnoteža", group: "bal", min: "1–2 min", sec: 90, lvl: 3, opr: "Bez opreme",
       desc: "Uči te da stojiš mirno kao statua — i na gredi.",
       steps: ["Stani uspravno, ruke u stranu.", "Podigni se na prste.", "Gledaj u jednu tačku pred sobom.", "Zadrži 10 sekundi, pa opusti."] },
-    { id: "sveca", pose: "sveca", name: "Sveća", cat: "Ravnoteža naglavce", group: "bal", min: "1–2 min", sec: 90, lvl: 2, opr: "Podloga", img: "lili-sveca.png",
+    { id: "sveca", pose: "sveca", name: "Sveća", cat: "Ravnoteža naglavce", group: "bal", min: "1–2 min", sec: 90, lvl: 2, opr: "Podloga",
       desc: "Prva vežba za stav na rukama — telo pravo kao sveća.",
       steps: ["Lezi na leđa i podigni noge gore.", "Podupri kukove rukama.", "Ispravi telo u jednu liniju.", "Zadrži 10 sekundi i polako se spusti."] },
-    { id: "daska", pose: "daska", name: "Daska", cat: "Snaga trupa", group: "str", min: "1 min", sec: 60, lvl: 2, opr: "Podloga", img: "lili-daska.png",
+    { id: "daska", pose: "daska", name: "Daska", cat: "Snaga trupa", group: "str", min: "1 min", sec: 60, lvl: 2, opr: "Podloga",
       desc: "Celo telo pravo kao daska. Najbolja vežba za jak stomak.",
       steps: ["Osloni se na podlaktice i prste stopala.", "Telo drži pravo od glave do peta.", "Stomak uvuci, ne spuštaj kukove.", "Izdrži 20 sekundi."] },
-    { id: "noge", pose: "noge", name: "Podigni noge", cat: "Snaga trupa", group: "str", min: "2 min", sec: 120, lvl: 2, opr: "Podloga", img: "lili-noge.png",
+    { id: "noge", pose: "noge", name: "Podigni noge", cat: "Snaga trupa", group: "str", min: "2 min", sec: 120, lvl: 2, opr: "Podloga",
       desc: "Pravi jak stomak — to je motor za svaki skok i preskok.",
       steps: ["Lezi na leđa, ruke pored tela.", "Podigni ispravljene noge do 90 stepeni.", "Spuštaj ih polako, ne dodiruj pod.", "Ponovi 10 puta."] },
-    { id: "cuk", pose: "cuk", name: "Ćuk (držanje)", cat: "Snaga i držanje", group: "str", min: "1–2 min", sec: 90, lvl: 3, opr: "Podloga", img: "lili-cuk.png",
+    { id: "cuk", pose: "cuk", name: "Ćuk (držanje)", cat: "Snaga i držanje", group: "str", min: "1–2 min", sec: 90, lvl: 3, opr: "Podloga",
       desc: "Skupljeno telo koje se drži samo — kao klupko snage.",
       steps: ["Sedi i skupi kolena ka grudima.", "Uhvati potkolenice rukama.", "Podigni stopala od poda i balansiraj.", "Zadrži 8 sekundi."] },
-    { id: "lastavica", pose: "lastavica", name: "Lastavica na podu", cat: "Snaga leđa", group: "str", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga", img: "lili-lastavica.png",
+    { id: "lastavica", pose: "lastavica", name: "Lastavica na podu", cat: "Snaga leđa", group: "str", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
       desc: "Jaka leđa drže telo uspravno u svakoj vežbi.",
       steps: ["Lezi na stomak, ruke ispruži napred.", "Podigni istovremeno ruke i noge.", "Gledaj u pod da vrat bude miran.", "Zadrži 5 sekundi, ponovi 8 puta."] },
-    { id: "cucanj", pose: "cucanj", name: "Polučučanj + ruke napred", cat: "Snaga nogu", group: "str", min: "2 min", sec: 120, lvl: 2, opr: "Bez opreme", img: "lili-cucanj.png",
+    { id: "cucanj", pose: "cucanj", name: "Polučučanj + ruke napred", cat: "Snaga nogu", group: "str", min: "2 min", sec: 120, lvl: 2, opr: "Bez opreme",
       desc: "Jake noge znače viši skok i sigurno doskakanje.",
       steps: ["Stopala u širini kukova.", "Spusti se do pola čučnja.", "Ispruži ruke napred u visini ramena.", "Zadrži 3 sekunde i vrati se gore."] },
-    { id: "iskorak", pose: "iskorak", name: "Iskorak", cat: "Snaga nogu", group: "str", min: "1–2 min", sec: 90, lvl: 2, opr: "Bez opreme", img: "lili-iskorak.png",
+    { id: "iskorak", pose: "iskorak", name: "Iskorak", cat: "Snaga nogu", group: "str", min: "1–2 min", sec: 90, lvl: 2, opr: "Bez opreme",
       desc: "Uči noge da rade svaka za sebe — važno za doskok i okret.",
       steps: ["Stani uspravno, ruke na kukovima.", "Zakorači jednom nogom napred.", "Spusti zadnje koleno ka podu.", "Vrati se gore i promeni nogu, 8 puta."] },
     { id: "dete", pose: "dete", name: "Dete poza", cat: "Opuštanje", group: "flex", min: "1 min", sec: 60, lvl: 1, opr: "Podloga",
@@ -186,7 +224,7 @@
   /* Shown at the bottom of Podešavanja. Bump it with `CACHE` in sw.js on every
      release — it is the only way to tell from the iPad which build is running,
      which matters because the app keeps working offline out of its own cache. */
-  var BUILD = "5 · 31.07.2026.";
+  var BUILD = "6 · 31.07.2026.";
 
   function today() { return ymd(new Date()); }
   function ymd(d) {
@@ -208,6 +246,8 @@
       favs: [],
       bestStreak: 0,
       zvuk: true,
+      maskota: "rabbit",   /* which animal she picked */
+      maskotaIme: "",      /* what she called it; empty means the default name */
       days: {},            /* "YYYY-MM-DD": { sec, workouts, ex:{id:n}, done:[id] } */
       todos: [],           /* [{ id, t, done }] — njena lista, ne dira gimnastiku */
       rem: { on: true, time: "18:00", days: { 0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 0, 6: 0 }, lastFired: "" }
@@ -314,6 +354,11 @@
     if (!Array.isArray(out.todos)) out.todos = [];
     if (!Array.isArray(out.favs)) out.favs = [];
     if (typeof out.zvuk !== "boolean") out.zvuk = true;
+    if (typeof out.maskotaIme !== "string") out.maskotaIme = "";
+    /* a mascot this build does not have — an older or newer set of animals */
+    var known = false;
+    for (var i = 0; i < MASCOTS.length; i++) if (MASCOTS[i].id === out.maskota) known = true;
+    if (!known) out.maskota = MASCOTS[0].id;
     if (typeof out.stars !== "number") out.stars = 0;
     return out;
   }
@@ -565,7 +610,7 @@
     sec: 0,
     run: true,
     day: weekday(new Date()),
-    praise: "",       /* which congratulation Lili is giving right now */
+    praise: "",       /* which congratulation the mascot is giving right now */
     todoDraft: "",    /* what she has typed but not added yet */
     lastReward: null,
     toast: null
@@ -573,7 +618,7 @@
 
   var timer = null, wakeLock = null, toastTimer = null, cheerTimer = null;
 
-  /* Lili's congratulations. Kept short — they are read aloud in the head at a
+  /* The mascot's congratulations. Kept short — they are read aloud in the head at a
      glance, mid-workout, by a child who is out of breath. */
   var PRAISE = [
     "Bravo!", "Sjajno!", "Odlično!", "Super si!", "Tako se to radi!",
@@ -655,9 +700,8 @@
           icon("star", 34, { fill: "var(--gd)", stroke: "none", w: 0 }) + "</button>" +
       "</div>" +
       '<div class="home__right">' +
-        '<div class="slot hero"><img class="expic" src="img/lili-split.jpg" ' +
-          'alt="Lili u špagi" decoding="async"></div>' +
-        '<div class="lilicard"><div class="lilicard__pic">' + lili("sit") + "</div><div>" +
+        '<div class="slot hero">' + lik("hero", maskotaIme()) + "</div>" +
+        '<div class="lilicard"><div class="lilicard__pic">' + lik("sit") + "</div><div>" +
           '<div class="lilicard__t">' + (m.streak > 0 ? "Spremna sam da vežbam s tobom!" : "Hajde da počnemo zajedno!") + "</div>" +
           '<div class="lilicard__s">' + esc(todayFocus()) + "</div>" +
         "</div></div>" +
@@ -672,17 +716,21 @@
     return title + " — " + n + " " + plural(n, "vežba", "vežbe", "vežbi") + ".";
   }
 
-  /* Lili herself, for the mascot slots. */
-  function lili(pose, alt) {
-    return '<img class="expic" src="img/lili-' + pose + '.png" alt="' +
-      esc(alt || "Lili") + '" decoding="async">';
+  /* The mascot herself, for the slots that are her rather than an exercise.
+     A missing picture falls back to `sit`, which every mascot has — that is
+     what lets an unfinished set be chosen without leaving a hole on screen. */
+  function lik(pose, alt) {
+    var use = hasArt(pose) ? pose : "sit";
+    if (!hasArt(use)) return ILLU.gymnast("dete", { decor: false });
+    return '<img class="expic" src="' + artSrc(use) + '" alt="' +
+      esc(alt || maskotaIme()) + '" decoding="async">';
   }
 
-  /* Lili photographed in the pose when one exists, the drawn figure when not. */
+  /* The mascot in the pose when she has one, the drawn figure when she does not. */
   function exPic(e, small) {
-    if (e.img) {
-      return '<img class="expic" src="img/' + e.img + '" alt="Lili radi: ' +
-        esc(e.name) + '" loading="lazy" decoding="async">';
+    if (hasArt(e.pose)) {
+      return '<img class="expic" src="' + artSrc(e.pose) + '" alt="' +
+        esc(maskotaIme()) + " radi: " + esc(e.name) + '" loading="lazy" decoding="async">';
     }
     return ILLU.gymnast(e.pose, { decor: !small, label: e.name });
   }
@@ -766,7 +814,7 @@
     var mm = Math.floor(ui.sec / 60), ss = String(ui.sec % 60).padStart(2, "0");
 
     /* Four phases per exercise: ready (waiting on her), prep (5s count-in),
-       go (the exercise timer), cheer (Lili congratulates her). Each gets its
+       go (the exercise timer), cheer (the mascot congratulates her). Each gets its
        own colour on the dial. */
     var dial, label, ctl;
     if (ui.phase === "cheer") {
@@ -812,7 +860,7 @@
         "</div></div></div>";
   }
 
-  /* The moment the exercise ends: Lili jumps in, congratulates her and hands
+  /* The moment the exercise ends: the mascot jumps in, congratulates her and hands
      over the star. It clears itself after CHEER_MS, or the moment she taps. */
   function cheerHtml(e, last) {
     /* The rays keep their own angle in a custom property, because the flying-
@@ -825,7 +873,7 @@
     }
     return '<div class="cheer" role="status"><div class="cheer__card">' +
       '<div class="cheer__burst" aria-hidden="true">' + burst + "</div>" +
-      '<div class="cheer__pic">' + lili("happy", "Lili ti čestita") + "</div>" +
+      '<div class="cheer__pic">' + lik("happy", maskotaIme() + " ti čestita") + "</div>" +
       '<div class="cheer__t">' + esc(ui.praise) + "</div>" +
       '<div class="cheer__s">Završila si vežbu <b>' + esc(e.name) + "</b>.</div>" +
       '<div class="cheer__star">' +
@@ -846,7 +894,7 @@
         ((i % 7) * 0.35).toFixed(2) + 's"></i>';
     }
     return '<div class="screen done"><div class="confetti" aria-hidden="true">' + conf + "</div>" +
-      '<div class="done__pic">' + lili("happy") + "</div>" +
+      '<div class="done__pic">' + lik("happy") + "</div>" +
       "<h1>Bravo, " + esc(ime()) + "!</h1>" +
       '<div class="done__sub">Završila si ceo trening — ' + r.count + " " +
         plural(r.count, "vežbu", "vežbe", "vežbi") + ", " + r.min + " minuta.</div>" +
@@ -897,7 +945,7 @@
           }).join("") + "</div></div>" +
         '<div class="plan__side">' +
           '<div class="msgcard"><div class="msgcard__row"><div class="msgcard__pic">' +
-            lili(allDone ? "happy" : "sit") + '</div><div class="msgcard__t">' +
+            lik(allDone ? "happy" : "sit") + '</div><div class="msgcard__t">' +
             (allDone ? "Sve za danas — bravo!" : "Sjajno! Ti to možeš!") + "</div></div>" +
             '<div class="msgcard__b">' + (allDone
               ? "Završila si sve vežbe za danas. Odmori se, sutra nastavljamo."
@@ -952,7 +1000,7 @@
           "</div></div>" +
         '<div class="plan__side">' +
           '<div class="msgcard"><div class="msgcard__row"><div class="msgcard__pic">' +
-            lili(allDone ? "happy" : "sit") + '</div><div class="msgcard__t">' +
+            lik(allDone ? "happy" : "sit") + '</div><div class="msgcard__t">' +
             (allDone ? "Sve si završila!" : list.length ? "Ti to možeš!" : "Šta je danas na redu?") +
             "</div></div>" +
             '<div class="msgcard__b">' +
@@ -1066,7 +1114,7 @@
   function remHtml() {
     var r = st.rem;
     return '<div class="screen rem">' +
-      '<div class="rem__art"><div class="rem__pic">' + ILLU.reminderScene() + "</div>" +
+      '<div class="rem__art"><div class="rem__pic">' + lik("spava", maskotaIme() + " spava") + "</div>" +
         "<h3>Ne zaboravi na trening!</h3>" +
         "<p>Redovnost donosi rezultate i super osećaj.</p></div>" +
       '<div class="rem__side scroll">' +
@@ -1084,9 +1132,10 @@
             return "<button" + (r.days[i] ? ' class="on"' : "") + " " + act("remDay", i) +
               ' aria-label="' + DAY_SHORT[i] + '" aria-pressed="' + !!r.days[i] + '">' + l + "</button>";
           }).join("") + "</div></div>" +
-        '<div class="note"><div class="note__pic">' + lili("sit") + "</div>" +
-          "<p>Lili će te pozvati na trening u " + esc(r.time) +
+        '<div class="note"><div class="note__pic">' + lik("sit") + "</div>" +
+          '<p><b class="js-mime">' + esc(maskotaIme()) + "</b> će te pozvati na trening u " + esc(r.time) +
           ". Možeš i da je isključiš kad putujete.</p></div>" +
+        maskotaPanel() +
         '<div class="panel"><h3>Podešavanja</h3>' +
           '<div class="panel__row" style="margin-bottom:1.375rem"><div style="flex:1">' +
             '<div class="panel__t">Zvuk</div><div class="panel__s">' +
@@ -1178,6 +1227,39 @@
     toast("Napredak je vraćen — " + days + " " + plural(days, "dan", "dana", "dana") + ".");
   }
 
+  /* Her choice of animal, and what she calls it. A set that is not finished yet
+     is still offered, with the gap stated plainly — the drawn figure stands in
+     for whatever is missing, so nothing on screen breaks either way. */
+  function maskotaPanel() {
+    var total = EX.length + 5;   /* every pose, plus the five mascot pictures */
+    return '<div class="panel"><h3>Maskota</h3>' +
+      '<div class="masks">' + MASCOTS.map(function (m) {
+        var on = m.id === st.maskota;
+        var have = artCount(m.id);
+        return '<button class="mask' + (on ? " on" : "") + '" ' + act("maskota", m.id) +
+          ' aria-pressed="' + on + '"><span class="mask__pic">' +
+          (hasArt("portret", m.id) || hasArt("sit", m.id)
+            ? '<img class="expic" src="' +
+              artSrc(hasArt("portret", m.id) ? "portret" : "sit", m.id) +
+              '" alt="" decoding="async">'
+            : "") +
+          '</span><span class="mask__n">' + esc(m.vrsta) + "</span>" +
+          (have < total
+            ? '<span class="mask__gap">još ' + (total - have) + " slika</span>"
+            : "") +
+          "</button>";
+      }).join("") + "</div>" +
+      '<div class="field" style="margin-top:1.25rem"><label for="maskotaIme">KAKO SE ZOVE</label>' +
+        '<input class="input" id="maskotaIme" type="text" maxlength="14" value="' +
+        esc(st.maskotaIme) + '" placeholder="' + esc(maskota().ime) +
+        '" autocomplete="off" spellcheck="false"></div>' +
+      '<div class="panel__s" style="margin-top:0.75rem">' +
+        (artCount(maskota().id) < total
+          ? "Neke vežbe još nemaju sliku za ovu maskotu — tu se za sada vidi crtež."
+          : "Ova maskota ima sliku za svaku vežbu.") +
+      "</div></div>";
+  }
+
   /* ═══ render ════════════════════════════════════════════════════════ */
 
   function render() {
@@ -1233,7 +1315,7 @@
   var PREP_SEC = 5;
   var CHEER_MS = 3400;   /* long enough to enjoy, short enough not to stall */
 
-  /* The exercise is over — Lili congratulates her, then the next exercise
+  /* The exercise is over — the mascot congratulates her, then the next exercise
      arms itself (still waiting on KRENI, nothing starts on its own). */
   function beginCheer() {
     if (ui.phase === "cheer") return;
@@ -1402,6 +1484,11 @@
       var el = document.getElementById("uvoz");
       if (el) el.click();
     },
+    maskota: function (v) {
+      st.maskota = v;
+      save();
+      render();
+    },
     zvuk: function () {
       st.zvuk = !st.zvuk;
       save();
@@ -1445,6 +1532,13 @@
       if (a) a.textContent = ime().charAt(0).toUpperCase();
     } else if (ev.target.id === "novaObaveza") {
       ui.todoDraft = ev.target.value;
+    } else if (ev.target.id === "maskotaIme") {
+      /* same reason as the name field: re-rendering would take the input out
+         from under her finger. Patch the one place on this screen that shows it. */
+      st.maskotaIme = ev.target.value;
+      save();
+      var spots = document.querySelectorAll(".js-mime");
+      for (var i = 0; i < spots.length; i++) spots[i].textContent = maskotaIme();
     }
   });
 
@@ -1499,7 +1593,7 @@
     if (hm !== r.time) return;
     r.lastFired = stamp;
     save();
-    var msg = "Vreme je za trening! Lili te čeka.";
+    var msg = "Vreme je za trening! " + maskotaIme() + " te čeka.";
     if ("Notification" in window && Notification.permission === "granted") {
       try { new Notification("Gimnastika za " + ime(), { body: msg, icon: "icons/icon-180.png" }); } catch (e) {}
     }

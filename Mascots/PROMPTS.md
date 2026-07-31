@@ -20,6 +20,9 @@ The full inventory and the checkboxes are in `MASCOTS.md`.
 Attach: `bear-sit.png`, `bear-zvezdice.png`, `bear-macka.png`
 
 ```
+
+Continue the gymnastics mascot asset project. One mascot and one pose per image, with no text, table, grid, labels, extra poses, or other characters. Preserve the exact face, fur, purple bow, purple-and-pink sparkly leotard, proportions, and 3D style. Use a transparent background.
+
 Using the attached reference images, create 10 separate images of the same character — a 3D Pixar-style cartoon bear cub gymnast: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest.
 
 Same style, colours and proportions as the references in every image. Transparent background (PNG with alpha) — no background, no floor, no shadow, no glow. Full body in frame, head to toe, nothing cropped, generous margin all round. One pose per image:
@@ -43,6 +46,9 @@ Save as, in order: `bear-happy.png`, `bear-mostic.png`, `bear-arabeska.png`,
 ## BEAR — second batch (4)
 
 ```
+
+Continue the gymnastics mascot asset project. One mascot and one pose per image, with no text, table, grid, labels, extra poses, or other characters. Preserve the exact face, fur, purple bow, purple-and-pink sparkly leotard, proportions, and 3D style. Use a transparent background.
+
 Using the attached reference images, create 4 separate images of the same character — a 3D Pixar-style cartoon bear cub gymnast: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest.
 
 Same style, colours and proportions as the references in every image. Transparent background (PNG with alpha) — no background, no floor, no shadow, no glow. Full body in frame, head to toe, nothing cropped, generous margin all round. One pose per image:
@@ -63,6 +69,9 @@ Save as: `bear-iskorak.png`, `bear-spava.png`, `bear-hero.png`,
 Attach: `rabbit-sit.png`, `rabbit-zvezdice.png`, `rabbit-spaga.png`
 
 ```
+
+Continue the gymnastics mascot asset project. One mascot and one pose per image, with no text, table, grid, labels, extra poses, or other characters. Preserve the exact face, fur, purple bow, purple-and-pink sparkly leotard, proportions, and 3D style. Use a transparent background.
+
 Using the attached reference images, create 6 separate images of the same character — a 3D Pixar-style cartoon bunny gymnast: white and pale lavender fur, long ears with pink insides, large violet eyes with long lashes, small pink nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest.
 
 Same style, colours and proportions as the references in every image. Transparent background (PNG with alpha) — no background, no floor, no shadow, no glow. Full body in frame, head to toe, nothing cropped, generous margin all round. One pose per image:
@@ -80,11 +89,19 @@ Save as: `rabbit-mostic.png`, `rabbit-arabeska.png`, `rabbit-leptiric.png`,
 
 ---
 
-## FOX (5)
+## FOX — redo of five (5)
 
-Attach: `fox-sit.png`, `fox-zvezdice.png`, `fox-spaga.png`
+The five that arrived have a ragged patch of the old background baked into the
+transparency. Same five poses again, with the cutout called out explicitly:
+
+Attach: `fox-sit.png`, `fox-zvezdice.png`, `fox-spaga.png` — the older files,
+which are cut out cleanly, not the five being replaced.
 
 ```
+Continue the gymnastics mascot asset project. One mascot and one pose per image, with no text, table, grid, labels, extra poses, or other characters. Preserve the exact face, fur, purple bow, purple-and-pink sparkly leotard, proportions, and 3D style.
+
+The background must be FULLY transparent with a clean edge: no leftover patches of background, no rectangular blocks, no halo or fringe around the fur, nothing behind the character at all.
+
 Using the attached reference images, create 5 separate images of the same character — a 3D Pixar-style cartoon fox cub gymnast: orange fur with a white muzzle, white chest and a white-tipped bushy tail, large violet eyes with long lashes, pink paw pads, a purple glitter bow between her ears, and a purple and pink gymnastics leotard with a heart on the chest.
 
 Same style, colours and proportions as the references in every image. Transparent background (PNG with alpha) — no background, no floor, no shadow, no glow. Full body in frame, head to toe, nothing cropped, generous margin all round. One pose per image:
@@ -108,6 +125,9 @@ had to guess which of several near-identical pictures was which. Paste this
 after any of the blocks above, keeping that mascot's description:
 
 ```
+
+Continue the gymnastics mascot asset project. One mascot and one pose per image, with no text, table, grid, labels, extra poses, or other characters. Preserve the exact face, fur, purple bow, purple-and-pink sparkly leotard, proportions, and 3D style. Use a transparent background.
+
 Also create 4 more images of the same character, same style and transparent background:
 
 1. Walking heel-to-toe along a straight line on the floor, one foot directly in front of the other, both arms stretched out sideways for balance, looking down at the line, front view.
