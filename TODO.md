@@ -10,15 +10,31 @@ iPad from the home screen.
 
 Done so far:
 
-- Nine screens implemented from the Claude Design source, running as an offline
+- Ten screens implemented from the Claude Design source, running as an offline
   PWA. No build step, no framework.
 - Lili the bunny is the mascot, cropped from `assets/source/lili-sheet.png` by
-  `tools/crop-lili.py`.
-- Workout runs `ready → prep → go` per exercise: nothing auto-starts, KRENI
-  begins a 5s gold count-in, then the pink exercise timer.
+  `tools/crop-lili.py` and from the pose board by `tools/crop-gimi.py`.
+- Workout runs `ready → prep → go → cheer` per exercise: nothing auto-starts,
+  KRENI begins a 5s gold count-in, then the pink exercise timer, then Lili's
+  congratulation.
 - 19 exercises, a different session per weekday.
 - Display font is Baloo 2 (Caprasimo had no `č ć ž š đ`).
 - Progress, streaks, stickers and charts all derived from real activity.
+
+Second round, from Mila's own list (July 2026):
+
+- **Zvuk** — a tick through the 5s count-in, a chime when the exercise starts,
+  a four-note run when it ends and a longer fanfare when the whole workout is
+  done. Synthesised with `AudioContext`, no files. Switch at the top of
+  Podešavanja (`st.zvuk`).
+- **Čestitka posle svake vežbe** — a fourth workout phase, `cheer`: Lili jumps
+  in over the screen with a random praise line and the star, then advances
+  itself after `CHEER_MS`. Both the timer running out and SLEDEĆE go through
+  `beginCheer()`.
+- **Obaveze** — a tenth screen, her own free-form to-do list (`st.todos`),
+  kept out of every gymnastics metric.
+- **Lili in every exercise** — the drawn SVG figure is gone from all but one
+  exercise, replaced by the pose board (see item 2).
 
 ---
 
@@ -71,25 +87,25 @@ accident.
 
 ---
 
-## 2. Remaining exercise illustrations — paused, waiting on generated images
+## 2. Exercise illustrations — done except one
 
-Three of nineteen exercises show Lili photographed (`Psić`, `Špaga`,
-`Streličar`). The other sixteen fall back to the drawn SVG figure.
+Eighteen of nineteen exercises now show Lili herself, cut from the "GIMI VEŽBE
+– SVE IKONE" board (`assets/source/gimi-sheet.png`) by `tools/crop-gimi.py`.
 
-`assets/PROMPTS.md` has a ready prompt per missing pose, plus the style block
-that keeps her the same character. Attach `assets/source/lili-sheet.png` as a
-reference image every time.
+Two things are left:
 
-To wire one in: save as `www/img/lili-<id>.png`, add `img: "lili-<id>.png"` to
-that exercise in `www/app.js`, add the file to `ASSETS` in `www/sw.js`, bump
-`CACHE`. They can land a few at a time — anything without an `img` keeps its
-drawing, so nothing breaks in between.
+- **`Dete poza` has no photo** — it is the only exercise still drawing the SVG
+  figure. Prompt for it is in `assets/PROMPTS.md`.
+- **The board is only 1551×1014**, so each pose is 90–290 px wide. Fine in the
+  list and on the detail screen, visibly soft on the workout screen where the
+  picture is biggest. A re-export of the same layout at 2–3× fixes it with no
+  code change — the crop script scales its grid to the file it is given.
 
-## 3. Weakest drawn poses
+## 3. Weakest drawn poses — mostly moot now
 
-If the photographs land, this disappears. Until then, `pretklon`, `dete` and
-`daska` are the least convincing skeletons in `illustrations.js`. Check any
-change with `node tools/poses.mjs`.
+`illustrations.js` only renders `dete` among the exercises; the rest of the file
+still matters for `ILLU.badge()` and `ILLU.reminderScene()`. Check any change
+with `node tools/poses.mjs`.
 
 ## 4. Reminder cannot fire when the app is closed
 

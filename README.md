@@ -1,8 +1,8 @@
 # Gimnastika za Milu
 
-An iPad app for a kid's daily gymnastics practice, in Serbian. Nine screens, a
-different guided workout each weekday, a weekly plan, progress charts, stickers
-and a reminder — implemented from the Claude Design project
+An iPad app for a kid's daily gymnastics practice, in Serbian. Ten screens, a
+different guided workout each weekday, a weekly plan, her own to-do list,
+progress charts, stickers and a reminder — implemented from the Claude Design project
 *Mila Gimnastika iPad.dc.html*. Lili the bunny is the coach.
 
 No build step, no framework, no dependencies. Plain HTML, CSS and JavaScript
@@ -12,14 +12,14 @@ that runs from `www/`.
 www/
   index.html            shell
   styles.css            design tokens + every screen's layout
-  app.js                data, state, the nine screens, workout logic
+  app.js                data, state, the ten screens, workout logic, sound
   illustrations.js      drawn fallback figures + badges, inline SVG
-  img/                  Lili's photographs
+  img/                  Lili photographed in every pose
   sw.js                 offline cache
   manifest.webmanifest  home-screen app metadata
   icons/                generated app icons
 design/                 the original .dc.html and its design system, for reference
-assets/                 Lili's source sheet and PROMPTS.md for the missing poses
+assets/                 the source boards and PROMPTS.md for what is still missing
 tools/                  icon generator, image cropper, local server, screenshot harness
 ```
 
@@ -67,7 +67,17 @@ Everything starts at zero and is earned:
 - **Plan** — a different session every weekday, warm-up first and a calm
   stretch last. Nineteen exercises in the library.
 - **Trening** — nothing auto-starts. Each exercise waits on KRENI, then counts
-  in for five seconds (gold dial) before the exercise timer runs (pink).
+  in for five seconds (gold dial, a tick a second) before the exercise timer
+  runs (pink). When it runs out Lili jumps in, congratulates her and hands over
+  the star, then the next exercise arms itself. Finishing early gets the same
+  celebration; tapping again skips it.
+- **Zvuk** — a tick through the count-in, a chime when the exercise starts, a
+  little run of notes when it ends and a proper fanfare when the whole workout
+  is done. Synthesised in the app, so it works offline; the switch is at the top
+  of *Podešavanja*. iOS plays it only if the iPad is not on silent.
+- **Obaveze** — her own list, typed by her: domaći, sprema sobu, torba za
+  trening. It is kept apart from the gymnastics numbers on purpose — ticking a
+  chore does not move a streak, a star or a sticker.
 - **Napredak** — the chart is the current week, one point per day, from the
   plan items actually ticked off. The skill bars measure the last fortnight
   against a target of six sessions per skill; OCENA is their average.
@@ -119,5 +129,6 @@ Two things were changed deliberately from the design source:
 - **The display font** is Baloo 2, not the design's Caprasimo — Caprasimo has no
   `č ć ž š đ` and the browser was substituting a different face mid-word.
 - The design's illustration slots were dashed placeholders and its numbers were
-  fixed sample values. Both are real here — drawn figures, and counts derived
-  from what has actually been done.
+  fixed sample values. Both are real here — Lili photographed in eighteen of the
+  nineteen poses (`Dete poza` still uses the drawn fallback figure), and counts
+  derived from what has actually been done.

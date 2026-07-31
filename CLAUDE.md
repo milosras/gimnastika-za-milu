@@ -21,6 +21,7 @@ npm run lan       # serve www/ on the LAN; prints the http://192.168.x.x:8123/ t
 npm start         # serve www/ on localhost:8123 only
 npm run deploy    # publish www/ to the gh-pages branch (live in ~60s)
 npm run icons     # regenerate www/icons/* from tools/make-icons.py (~30s, pure Python)
+npm run crop      # re-cut www/img/lili-<id>.png from the pose board (~40s)
 npm run shots     # screenshot every screen through headless Chrome
 ```
 
@@ -29,8 +30,9 @@ There are no tests and no linter. Verification is visual, via `npm run shots`.
 ### Visual verification
 
 `tools/shots.mjs` is the main way to check work. It drives Chrome over the
-DevTools protocol, walks all nine screens plus a full workout (including the
-ready/prep/go phases), and reports console errors. Chrome must already be running with a debugging port:
+DevTools protocol, walks all ten screens plus a full workout (including the
+ready/prep/go/cheer phases and the to-do list), and reports console errors.
+Chrome must already be running with a debugging port:
 
 ```bash
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
@@ -63,18 +65,27 @@ Without that they silently screenshot a stale build.
 - The one exception is `tickPaint()`, which mutates only the timer digits each
   second. A full re-render every second would fight the CSS animations.
 
-Consequence: any DOM state the browser owns is destroyed on re-render. The name
-`<input>` is handled specially — its `input` event updates state and patches the
-rail text directly instead of re-rendering, or typing would lose focus.
+Consequence: any DOM state the browser owns is destroyed on re-render. The two
+`<input>`s are handled specially — their `input` events update state without a
+re-render (the name field patches the rail text directly; the to-do field only
+stores `ui.todoDraft`), or typing would lose focus and the iPad keyboard would
+close. Adding a to-do *does* re-render, then re-focuses the field inside the
+same tap so the keyboard stays up.
 
 ### Two kinds of state
 
 Keeping these separate matters:
 
 - **`st`** — persisted to `localStorage` under `mila-gimnastika-v2`. Name, theme,
-  stars, favourites, best streak, per-day history, reminder settings. Call
-  `save()` after mutating. If storage throws (e.g. opened over `file://`),
-  `memoryOnly` is set and the app degrades to in-memory with a warning toast.
+  stars, favourites, best streak, per-day history, reminder settings, the sound
+  switch (`zvuk`) and her own to-do list (`todos`). Call `save()` after
+  mutating. If storage throws (e.g. opened over `file://`), `memoryOnly` is set
+  and the app degrades to in-memory with a warning toast.
+
+  Adding a *new* field is the one safe schema change: `load()` merges the saved
+  payload over `defaults()`, so an older save keeps everything it had and picks
+  up the default for what it never knew about. `v` stays 2. Anything that
+  changes an *existing* field still needs the migration work below.
 
   **Do not change the storage key or the saved shape without a migration.**
   `load()` currently accepts only an exact version match and drops anything
@@ -110,12 +121,21 @@ Two sources, in this order of preference:
 
 1. **Lili's photographs** in `www/img` — the mascot, a purple-leotard bunny.
    An exercise opts in with an `img` field naming the file; `exPic()` renders it.
-   `tools/crop-lili.py` cuts poses out of `assets/source/lili-sheet.png` by
-   flood-filling the flat background inward from each crop's edges.
-2. **The drawn gymnast** in `www/illustrations.js`, used for every exercise that
-   has no photo yet. `assets/PROMPTS.md` holds a generation prompt per missing
-   pose; dropping a file in `www/img` and adding `img:` swaps it over, one
-   exercise at a time.
+   Eighteen of the nineteen exercises have one, cut from the pose board
+   `assets/source/gimi-sheet.png` by `tools/crop-gimi.py`; the mascot's own
+   poses (`sit`, `happy`, the hero) come from the older sheet via
+   `tools/crop-lili.py`. Both cut the background by flood-filling inward from
+   each crop's edges — colour-keying eats into her fur, which sits in the same
+   pale family as the backdrop.
+
+   `crop-gimi.py` holds the board's grid as measured coordinates and **scales
+   them to whatever size the file is**, so re-exporting the same board larger
+   needs no code change. It refuses a board with different proportions rather
+   than cropping the wrong rectangles.
+2. **The drawn gymnast** in `www/illustrations.js`, now used only by `dete`,
+   which is not on the board. `assets/PROMPTS.md` holds its prompt; dropping a
+   file in `www/img` and adding `img:` swaps it over. `ILLU.badge()` (stickers)
+   and `ILLU.reminderScene()` are still the drawn artwork everywhere.
 
 The gymnast is one character rendered through a skeleton per pose in `POSES` — hip, shoulder, head, plus elbow/hand and knee/foot pairs.
 Index `1` of `arms`/`legs` is the far side and is drawn behind the torso in a
@@ -139,16 +159,47 @@ warm-up and closing with something calm. `planFor(day)` returns exercise
 indices. A date's plan is always `planFor(weekday(date))`, which is why
 `dayRec().done` can store positions within it.
 
-The workout runs three phases per exercise, in `ui.phase`:
+The workout runs four phases per exercise, in `ui.phase`:
 
 - `ready` — nothing counts down; waiting for her to press KRENI.
 - `prep` — a 5s count-in (`PREP_SEC`) while she gets into position.
 - `go` — the exercise timer.
+- `cheer` — Lili congratulates her (`cheerHtml`), then it advances itself.
 
-Each phase has its own dial colour (`.timer--ready/prep/go`): violet for
-waiting, gold for counting in, pink for working. `tick()` promotes prep → go.
-Nothing auto-starts — that was deliberate, a timer running before she is in
-position is useless.
+Each phase has its own dial colour (`.timer--ready/prep/go/cheer`): violet for
+waiting, gold for counting in, pink for working. `tick()` promotes prep → go and
+go → cheer. Nothing auto-*starts* — that was deliberate, a timer running before
+she is in position is useless — but the celebration does auto-*end*, after
+`CHEER_MS`, into the next exercise's `ready`.
+
+`beginCheer()` is the single exit from an exercise: the timer running out calls
+it, and so does SLEDEĆE, so she gets the same congratulation whether she used
+the whole time or finished early. A second tap during `cheer` skips ahead.
+Anything that leaves the workout must call `stopCheer()` or the pending timeout
+advances a workout she has already quit.
+
+### Sound
+
+`SOUND` synthesises its three cues with an `AudioContext` — no audio files, so
+nothing to download, cache or ship, and it works fully offline. `note()` is the
+only primitive; each cue schedules a few of them at offsets.
+
+iOS only lets an `AudioContext` produce sound if it was started inside a user
+gesture, and re-suspends it whenever the app is backgrounded, so `unlockAudio()`
+runs on *every* document click, not just the first. Sound respects `st.zvuk`
+(switch at the top of Podešavanja) and fails silently everywhere — a missing
+`AudioContext` must never break the timer.
+
+### Obaveze
+
+Her own to-do list (`st.todos`, `[{ id, t, done }]`), reached from the rail.
+Deliberately **outside** the gymnastics numbers: `metrics()` never looks at it,
+so ticking a chore cannot move a streak, a star or a sticker. Items persist
+until she deletes them — nothing resets overnight.
+
+It reuses the plan screen's two-column layout (`.plan`, `.plan__main`,
+`.plan__side`, `.msgcard`, `.progcard`), which is also what makes it work in
+portrait for free.
 
 ### Theming and scale
 

@@ -88,6 +88,21 @@ await click('[data-act="open"][data-arg="1"]');
 await shot("04-detail");
 await click('[data-act="go"][data-arg="plan"]');
 await shot("05-plan");
+
+/* her own to-do list: type two items, tick one */
+await click('[data-act="go"][data-arg="todo"]');
+await shot("05b-todo-empty");
+const addTodo = async (text) => {
+  await evaluate(`(()=>{const i=document.getElementById("novaObaveza");i.value=${JSON.stringify(text)};i.dispatchEvent(new Event("input",{bubbles:true}));})()`);
+  await click('[data-act="todoAdd"]');
+};
+await addTodo("Domaći iz matematike");
+await addTodo("Spremi sobu");
+await addTodo("Spakuj torbu za trening");
+await evaluate('document.querySelector(\'[data-act="todoToggle"]\').click()');
+await sleep(420);
+await shot("05c-todo");
+
 await click('[data-act="go"][data-arg="prog"]');
 await shot("06-prog");
 await click('[data-act="go"][data-arg="prize"]');
@@ -102,9 +117,13 @@ await sleep(900);
 await shot("09b-work-prep");          /* 5s count-in */
 await sleep(4600);
 await shot("09c-work-go");            /* exercise running */
+await click('[data-act="next"]');
+await sleep(500);
+await shot("09d-cheer");              /* Lili congratulates her */
 
-/* plan length varies by weekday, so walk until the finish screen appears */
-for (let i = 0; i < 12; i++) {
+/* Plan length varies by weekday, and every exercise now takes two taps —
+   one to end it (cheer), one to move on — so leave plenty of headroom. */
+for (let i = 0; i < 30; i++) {
   const more = await evaluate('!!document.querySelector(\'[data-act="next"]\')');
   if (!more) break;
   await click('[data-act="next"]');
