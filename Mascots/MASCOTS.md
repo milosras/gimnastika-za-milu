@@ -131,6 +131,10 @@ The rabbit has two spares I could not match to any exercise:
 
 ## Generating the missing ones
 
+**`PROMPTS.md` next to this file has every one of these written out in full,
+ready to copy and paste** — one complete block per missing image, nothing to
+fill in. What follows here is the reasoning behind them.
+
 Attach an existing file from that mascot's folder as a reference image every
 time — that is what keeps it the same character rather than a new animal.
 
