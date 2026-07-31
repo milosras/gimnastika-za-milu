@@ -1,344 +1,132 @@
-# Ready-to-paste prompts for the missing mascot art
+# Prompts for the missing mascot art
 
-Every block below is complete on its own — copy one, paste it, done. Nothing to
-fill in. The inventory and the checkboxes live in `MASCOTS.md`; this file is
-only the prompts.
+One prompt per mascot, each asking for the whole missing batch at once. Copy a
+block, attach that mascot's reference images, send.
 
-If you hand the whole file to the tool rather than one block, say which
-filename you want generated and attach that mascot's reference image anyway —
-the reference is what keeps the character identical, and no amount of text
-replaces it.
+**Attach references from that mascot's own folder** — three or four is better
+than one, and include `-sit` and a standing pose so the tool sees the face and
+the body. That is what keeps it the same character rather than a new animal.
 
-## How to use these
+Everything delivered so far is a **PNG with a transparent background**, which is
+exactly right and saves a cutting step — so every prompt below asks for that
+again. Save each result into the mascot's folder under the filename given.
 
-1. **Attach a reference image from that mascot's own folder every time.** That
-   is what keeps it the same character instead of a new animal each round.
-   `Mascots/Rabbit/rabbit-sit.png`, `Mascots/Fox/fox-sit.png`,
-   `Mascots/Bear/bear-sit.png` are the clearest faces to reference.
-2. One image per prompt. Asking for several poses in one picture is what made
-   the first board only 90–290 px per pose, which goes soft on the workout
-   screen.
-3. Save the result straight into the right folder with the filename given in
-   the block's heading. I will cut the backgrounds and wire them in.
-4. **If it comes back on a gradient, or with a glow around the character**, ask
-   again with: *"Regenerate with a completely flat, plain #f7ecf7 background —
-   no gradient, no glow, no vignette, no shadow behind the character."* That
-   one detail is the difference between an easy cutout and a fiddly one.
-
-Order worth doing them in: the bear's `happy` first (nothing else unblocks the
-bear), then `mostic` and `arabeska` everywhere, then the rest of the bear.
+The full inventory and the checkboxes are in `MASCOTS.md`.
 
 ---
 
-# BEAR — `Mascots/Bear/`
+## BEAR — first batch (10)
 
-Reference to attach: `bear-sit.png`
-
-### `bear-happy.png` ← do this one first
+Attach: `bear-sit.png`, `bear-zvezdice.png`, `bear-macka.png`
 
 ```
-3D Pixar-style cartoon bear cub character, exactly the same character as the attached reference image: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, small dark nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
+Using the attached reference images, create 10 separate images of the same character — a 3D Pixar-style cartoon bear cub gymnast: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest.
 
-Pose: celebrating with both arms raised high above her head, a big joyful open-mouth smile, one leg slightly lifted mid-hop, looking straight at the camera.
+Same style, colours and proportions as the references in every image. Transparent background (PNG with alpha) — no background, no floor, no shadow, no glow. Full body in frame, head to toe, nothing cropped, generous margin all round. One pose per image:
 
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Portrait framing.
+1. Celebrating: both arms raised high above her head, big joyful open-mouth smile, one leg lifted mid-hop, facing the camera.
+2. Gymnastics backbend bridge: lying face up, tummy toward the ceiling, body arched high, all four paws on the floor, head tilted back, side view.
+3. Arabesque: balancing on one straight leg with the other leg stretched straight out BEHIND her at hip height, body tipped forward, both arms out to the sides, side view.
+4. Seated forward fold: sitting with both legs straight out in front, folding forward, both paws reaching toward her toes, side view.
+5. Cobra stretch: lying on her tummy, chest lifted up on straight front paws, hips staying down, back gently arched, head up, side view.
+6. Shoulder stand: lying on her upper back with both legs pointing straight up, body vertical, both paws supporting her hips, head on the floor looking at the camera.
+7. Legs raised: lying flat on her back, both legs raised straight up to ninety degrees, paws flat beside her hips, side view.
+8. Tuck balance: balancing on her bottom, knees hugged tight to her chest, both paws around her shins, feet off the floor, smiling.
+9. Half squat: standing, knees bent, back straight, both arms stretched straight forward at shoulder height, facing the camera.
+10. Child's pose: kneeling and sitting back on her heels, forehead down on the floor, both arms stretched forward, peaceful, side view.
 ```
 
-### `bear-mostic.png`
+Save as, in order: `bear-happy.png`, `bear-mostic.png`, `bear-arabeska.png`,
+`bear-pretklon.png`, `bear-kobra.png`, `bear-sveca.png`, `bear-noge.png`,
+`bear-cuk.png`, `bear-cucanj.png`, `bear-dete.png`
+
+## BEAR — second batch (4)
 
 ```
-3D Pixar-style cartoon bear cub character, exactly the same character as the attached reference image: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, small dark nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
+Using the attached reference images, create 4 separate images of the same character — a 3D Pixar-style cartoon bear cub gymnast: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest.
 
-Pose: a gymnastics backbend bridge on a pink yoga mat — lying face up, tummy pointing at the ceiling, body arched high off the floor, all four paws flat on the mat, head tilted back, seen from the side.
+Same style, colours and proportions as the references in every image. Transparent background (PNG with alpha) — no background, no floor, no shadow, no glow. Full body in frame, head to toe, nothing cropped, generous margin all round. One pose per image:
 
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Landscape framing.
+1. Forward lunge: one leg stepped forward with the knee bent, back leg stretched behind with the knee lowered toward the floor, both paws on her hips, side view.
+2. Fast asleep: curled up on her side, eyes closed with a contented little smile, head resting on her front paws, side view.
+3. Standing proudly facing the camera, one arm raised high in a happy wave, the other on her hip, chin up, big warm smile — tall portrait framing with room above her head.
+4. Head and shoulders only, facing the camera straight on, big friendly smile, ears fully in frame, square framing.
 ```
 
-### `bear-arabeska.png`
-
-```
-3D Pixar-style cartoon bear cub character, exactly the same character as the attached reference image: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, small dark nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
-
-Pose: an arabesque — balancing on one straight leg, the other leg stretched straight out BEHIND her at hip height, body tipped forward, both arms stretched out to the sides, chin up, seen from the side.
-
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Portrait framing.
-```
-
-### `bear-pretklon.png`
-
-```
-3D Pixar-style cartoon bear cub character, exactly the same character as the attached reference image: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, small dark nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
-
-Pose: sitting on a pink yoga mat with both legs straight out in front of her, folding forward from the hips, both paws reaching toward her toes, seen from the side.
-
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Landscape framing.
-```
-
-### `bear-kobra.png`
-
-```
-3D Pixar-style cartoon bear cub character, exactly the same character as the attached reference image: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, small dark nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
-
-Pose: cobra stretch — lying on her tummy on a pink yoga mat, chest lifted up on straight front paws, hips staying down on the mat, back gently arched, head up looking forward, seen from the side.
-
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Landscape framing.
-```
-
-### `bear-sveca.png`
-
-```
-3D Pixar-style cartoon bear cub character, exactly the same character as the attached reference image: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, small dark nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
-
-Pose: a shoulder stand — lying on her upper back on a pink yoga mat with both legs pointing straight up at the ceiling, body in one vertical line, both paws supporting her hips, head on the mat looking at the camera.
-
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Portrait framing.
-```
-
-### `bear-noge.png`
-
-```
-3D Pixar-style cartoon bear cub character, exactly the same character as the attached reference image: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, small dark nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
-
-Pose: lying flat on her back on a pink yoga mat, back and hips staying on the mat, both legs raised straight up to ninety degrees, paws flat on the mat beside her hips, head turned toward the camera, seen from the side.
-
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Portrait framing.
-```
-
-### `bear-cuk.png`
-
-```
-3D Pixar-style cartoon bear cub character, exactly the same character as the attached reference image: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, small dark nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
-
-Pose: balancing in a tuck on her bottom — knees hugged tight to her chest, both paws wrapped around her shins, feet lifted off the floor, back straight, smiling at the camera.
-
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Portrait framing.
-```
-
-### `bear-cucanj.png`
-
-```
-3D Pixar-style cartoon bear cub character, exactly the same character as the attached reference image: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, small dark nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
-
-Pose: standing in a half squat, feet hip-width apart, knees bent, back straight, both arms stretched straight forward at shoulder height, looking at the camera.
-
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Portrait framing.
-```
-
-### `bear-iskorak.png`
-
-```
-3D Pixar-style cartoon bear cub character, exactly the same character as the attached reference image: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, small dark nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
-
-Pose: a forward lunge — one leg stepped forward with the knee bent over the ankle, the back leg stretched behind with the knee lowered toward the floor, back straight, both paws on her hips, seen from the side.
-
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Portrait framing.
-```
-
-### `bear-dete.png`
-
-```
-3D Pixar-style cartoon bear cub character, exactly the same character as the attached reference image: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, small dark nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
-
-Pose: child's pose on a pink yoga mat — kneeling and sitting back on her heels, forehead resting down on the mat, both arms stretched forward along the floor, peaceful and relaxed, seen from the side.
-
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Landscape framing.
-```
-
-### `bear-spava.png`
-
-```
-3D Pixar-style cartoon bear cub character, exactly the same character as the attached reference image: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, small dark nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
-
-Pose: fast asleep — curled up on her side on the floor, eyes closed with a contented little smile, head resting on her front paws, seen from the side.
-
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Landscape framing.
-```
+Save as: `bear-iskorak.png`, `bear-spava.png`, `bear-hero.png`,
+`bear-portret.png`
 
 ---
 
-# RABBIT — `Mascots/Rabbit/`
+## RABBIT (6)
 
-Reference to attach: `rabbit-sit.png`
-
-### `rabbit-mostic.png`
+Attach: `rabbit-sit.png`, `rabbit-zvezdice.png`, `rabbit-spaga.png`
 
 ```
-3D Pixar-style cartoon bunny character, exactly the same character as the attached reference image: white and pale lavender fur, long ears with pink insides, large violet eyes with long lashes, small pink nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
+Using the attached reference images, create 6 separate images of the same character — a 3D Pixar-style cartoon bunny gymnast: white and pale lavender fur, long ears with pink insides, large violet eyes with long lashes, small pink nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest.
 
-Pose: a gymnastics backbend bridge on a pink yoga mat — lying face up, tummy pointing at the ceiling, body arched high off the floor, all four paws flat on the mat, head tilted back, seen from the side.
+Same style, colours and proportions as the references in every image. Transparent background (PNG with alpha) — no background, no floor, no shadow, no glow. Full body in frame, head to toe, nothing cropped, generous margin all round. One pose per image:
 
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Landscape framing.
+1. Gymnastics backbend bridge: lying face up, tummy toward the ceiling, body arched high, all four paws on the floor, head tilted back, side view.
+2. Arabesque: balancing on one straight leg with the other leg stretched straight out BEHIND her at hip height, body tipped forward, both arms out to the sides, side view.
+3. Butterfly stretch: sitting with the soles of her feet pressed together, knees dropped out wide to the sides, both paws holding her feet, back straight, facing the camera.
+4. Forward lunge: one leg stepped forward with the knee bent, back leg stretched behind with the knee lowered toward the floor, both paws on her hips, side view.
+5. Standing proudly facing the camera, one arm raised high in a happy wave, the other on her hip, chin up, big warm smile — tall portrait framing with room above her head.
+6. Head and shoulders only, facing the camera straight on, big friendly smile, ears fully in frame, square framing.
 ```
 
-### `rabbit-arabeska.png`
-
-```
-3D Pixar-style cartoon bunny character, exactly the same character as the attached reference image: white and pale lavender fur, long ears with pink insides, large violet eyes with long lashes, small pink nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
-
-Pose: an arabesque — balancing on one straight leg, the other leg stretched straight out BEHIND her at hip height, body tipped forward, both arms stretched out to the sides, chin up, seen from the side.
-
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Portrait framing.
-```
-
-### `rabbit-leptiric.png`
-
-```
-3D Pixar-style cartoon bunny character, exactly the same character as the attached reference image: white and pale lavender fur, long ears with pink insides, large violet eyes with long lashes, small pink nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
-
-Pose: butterfly stretch — sitting on a pink yoga mat with the soles of her feet pressed together, knees dropped out wide to the sides, both paws holding her feet, back straight, smiling at the camera, seen from the front.
-
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Portrait framing.
-```
-
-### `rabbit-iskorak.png`
-
-```
-3D Pixar-style cartoon bunny character, exactly the same character as the attached reference image: white and pale lavender fur, long ears with pink insides, large violet eyes with long lashes, small pink nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
-
-Pose: a forward lunge — one leg stepped forward with the knee bent over the ankle, the back leg stretched behind with the knee lowered toward the floor, back straight, both paws on her hips, seen from the side.
-
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Portrait framing.
-```
+Save as: `rabbit-mostic.png`, `rabbit-arabeska.png`, `rabbit-leptiric.png`,
+`rabbit-iskorak.png`, `rabbit-hero.png`, `rabbit-portret.png`
 
 ---
 
-# FOX — `Mascots/Fox/`
+## FOX (5)
 
-Reference to attach: `fox-sit.png`
-
-### `fox-mostic.png`
+Attach: `fox-sit.png`, `fox-zvezdice.png`, `fox-spaga.png`
 
 ```
-3D Pixar-style cartoon fox cub character, exactly the same character as the attached reference image: orange fur with a white muzzle, white chest and a white-tipped bushy tail, large violet eyes with long lashes, small dark nose, pink paw pads, a purple glitter bow between her ears, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
+Using the attached reference images, create 5 separate images of the same character — a 3D Pixar-style cartoon fox cub gymnast: orange fur with a white muzzle, white chest and a white-tipped bushy tail, large violet eyes with long lashes, pink paw pads, a purple glitter bow between her ears, and a purple and pink gymnastics leotard with a heart on the chest.
 
-Pose: a gymnastics backbend bridge on a pink yoga mat — lying face up, tummy pointing at the ceiling, body arched high off the floor, all four paws flat on the mat, head tilted back, seen from the side.
+Same style, colours and proportions as the references in every image. Transparent background (PNG with alpha) — no background, no floor, no shadow, no glow. Full body in frame, head to toe, nothing cropped, generous margin all round. One pose per image:
 
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Landscape framing.
+1. Gymnastics backbend bridge: lying face up, tummy toward the ceiling, body arched high, all four paws on the floor, head tilted back, side view.
+2. Arabesque: balancing on one straight leg with the other leg stretched straight out BEHIND her at hip height, body tipped forward, both arms out to the sides, side view.
+3. Seated forward fold: sitting with both legs straight out in front, folding forward, both paws reaching toward her toes, side view.
+4. Standing proudly facing the camera, one arm raised high in a happy wave, the other on her hip, chin up, big warm smile — tall portrait framing with room above her head.
+5. Head and shoulders only, facing the camera straight on, big friendly smile, ears fully in frame, square framing.
 ```
 
-### `fox-arabeska.png`
-
-```
-3D Pixar-style cartoon fox cub character, exactly the same character as the attached reference image: orange fur with a white muzzle, white chest and a white-tipped bushy tail, large violet eyes with long lashes, small dark nose, pink paw pads, a purple glitter bow between her ears, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
-
-Pose: an arabesque — balancing on one straight leg, the other leg stretched straight out BEHIND her at hip height, body tipped forward, both arms stretched out to the sides, chin up, seen from the side.
-
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Portrait framing.
-```
-
-### `fox-pretklon.png`
-
-```
-3D Pixar-style cartoon fox cub character, exactly the same character as the attached reference image: orange fur with a white muzzle, white chest and a white-tipped bushy tail, large violet eyes with long lashes, small dark nose, pink paw pads, a purple glitter bow between her ears, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
-
-Pose: sitting on a pink yoga mat with both legs straight out in front of her, folding forward from the hips, both paws reaching toward her toes, seen from the side.
-
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with a generous margin on all sides. Landscape framing.
-```
+Save as: `fox-mostic.png`, `fox-arabeska.png`, `fox-pretklon.png`,
+`fox-hero.png`, `fox-portret.png`
 
 ---
 
-# The home-screen picture — `hero`
+## Optional — the four worth redoing
 
-The biggest picture in the app, on Početna. Portrait, and the mascot should look
-its best here. One per mascot.
-
-### `rabbit-hero.png`
-
-```
-3D Pixar-style cartoon bunny character, exactly the same character as the attached reference image: white and pale lavender fur, long ears with pink insides, large violet eyes with long lashes, small pink nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
-
-Pose: standing proudly facing the camera, one arm raised high in a happy wave, the other on her hip, chin up, big warm open-mouth smile, weight on one leg.
-
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with generous room above her head and below her feet. Tall portrait framing, roughly 4:5.
-```
-
-### `fox-hero.png`
+Only if you are generating anyway. These exist, but they are the ones where I
+had to guess which of several near-identical pictures was which. Paste this
+after any of the blocks above, keeping that mascot's description:
 
 ```
-3D Pixar-style cartoon fox cub character, exactly the same character as the attached reference image: orange fur with a white muzzle, white chest and a white-tipped bushy tail, large violet eyes with long lashes, small dark nose, pink paw pads, a purple glitter bow between her ears, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
+Also create 4 more images of the same character, same style and transparent background:
 
-Pose: standing proudly facing the camera, one arm raised high in a happy wave, the other on her hip, chin up, big warm open-mouth smile, weight on one leg.
-
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with generous room above her head and below her feet. Tall portrait framing, roughly 4:5.
+1. Walking heel-to-toe along a straight line on the floor, one foot directly in front of the other, both arms stretched out sideways for balance, looking down at the line, front view.
+2. Standing tall on tiptoes on BOTH feet, heels lifted high, legs straight and together, both arms stretched out to the sides, chin up, front view.
+3. Forearm plank: resting on both forearms and toes, elbows under the shoulders, body in one straight line from head to heels, hips level, side view.
+4. Cobra stretch: lying on her tummy, chest lifted up on straight front paws, hips staying down, back gently arched, head up, side view.
 ```
 
-### `bear-hero.png`
-
-```
-3D Pixar-style cartoon bear cub character, exactly the same character as the attached reference image: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, small dark nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest and a pink swoosh.
-
-Pose: standing proudly facing the camera, one arm raised high in a happy wave, the other on her hip, chin up, big warm open-mouth smile, weight on one leg.
-
-Full body visible, head to toe, nothing cropped or cut off by the frame. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Character centred with generous room above her head and below her feet. Tall portrait framing, roughly 4:5.
-```
+Save as `<mascot>-linija.png`, `<mascot>-prsti.png`, `<mascot>-daska.png`,
+`<mascot>-kobra.png`.
 
 ---
 
-# The chooser cards — `portret`
+## If a result comes back wrong
 
-Small head-and-shoulders pictures, one per mascot, for the screen where Mila
-picks. Lowest priority — the `hero` or `happy` picture can stand in until these
-exist.
-
-### `rabbit-portret.png`
-
-```
-3D Pixar-style cartoon bunny character, exactly the same character as the attached reference image: white and pale lavender fur, long ears with pink insides, large violet eyes with long lashes, small pink nose, a purple glitter bow on one ear, and the collar of a purple and pink gymnastics leotard.
-
-Pose: head and shoulders only, facing the camera straight on, big friendly open-mouth smile, ears fully in frame.
-
-Nothing cropped or cut off by the frame apart from the body below the shoulders. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Head centred with a generous margin all round. Square framing.
-```
-
-### `fox-portret.png`
-
-```
-3D Pixar-style cartoon fox cub character, exactly the same character as the attached reference image: orange fur with a white muzzle and white chest, large violet eyes with long lashes, small dark nose, a purple glitter bow between her ears, and the collar of a purple and pink gymnastics leotard.
-
-Pose: head and shoulders only, facing the camera straight on, big friendly open-mouth smile, ears fully in frame.
-
-Nothing cropped or cut off by the frame apart from the body below the shoulders. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Head centred with a generous margin all round. Square framing.
-```
-
-### `bear-portret.png`
-
-```
-3D Pixar-style cartoon bear cub character, exactly the same character as the attached reference image: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, small dark nose, a purple glitter bow on one ear, and the collar of a purple and pink gymnastics leotard.
-
-Pose: head and shoulders only, facing the camera straight on, big friendly open-mouth smile, ears fully in frame.
-
-Nothing cropped or cut off by the frame apart from the body below the shoulders. Soft even lighting. Flat plain background, single colour #f7ecf7, no gradient, no glow, no vignette, no shadow on the background. No text, no logo, no props. Head centred with a generous margin all round. Square framing.
-```
-
----
-
-# Optional — the four worth redoing
-
-The existing versions of these are usable; they are just the ones where I had to
-guess which of several near-identical pictures was which. Only worth doing if
-you are generating anyway. Swap the species paragraph from the sections above.
-
-### `<species>-linija.png` — walking the line
-
-```
-Pose: walking heel-to-toe along a straight line marked on the floor, one foot placed directly in front of the other and both touching the line, both arms stretched out sideways for balance, looking down at the line with a concentrating smile, seen from the front.
-```
-
-### `<species>-prsti.png` — balance on tiptoes
-
-```
-Pose: standing tall on tiptoes on BOTH feet, heels lifted high off the floor, legs straight and together, both arms stretched out to the sides, chin up, seen from the front.
-```
-
-### `<species>-daska.png` — plank
-
-```
-Pose: a forearm plank on a pink yoga mat — resting on both forearms and toes, elbows under the shoulders, body in one straight line from head to heels, hips level, looking forward, seen from the side.
-```
-
-### `<species>-kobra.png` — cobra
-
-```
-Pose: cobra stretch — lying on her tummy on a pink yoga mat, chest lifted up on straight front paws, hips staying down on the mat, back gently arched, head up looking forward, seen from the side.
-```
+- **On a background instead of transparent:** *"Same images but with a fully
+  transparent background — PNG with alpha, nothing behind the character, no
+  floor, no shadow."*
+- **Cut off at the edge:** *"Zoom out — the whole body from ears to toes must be
+  inside the frame with a margin."*
+- **Drifting off-model:** attach one more reference from the same folder and
+  say *"keep the face, fur colour and leotard exactly as in the references."*

@@ -138,22 +138,17 @@ fill in. What follows here is the reasoning behind them.
 Attach an existing file from that mascot's folder as a reference image every
 time — that is what keeps it the same character rather than a new animal.
 
-### Style block — put this in front of every pose
+### What every prompt has to say
 
-> 3D Pixar-style cartoon **[rabbit / fox / bear]** character, exactly the same
-> character as the reference image: same fur colours, same eyes, same purple
-> bow, same purple and pink gymnastics leotard with a heart on the chest.
-> Full body visible, head to toe, nothing cropped or cut off by the frame.
-> Soft even lighting.
-> **Flat plain background, single colour #f7ecf7, no gradient, no glow, no
-> vignette, no shadow on the background.** No text, no logo, no props.
-> Character centred with a generous margin on all sides.
+- Same character as the references — fur colours, eyes, bow, leotard.
+- Full body, head to toe, nothing cropped, generous margin.
+- **Transparent background, PNG with alpha. No floor, no shadow, no glow.**
 
-**The background sentence is the important one.** Everything delivered so far
-sits on a dark grey or brown gradient with a glow around the character. Cutting
-that out cleanly is much harder than cutting a flat field, and the fox's orange
-fur against warm brown is the worst case. A flat pale background — or a
-transparent PNG if the tool can do it — turns the cutout into a solved problem.
+The last one is already what the tool has been delivering: **every one of the 49
+images so far is an RGBA PNG with a genuinely transparent background** (65–82%
+of each file is fully transparent). That is the ideal input — there is no
+background to cut out at all, only a trim to the character's bounding box and a
+downscale. Keep asking for it.
 
 ### The pose lines
 
@@ -173,17 +168,20 @@ transparent PNG if the tool can do it — turns the cutout into a solved problem
 
 ## Format
 
-- **PNG**, at least 1024 px on the short side. What is here now (1024×1536 and
-  1536×1024) is right, and far better than the old board — those poses were only
-  90–290 px wide and go soft on the workout screen.
+- **PNG with an alpha channel**, transparent background. This is what has been
+  arriving and it is exactly right.
+- At least 1024 px on the short side. What is here now (1024×1536 and 1536×1024)
+  is far better than the old board, where each pose was only 90–290 px wide and
+  went soft on the workout screen.
 - One pose per file. Nothing cropped by the frame — full body, margin all round.
-- Flat background or transparency, per the style block above.
 
 ## Once a set is complete
 
 Nothing in `www/` changes until then. When it is:
 
-1. Cut the backgrounds out and downscale into `www/img/<species>-<pose>.png`.
+1. Trim each to its alpha bounding box and downscale into
+   `www/img/<species>-<pose>.png`. No cutting out needed — they are already
+   transparent, so `tools/crop-gimi.py` and its flood fill are not involved.
 2. `MASCOTS` in `app.js` gets each species, its default name and its file prefix;
    `st.mascot` and `st.mascotIme` join the saved state (additive, so no
    migration — see `CLAUDE.md`).
