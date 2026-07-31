@@ -16,18 +16,17 @@ Where each set stands, counting only what actually ships:
 | --- | --- | --- | --- |
 | Rabbit | **19** | **5** | yes — complete |
 | Fox | 19 | 5 | complete, but **five files have a bad cutout** |
-| Bear | 10 | 4 — no `happy` | choosable, with drawn figures for the gaps |
+| Bear | 17 | **5** | yes — only `mostic` and `cucanj` fall back to the drawing |
+
+**The bear** now has everything except the bridge (`mostic`) and the half squat
+(`cucanj`). It is perfectly choosable: those two exercises show the drawn figure
+and nothing else does.
 
 **The fox's five newest files** (`mostic`, `arabeska`, `pretklon`, `hero`,
 `portret`) came back with the background removal done badly: a blocky, ragged
 patch of the old background is baked into the alpha and shows as a brown halo
-behind her. It is obvious at hero size. They need generating again — the prompt
-is in `PROMPTS.md`.
-
-**The bear** is missing ten pictures, including `happy`, which is what the app
-shows after every exercise. It can still be chosen — the app falls back to the
-drawn figure for anything missing — but half its exercises look like the old
-drawing.
+behind her, obvious at hero size. They need generating again — the prompt is in
+`PROMPTS.md`.
 
 ## Naming
 
@@ -94,32 +93,15 @@ replace it once every set has one.
 
 ## The shopping list
 
-**All three:**
+Two things left, and that is all:
 
-- `mostic` — the bridge. No set has any backbend at all.
-- `arabeska` — a real arabesque. Every set has several one-leg balances, but in
-  all of them the lifted leg is forward or bent; arabesque needs it straight
-  back with the body tipped forward.
-- `hero` — the portrait for Početna.
-- `portret` — head-and-shoulders for the chooser (small, can wait).
+1. **The bear needs `mostic` and `cucanj`.**
+2. **The fox needs its five bad files generated again** — `mostic`, `arabeska`,
+   `pretklon`, `hero`, `portret`.
 
-**Rabbit only:** `leptiric`, `iskorak`
-**Fox only:** `pretklon`
-**Bear:** `pretklon`, `kobra`, `sveca`, `noge`, `cuk`, `cucanj`, `iskorak`,
-`dete` — and **`happy`**, which matters more than any of them: it is what she
-sees after every single exercise. The bear only has the first batch of ten.
-
-**All three, worth redoing:** `linija`, `prsti`, `daska` — and `kobra` for the
-two that have one. See below.
-
-### Order to fetch them in
-
-1. **`happy` for the bear.** Without it the bear cannot ship at all.
-2. **`mostic` and `arabeska` for all three** — the only two exercises with no
-   picture anywhere, for any mascot.
-3. **The bear's remaining eight**, to bring it level.
-4. `leptiric` and `iskorak` for the rabbit, `pretklon` for the fox.
-5. `hero`, then the four worth redoing, then `portret`.
+Optional after that: `linija`, `prsti`, `daska` and `kobra` for any of them are
+the poses where I had to guess between near-identical pictures, and the bear's
+`arabeska` is a side extension rather than a true arabesque.
 
 ### Provisional identifications ⚠️
 

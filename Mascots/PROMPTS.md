@@ -15,77 +15,24 @@ The full inventory and the checkboxes are in `MASCOTS.md`.
 
 ---
 
-## BEAR — first batch (10)
+## BEAR — the last two
 
 Attach: `bear-sit.png`, `bear-zvezdice.png`, `bear-macka.png`
 
 ```
+Continue the gymnastics mascot asset project. One mascot and one pose per image, with no text, table, grid, labels, extra poses, or other characters. Preserve the exact face, fur, purple bow, purple-and-pink sparkly leotard, proportions, and 3D style.
 
-Continue the gymnastics mascot asset project. One mascot and one pose per image, with no text, table, grid, labels, extra poses, or other characters. Preserve the exact face, fur, purple bow, purple-and-pink sparkly leotard, proportions, and 3D style. Use a transparent background.
+The background must be FULLY transparent with a clean edge: no leftover patches of background, no rectangular blocks, no halo or fringe around the fur, nothing behind the character at all.
 
-Using the attached reference images, create 10 separate images of the same character — a 3D Pixar-style cartoon bear cub gymnast: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest.
+Using the attached reference images, create 2 separate images of the same character — a 3D Pixar-style cartoon bear cub gymnast: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest.
 
-Same style, colours and proportions as the references in every image. Transparent background (PNG with alpha) — no background, no floor, no shadow, no glow. Full body in frame, head to toe, nothing cropped, generous margin all round. One pose per image:
+Same style, colours and proportions as the references. Full body in frame, head to toe, nothing cropped, generous margin all round. One pose per image:
 
-1. Celebrating: both arms raised high above her head, big joyful open-mouth smile, one leg lifted mid-hop, facing the camera.
-2. Gymnastics backbend bridge: lying face up, tummy toward the ceiling, body arched high, all four paws on the floor, head tilted back, side view.
-3. Arabesque: balancing on one straight leg with the other leg stretched straight out BEHIND her at hip height, body tipped forward, both arms out to the sides, side view.
-4. Seated forward fold: sitting with both legs straight out in front, folding forward, both paws reaching toward her toes, side view.
-5. Cobra stretch: lying on her tummy, chest lifted up on straight front paws, hips staying down, back gently arched, head up, side view.
-6. Shoulder stand: lying on her upper back with both legs pointing straight up, body vertical, both paws supporting her hips, head on the floor looking at the camera.
-7. Legs raised: lying flat on her back, both legs raised straight up to ninety degrees, paws flat beside her hips, side view.
-8. Tuck balance: balancing on her bottom, knees hugged tight to her chest, both paws around her shins, feet off the floor, smiling.
-9. Half squat: standing, knees bent, back straight, both arms stretched straight forward at shoulder height, facing the camera.
-10. Child's pose: kneeling and sitting back on her heels, forehead down on the floor, both arms stretched forward, peaceful, side view.
+1. Gymnastics backbend bridge: lying face up, tummy pointing at the ceiling, body arched high off the floor, all four paws flat on the floor, head tilted back, side view.
+2. Half squat: standing, feet apart, knees bent, back straight, both arms stretched straight FORWARD at shoulder height, facing the camera.
 ```
 
-Save as, in order: `bear-happy.png`, `bear-mostic.png`, `bear-arabeska.png`,
-`bear-pretklon.png`, `bear-kobra.png`, `bear-sveca.png`, `bear-noge.png`,
-`bear-cuk.png`, `bear-cucanj.png`, `bear-dete.png`
-
-## BEAR — second batch (4)
-
-```
-
-Continue the gymnastics mascot asset project. One mascot and one pose per image, with no text, table, grid, labels, extra poses, or other characters. Preserve the exact face, fur, purple bow, purple-and-pink sparkly leotard, proportions, and 3D style. Use a transparent background.
-
-Using the attached reference images, create 4 separate images of the same character — a 3D Pixar-style cartoon bear cub gymnast: cream and beige fur, rounded ears with pink inner ears, large violet eyes with long lashes, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest.
-
-Same style, colours and proportions as the references in every image. Transparent background (PNG with alpha) — no background, no floor, no shadow, no glow. Full body in frame, head to toe, nothing cropped, generous margin all round. One pose per image:
-
-1. Forward lunge: one leg stepped forward with the knee bent, back leg stretched behind with the knee lowered toward the floor, both paws on her hips, side view.
-2. Fast asleep: curled up on her side, eyes closed with a contented little smile, head resting on her front paws, side view.
-3. Standing proudly facing the camera, one arm raised high in a happy wave, the other on her hip, chin up, big warm smile — tall portrait framing with room above her head.
-4. Head and shoulders only, facing the camera straight on, big friendly smile, ears fully in frame, square framing.
-```
-
-Save as: `bear-iskorak.png`, `bear-spava.png`, `bear-hero.png`,
-`bear-portret.png`
-
----
-
-## RABBIT (6)
-
-Attach: `rabbit-sit.png`, `rabbit-zvezdice.png`, `rabbit-spaga.png`
-
-```
-
-Continue the gymnastics mascot asset project. One mascot and one pose per image, with no text, table, grid, labels, extra poses, or other characters. Preserve the exact face, fur, purple bow, purple-and-pink sparkly leotard, proportions, and 3D style. Use a transparent background.
-
-Using the attached reference images, create 6 separate images of the same character — a 3D Pixar-style cartoon bunny gymnast: white and pale lavender fur, long ears with pink insides, large violet eyes with long lashes, small pink nose, pink paw pads, a purple glitter bow on one ear, and a purple and pink gymnastics leotard with a heart on the chest.
-
-Same style, colours and proportions as the references in every image. Transparent background (PNG with alpha) — no background, no floor, no shadow, no glow. Full body in frame, head to toe, nothing cropped, generous margin all round. One pose per image:
-
-1. Gymnastics backbend bridge: lying face up, tummy toward the ceiling, body arched high, all four paws on the floor, head tilted back, side view.
-2. Arabesque: balancing on one straight leg with the other leg stretched straight out BEHIND her at hip height, body tipped forward, both arms out to the sides, side view.
-3. Butterfly stretch: sitting with the soles of her feet pressed together, knees dropped out wide to the sides, both paws holding her feet, back straight, facing the camera.
-4. Forward lunge: one leg stepped forward with the knee bent, back leg stretched behind with the knee lowered toward the floor, both paws on her hips, side view.
-5. Standing proudly facing the camera, one arm raised high in a happy wave, the other on her hip, chin up, big warm smile — tall portrait framing with room above her head.
-6. Head and shoulders only, facing the camera straight on, big friendly smile, ears fully in frame, square framing.
-```
-
-Save as: `rabbit-mostic.png`, `rabbit-arabeska.png`, `rabbit-leptiric.png`,
-`rabbit-iskorak.png`, `rabbit-hero.png`, `rabbit-portret.png`
+Save as: `bear-mostic.png`, `bear-cucanj.png`
 
 ---
 
