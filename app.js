@@ -177,6 +177,11 @@
   var KEY = "mila-gimnastika-v2";
   var memoryOnly = false;
 
+  /* Shown at the bottom of Podešavanja. Bump it with `CACHE` in sw.js on every
+     release — it is the only way to tell from the iPad which build is running,
+     which matters because the app keeps working offline out of its own cache. */
+  var BUILD = "4 · 31.07.2026.";
+
   function today() { return ymd(new Date()); }
   function ymd(d) {
     return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" +
@@ -931,8 +936,10 @@
                 '><span class="theme__sw"><i style="background:' + t.a + '"></i><i style="background:' +
                 t.v + '"></i><i style="background:' + t.gd + '"></i></span>' + t.label + "</button>";
             }).join("") + "</div></div>" +
-          '<div style="margin-top:1.25rem"><button class="danger" ' + act("reset") +
-            ">Resetuj napredak</button></div>" +
+          '<div style="margin-top:1.25rem;display:flex;align-items:center;gap:1rem">' +
+            '<button class="danger" ' + act("reset") + ">Resetuj napredak</button>" +
+            '<span style="font:700 0.8125rem var(--font-body);opacity:.35">Verzija ' +
+            esc(BUILD) + "</span></div>" +
         "</div></div></div>";
   }
 
@@ -1278,9 +1285,32 @@
   render();
   timer = setInterval(tick, 1000);
 
+  /* Keeping an installed iPad up to date.
+
+     `updateViaCache: "none"` stops Safari serving sw.js out of its own HTTP
+     cache, which is what made a deploy take ten minutes to be noticed. Then we
+     ask for an update check on launch and every time she comes back to the app,
+     and reload once when a new worker actually takes over — but never in the
+     middle of a workout, where a reload would throw away where she is. */
   if ("serviceWorker" in navigator && location.protocol !== "file:") {
     window.addEventListener("load", function () {
-      navigator.serviceWorker.register("sw.js").catch(function () {});
+      var hadWorker = !!navigator.serviceWorker.controller;
+      var reloaded = false;
+
+      navigator.serviceWorker.addEventListener("controllerchange", function () {
+        if (!hadWorker || reloaded || ui.screen === "work") return;
+        reloaded = true;
+        location.reload();
+      });
+
+      navigator.serviceWorker.register("sw.js", { updateViaCache: "none" })
+        .then(function (reg) {
+          reg.update();
+          document.addEventListener("visibilitychange", function () {
+            if (document.visibilityState === "visible") reg.update();
+          });
+        })
+        .catch(function () {});
     });
   }
 
