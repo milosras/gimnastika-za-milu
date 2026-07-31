@@ -53,6 +53,12 @@ so does replacing the iPad. So *Podešavanja → Kopija napretka* has:
 Worth doing after a good week. `npm test` checks the whole migration and import
 path against every save shape that has ever shipped.
 
+**The copy contains everything she has written**, including her to-do list, so
+treat the file as private. It is generated on the iPad and goes only where you
+put it — nothing is uploaded. `.gitignore` refuses `gimnastika-*.json` and
+`*backup*.json` so a copy left in this folder cannot be committed to what is a
+public repository.
+
 ### Shipping a change
 
 ```bash
@@ -70,9 +76,18 @@ fetches the shell from the network and falls back to its cache only when the
 network is slow or gone. If the iPad is offline it keeps running the last
 version it saw, which is the point.
 
-Hosting is GitHub Pages from the `gh-pages` branch of a public repo. The page
-holds no personal data — the name and all progress live only in the iPad's own
-storage — but the URL itself is reachable by anyone who has it.
+Hosting is GitHub Pages from the `gh-pages` branch of a **public** repo, and
+`gh-pages` holds only the contents of `www/`: markup, styles, script, and the
+mascot's pictures. No progress, no to-dos, no name — all of that lives in the
+iPad's own storage and is never sent anywhere. The only request the app makes
+off the device is to Google Fonts for the two typefaces.
+
+Two things are public by their nature, and are worth knowing rather than
+discovering: the URL works for anyone who has it (they would see an empty app
+of their own), and the repository's own text — this README, the app's title,
+the design file — names Mila. Self-hosting the fonts would remove the last
+third-party request; making the repo private would need a paid GitHub plan,
+since Pages only serves public repos for free.
 
 Open work and known issues are in [`TODO.md`](TODO.md).
 

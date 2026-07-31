@@ -1,3 +1,9 @@
 node_modules/
 ios/
 .DS_Store
+
+# Saved copies of Mila's progress — her to-do list is free text she types
+# herself. This repository is public and GitHub Pages serves it, so a copy
+# dropped in this folder must never be committed by accident.
+gimnastika-*.json
+*backup*.json
