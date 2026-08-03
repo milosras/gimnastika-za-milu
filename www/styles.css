@@ -702,6 +702,15 @@ h1, h2, h3 {
   box-shadow: var(--sh-sm);
   flex: none;
   animation: pop 0.24s ease both;
+  /* traka boje se crta unutra, pa bojenje ne pomera ništa u redu */
+  flex-wrap: wrap;
+  border-left: 0.5rem solid transparent;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+/* --tc: boja koju je izabrala; pozadina je samo nagoveštaj, tekst mora ostati čitljiv */
+.todoitem.tint {
+  border-left-color: var(--tc);
+  background: color-mix(in srgb, var(--tc) 10%, #fff);
 }
 .todoitem__t {
   flex: 1;
@@ -711,6 +720,67 @@ h1, h2, h3 {
   transition: opacity 0.2s ease;
 }
 .todoitem.on .todoitem__t { text-decoration: line-through; opacity: 0.42; }
+.todoitem.tint .check.on { background: var(--tc); }
+
+.todoitem__c {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s ease;
+}
+.todoitem__c .dot {
+  width: 1.375rem;
+  height: 1.375rem;
+  border-radius: 50%;
+  background: var(--tc, transparent);
+  box-shadow: inset 0 0 0 0.1875rem rgba(59, 37, 64, 0.22);
+  transition: background 0.2s ease;
+}
+.todoitem.tint .todoitem__c .dot { box-shadow: none; }
+.todoitem__c:hover, .todoitem__c.on { background: rgba(59, 37, 64, 0.07); }
+
+/* Paleta se otvara ispod same obaveze — puna širina reda, prsti su mali. */
+.todopal {
+  flex: 0 0 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-top: 0.875rem;
+  padding-top: 0.875rem;
+  border-top: 0.125rem solid rgba(59, 37, 64, 0.08);
+  animation: pop 0.2s ease both;
+}
+.todopal .sw {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  flex: none;
+  background: var(--sc);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0.1875rem 0.5rem color-mix(in srgb, var(--sc) 45%, transparent);
+  transition: transform 0.14s ease;
+}
+.todopal .sw:hover { transform: scale(1.08); }
+.todopal .sw.on { transform: scale(1.08); }
+/* „bez boje“ — precrtan beo krug, da se vidi da je i to izbor */
+.todopal .sw--off {
+  background:
+    linear-gradient(to bottom right, transparent calc(50% - 0.09375rem),
+      rgba(59, 37, 64, 0.3) calc(50% - 0.09375rem), rgba(59, 37, 64, 0.3) calc(50% + 0.09375rem),
+      transparent calc(50% + 0.09375rem)),
+    #fff;
+  color: var(--tx);
+  box-shadow: inset 0 0 0 0.125rem rgba(59, 37, 64, 0.16);
+}
+/* kad je „bez boje“ izabrano, kvačica je znak — precrtavanje bi joj smetalo */
+.todopal .sw--off.on { background: #fff; }
 .todoitem__x {
   width: 2.5rem;
   height: 2.5rem;

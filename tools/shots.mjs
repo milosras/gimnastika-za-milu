@@ -103,6 +103,25 @@ await evaluate('document.querySelector(\'[data-act="todoToggle"]\').click()');
 await sleep(420);
 await shot("05c-todo");
 
+/* boje: otvori paletu na drugoj obavezi, pa oboji sve tri */
+const todoIds = await evaluate(
+  '[...document.querySelectorAll(\'[data-act="todoPal"]\')].map(e=>e.getAttribute("data-arg"))'
+);
+await click(`[data-act="todoPal"][data-arg="${todoIds[1]}"]`);
+await shot("05d-todo-paleta");
+const paint = async (i, k) => {
+  const sw = `[data-act="todoPaint"][data-arg="${todoIds[i]}|${k}"]`;
+  /* samo jedna paleta stoji otvorena — otvori je ako već nije */
+  if (!(await evaluate(`!!document.querySelector(${JSON.stringify(sw)})`))) {
+    await click(`[data-act="todoPal"][data-arg="${todoIds[i]}"]`);
+  }
+  await click(sw);
+};
+await paint(1, "zele");
+await paint(0, "plav");
+await paint(2, "nara");
+await shot("05e-todo-boje");
+
 await click('[data-act="go"][data-arg="prog"]');
 await shot("06-prog");
 await click('[data-act="go"][data-arg="prize"]');

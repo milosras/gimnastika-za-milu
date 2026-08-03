@@ -60,55 +60,55 @@
     { id: "zvezdice", pose: "zvezdice", name: "Zvezdice u mestu", cat: "Zagrevanje", group: "warm", min: "1 min", sec: 60, lvl: 1, opr: "Bez opreme",
       desc: "Zagreva celo telo i budi mišiće. Uvek prva vežba na treningu.",
       steps: ["Stani uspravno, ruke pored tela.", "Skoči i raširi noge, ruke gore iznad glave.", "Skoči nazad u početni položaj.", "Ponovi 20 puta, diši ravnomerno."] },
-    { id: "macka", pose: "macka", name: "Mačka–krava", cat: "Mobilnost kičme", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
+    { id: "macka", pose: "macka", name: "Mačka–krava", cat: "Mobilnost kičme", group: "flex", min: "1 min", sec: 60, lvl: 1, opr: "Podloga",
       desc: "Zagreva kičmu. Udahni kao krava, izdahni kao mačka.",
       steps: ["Stani na sve četiri, ruke pod ramenima.", "Udahni i spusti stomak, pogledaj gore.", "Izdahni i zaokruži leđa, spusti glavu.", "Ponovi 8 puta lagano."] },
-    { id: "psic", pose: "psic", name: "Psić", cat: "Istezanje celog tela", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
+    { id: "psic", pose: "psic", name: "Psić", cat: "Istezanje celog tela", group: "flex", min: "1 min", sec: 60, lvl: 1, opr: "Podloga",
       desc: "Isteže noge i leđa odjednom. Napravi slovo A svojim telom.",
       steps: ["Stani na sve četiri.", "Podigni kukove ka gore i ispravi noge.", "Spusti glavu između ruku, pete ka podu.", "Zadrži 15 sekundi i diši mirno."] },
-    { id: "leptiric", pose: "leptiric", name: "Leptirić", cat: "Istezanje", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
+    { id: "leptiric", pose: "leptiric", name: "Leptirić", cat: "Istezanje", group: "flex", min: "1 min", sec: 60, lvl: 1, opr: "Podloga",
       desc: "Otvara kukove i opušta noge. Savršena vežba za početak treninga.",
       steps: ["Sedi na podlogu i skupi stopala.", "Uhvati stopala rukama.", "Blago pritisni kolena ka podu.", "Zadrži 20 sekundi i diši mirno."] },
-    { id: "pretklon", pose: "pretklon", name: "Sedeći pretklon", cat: "Istezanje nogu", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
+    { id: "pretklon", pose: "pretklon", name: "Sedeći pretklon", cat: "Istezanje nogu", group: "flex", min: "1 min", sec: 60, lvl: 1, opr: "Podloga",
       desc: "Isteže zadnju ložu — prvi korak ka špagi.",
       steps: ["Sedi i ispruži noge napred.", "Ispravi leđa i udahni.", "Izdahni i lagano se spusti ka stopalima.", "Zadrži 20 sekundi, ne trzaj."] },
-    { id: "kobra", pose: "kobra", name: "Kobra", cat: "Gipkost leđa", group: "flex", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
+    { id: "kobra", pose: "kobra", name: "Kobra", cat: "Gipkost leđa", group: "flex", min: "1 min", sec: 60, lvl: 1, opr: "Podloga",
       desc: "Otvara grudi i priprema leđa za mostić.",
       steps: ["Lezi na stomak, ruke pored ramena.", "Lagano podigni grudi i pogledaj napred.", "Ramena spusti dole, laktovi uz telo.", "Zadrži 10 sekundi i spusti se."] },
-    { id: "mostic", pose: "mostic", name: "Mostić", cat: "Fleksibilnost", group: "flex", min: "2 min", sec: 120, lvl: 2, opr: "Podloga",
+    { id: "mostic", pose: "mostic", name: "Mostić", cat: "Fleksibilnost", group: "flex", min: "1 min", sec: 60, lvl: 2, opr: "Podloga",
       desc: "Jača ruke i leđa i pomaže da ti telo bude gibko kao guma.",
       steps: ["Lezi na leđa i savij kolena.", "Stavi ruke pored glave, prsti gledaju ka ramenima.", "Podigni kukove i grudi ka gore.", "Zadrži 5 sekundi i polako se spusti."] },
-    { id: "spaga", pose: "spaga", name: "Špaga", cat: "Fleksibilnost", group: "flex", min: "2 min", sec: 120, lvl: 3, opr: "Podloga",
+    { id: "spaga", pose: "spaga", name: "Špaga", cat: "Fleksibilnost", group: "flex", min: "1 min", sec: 60, lvl: 3, opr: "Podloga",
       desc: "Veliki cilj svake gimnastičarke. Idi polako — svaki dan po malo.",
       steps: ["Klekni, pa isturi jednu nogu napred.", "Rukama se osloni na pod sa strane.", "Spuštaj se koliko možeš bez bola.", "Zadrži 20 sekundi, pa promeni nogu."] },
-    { id: "arabeska", pose: "arabeska", name: "Streličar (arabeska)", cat: "Ravnoteža i elegancija", group: "bal", min: "2 min", sec: 120, lvl: 2, opr: "Podloga",
+    { id: "arabeska", pose: "arabeska", name: "Streličar (arabeska)", cat: "Ravnoteža i elegancija", group: "bal", min: "1 min", sec: 60, lvl: 2, opr: "Podloga",
       desc: "Ojačava leđa, ramena i noge. Pomaže ti da budeš stabilna i graciozna.",
       steps: ["Stani uspravno i podigni ruke u stranu.", "Podigni jednu nogu nazad, telo lagano nagni napred.", "Drži leđa prava i pogled napred.", "Zadrži 2–3 sekunde i polako se vrati."] },
-    { id: "linija", pose: "linija", name: "Hodanje po liniji", cat: "Ravnoteža", group: "bal", min: "1–2 min", sec: 90, lvl: 1, opr: "Bez opreme",
+    { id: "linija", pose: "linija", name: "Hodanje po liniji", cat: "Ravnoteža", group: "bal", min: "1 min", sec: 60, lvl: 1, opr: "Bez opreme",
       desc: "Vežba za gredu — samo što je greda na podu i ne može da se padne.",
       steps: ["Zamisli liniju na podu ili stavi kanap.", "Ruke raširi u stranu.", "Hodaj peta uz prste, polako.", "Napravi 10 koraka napred i 10 nazad."] },
-    { id: "prsti", pose: "prsti", name: "Ravnoteža na prstima", cat: "Ravnoteža", group: "bal", min: "1–2 min", sec: 90, lvl: 3, opr: "Bez opreme",
+    { id: "prsti", pose: "prsti", name: "Ravnoteža na prstima", cat: "Ravnoteža", group: "bal", min: "1 min", sec: 60, lvl: 3, opr: "Bez opreme",
       desc: "Uči te da stojiš mirno kao statua — i na gredi.",
       steps: ["Stani uspravno, ruke u stranu.", "Podigni se na prste.", "Gledaj u jednu tačku pred sobom.", "Zadrži 10 sekundi, pa opusti."] },
-    { id: "sveca", pose: "sveca", name: "Sveća", cat: "Ravnoteža naglavce", group: "bal", min: "1–2 min", sec: 90, lvl: 2, opr: "Podloga",
+    { id: "sveca", pose: "sveca", name: "Sveća", cat: "Ravnoteža naglavce", group: "bal", min: "1 min", sec: 60, lvl: 2, opr: "Podloga",
       desc: "Prva vežba za stav na rukama — telo pravo kao sveća.",
       steps: ["Lezi na leđa i podigni noge gore.", "Podupri kukove rukama.", "Ispravi telo u jednu liniju.", "Zadrži 10 sekundi i polako se spusti."] },
     { id: "daska", pose: "daska", name: "Daska", cat: "Snaga trupa", group: "str", min: "1 min", sec: 60, lvl: 2, opr: "Podloga",
       desc: "Celo telo pravo kao daska. Najbolja vežba za jak stomak.",
       steps: ["Osloni se na podlaktice i prste stopala.", "Telo drži pravo od glave do peta.", "Stomak uvuci, ne spuštaj kukove.", "Izdrži 20 sekundi."] },
-    { id: "noge", pose: "noge", name: "Podigni noge", cat: "Snaga trupa", group: "str", min: "2 min", sec: 120, lvl: 2, opr: "Podloga",
+    { id: "noge", pose: "noge", name: "Podigni noge", cat: "Snaga trupa", group: "str", min: "1 min", sec: 60, lvl: 2, opr: "Podloga",
       desc: "Pravi jak stomak — to je motor za svaki skok i preskok.",
       steps: ["Lezi na leđa, ruke pored tela.", "Podigni ispravljene noge do 90 stepeni.", "Spuštaj ih polako, ne dodiruj pod.", "Ponovi 10 puta."] },
-    { id: "cuk", pose: "cuk", name: "Ćuk (držanje)", cat: "Snaga i držanje", group: "str", min: "1–2 min", sec: 90, lvl: 3, opr: "Podloga",
+    { id: "cuk", pose: "cuk", name: "Ćuk (držanje)", cat: "Snaga i držanje", group: "str", min: "1 min", sec: 60, lvl: 3, opr: "Podloga",
       desc: "Skupljeno telo koje se drži samo — kao klupko snage.",
       steps: ["Sedi i skupi kolena ka grudima.", "Uhvati potkolenice rukama.", "Podigni stopala od poda i balansiraj.", "Zadrži 8 sekundi."] },
-    { id: "lastavica", pose: "lastavica", name: "Lastavica na podu", cat: "Snaga leđa", group: "str", min: "1–2 min", sec: 90, lvl: 1, opr: "Podloga",
+    { id: "lastavica", pose: "lastavica", name: "Lastavica na podu", cat: "Snaga leđa", group: "str", min: "1 min", sec: 60, lvl: 1, opr: "Podloga",
       desc: "Jaka leđa drže telo uspravno u svakoj vežbi.",
       steps: ["Lezi na stomak, ruke ispruži napred.", "Podigni istovremeno ruke i noge.", "Gledaj u pod da vrat bude miran.", "Zadrži 5 sekundi, ponovi 8 puta."] },
-    { id: "cucanj", pose: "cucanj", name: "Polučučanj + ruke napred", cat: "Snaga nogu", group: "str", min: "2 min", sec: 120, lvl: 2, opr: "Bez opreme",
+    { id: "cucanj", pose: "cucanj", name: "Polučučanj + ruke napred", cat: "Snaga nogu", group: "str", min: "1 min", sec: 60, lvl: 2, opr: "Bez opreme",
       desc: "Jake noge znače viši skok i sigurno doskakanje.",
       steps: ["Stopala u širini kukova.", "Spusti se do pola čučnja.", "Ispruži ruke napred u visini ramena.", "Zadrži 3 sekunde i vrati se gore."] },
-    { id: "iskorak", pose: "iskorak", name: "Iskorak", cat: "Snaga nogu", group: "str", min: "1–2 min", sec: 90, lvl: 2, opr: "Bez opreme",
+    { id: "iskorak", pose: "iskorak", name: "Iskorak", cat: "Snaga nogu", group: "str", min: "1 min", sec: 60, lvl: 2, opr: "Bez opreme",
       desc: "Uči noge da rade svaka za sebe — važno za doskok i okret.",
       steps: ["Stani uspravno, ruke na kukovima.", "Zakorači jednom nogom napred.", "Spusti zadnje koleno ka podu.", "Vrati se gore i promeni nogu, 8 puta."] },
     { id: "dete", pose: "dete", name: "Dete poza", cat: "Opuštanje", group: "flex", min: "1 min", sec: 60, lvl: 1, opr: "Podloga",
@@ -183,6 +183,24 @@
       unit: ["zvezdica", "zvezdice", "zvezdica"] }
   ];
 
+  /* Boje obaveza. Namerno fiksne, a ne iz teme: poenta je da ona razlikuje
+     zadatke međusobno, pa boja ne sme da se promeni kad promeni temu.
+     `st.todos[i].c` čuva ključ (ne heks), da promena nijanse ovde prefarba
+     sve već obojene obaveze umesto da ih ostavi na staroj boji. */
+  var TODO_COLORS = [
+    { k: "", name: "Bez boje", c: "" },
+    { k: "roze", name: "Roze", c: "#ff3d8b" },
+    { k: "nara", name: "Narandžasta", c: "#ff8b3d" },
+    { k: "zuta", name: "Žuta", c: "#f2b705" },
+    { k: "zele", name: "Zelena", c: "#2eb872" },
+    { k: "plav", name: "Plava", c: "#3aa0f5" },
+    { k: "ljub", name: "Ljubičasta", c: "#8b5cf6" }
+  ];
+  var TODO_COLOR = {};
+  TODO_COLORS.forEach(function (c) { TODO_COLOR[c.k] = c; });
+  /* Nepoznat ključ (stariji/noviji build, uvezen fajl) pada na „bez boje“. */
+  function todoColor(k) { return TODO_COLOR[k] || TODO_COLORS[0]; }
+
   /* ═══ ikone (Lucide, stroke 2.75 kao u sistemu) ═════════════════════ */
 
   var IC = {
@@ -224,7 +242,7 @@
   /* Shown at the bottom of Podešavanja. Bump it with `CACHE` in sw.js on every
      release — it is the only way to tell from the iPad which build is running,
      which matters because the app keeps working offline out of its own cache. */
-  var BUILD = "6 · 31.07.2026.";
+  var BUILD = "7 · 03.08.2026.";
 
   function today() { return ymd(new Date()); }
   function ymd(d) {
@@ -352,6 +370,12 @@
     out.v = typeof got.v === "number" && got.v > VERSION ? got.v : VERSION;
     if (!out.days || typeof out.days !== "object") out.days = {};
     if (!Array.isArray(out.todos)) out.todos = [];
+    /* Boja je dodata kasnije, pa je stare obaveze nemaju. Ključ koji ovaj build
+       ne poznaje se NE briše — može biti boja iz novijeg builda; `todoColor()`
+       ga svejedno iscrta bez boje, a novija verzija ga zatekne netaknutog. */
+    out.todos.forEach(function (t) {
+      if (t && typeof t === "object" && typeof t.c !== "string") t.c = "";
+    });
     if (!Array.isArray(out.favs)) out.favs = [];
     if (typeof out.zvuk !== "boolean") out.zvuk = true;
     if (typeof out.maskotaIme !== "string") out.maskotaIme = "";
@@ -612,6 +636,7 @@
     day: weekday(new Date()),
     praise: "",       /* which congratulation the mascot is giving right now */
     todoDraft: "",    /* what she has typed but not added yet */
+    todoPal: "",      /* id obaveze čija je paleta boja otvorena */
     lastReward: null,
     toast: null
   };
@@ -988,13 +1013,27 @@
           "</div>" +
           '<div class="todolist scroll">' +
             (list.length ? list.map(function (t) {
-              return '<div class="todoitem' + (t.done ? " on" : "") + '">' +
+              var col = todoColor(t.c);
+              var open = ui.todoPal === t.id;
+              return '<div class="todoitem' + (t.done ? " on" : "") + (col.c ? " tint" : "") +
+                  (open ? " palopen" : "") + '"' +
+                  (col.c ? ' style="--tc:' + col.c + '"' : "") + ">" +
                 '<button class="check' + (t.done ? " on" : "") + '" ' + act("todoToggle", t.id) +
                   ' aria-pressed="' + !!t.done + '" aria-label="' + esc(t.t) + '">' +
                   icon("check", 24, { w: 3 }) + "</button>" +
                 '<div class="todoitem__t">' + esc(t.t) + "</div>" +
+                '<button class="todoitem__c' + (open ? " on" : "") + '" ' + act("todoPal", t.id) +
+                  ' aria-expanded="' + open + '" aria-label="Boja za: ' + esc(t.t) +
+                  ' (' + esc(col.name.toLowerCase()) + ')"><span class="dot"></span></button>' +
                 '<button class="todoitem__x" ' + act("todoDel", t.id) +
                   ' aria-label="Obriši: ' + esc(t.t) + '">' + icon("close", 22) + "</button>" +
+                (open ? '<div class="todopal">' + TODO_COLORS.map(function (c) {
+                  return '<button class="sw' + (c.k === col.k ? " on" : "") + (c.c ? "" : " sw--off") +
+                    '" ' + act("todoPaint", t.id + "|" + c.k) +
+                    (c.c ? ' style="--sc:' + c.c + '"' : "") +
+                    ' aria-label="' + esc(c.name) + '">' +
+                    (c.k === col.k ? icon("check", 20, { w: 3.5 }) : "") + "</button>";
+                }).join("") + "</div>" : "") +
               "</div>";
             }).join("") : '<div class="empty">Lista je prazna. Upiši prvu obavezu gore i pritisni +.</div>') +
           "</div></div>" +
@@ -1308,6 +1347,7 @@
 
   function go(screen) {
     ui.screen = screen;
+    ui.todoPal = "";   /* paleta ne sme da dočeka otvorena kad se vrati na listu */
     if (screen !== "work") { releaseWake(); stopCheer(); }
     render();
   }
@@ -1459,8 +1499,9 @@
       var el = document.getElementById("novaObaveza");
       var text = ((el ? el.value : ui.todoDraft) || "").trim();
       if (!text) { if (el) el.focus(); return; }
-      st.todos.push({ id: "t" + Date.now() + "-" + st.todos.length, t: text.slice(0, 60), done: 0 });
+      st.todos.push({ id: "t" + Date.now() + "-" + st.todos.length, t: text.slice(0, 60), done: 0, c: "" });
       ui.todoDraft = "";
+      ui.todoPal = "";
       save();
       render();
       /* still inside her tap, so the iPad keyboard stays up for the next one */
@@ -1473,10 +1514,26 @@
     },
     todoDel: function (v) {
       st.todos = st.todos.filter(function (t) { return t.id !== v; });
+      if (ui.todoPal === v) ui.todoPal = "";
+      save(); render();
+    },
+    /* Paleta se otvara samo za jednu obavezu — inače bi cela lista skočila. */
+    todoPal: function (v) {
+      ui.todoPal = ui.todoPal === v ? "" : v;
+      render();
+    },
+    /* `id|kljuc` — jedan data-arg nosi i obavezu i boju. */
+    todoPaint: function (v) {
+      var i = String(v).indexOf("|");
+      if (i < 0) return;
+      var id = v.slice(0, i), k = v.slice(i + 1);
+      st.todos.forEach(function (t) { if (t.id === id) t.c = todoColor(k).k; });
+      ui.todoPal = "";
       save(); render();
     },
     todoClear: function () {
       st.todos = st.todos.filter(function (t) { return !t.done; });
+      ui.todoPal = "";
       save(); render();
     },
     saveCopy: saveCopy,

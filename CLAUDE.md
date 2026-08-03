@@ -224,7 +224,7 @@ runs on *every* document click, not just the first. Sound respects `st.zvuk`
 
 ### Obaveze
 
-Her own to-do list (`st.todos`, `[{ id, t, done }]`), reached from the rail.
+Her own to-do list (`st.todos`, `[{ id, t, done, c }]`), reached from the rail.
 Deliberately **outside** the gymnastics numbers: `metrics()` never looks at it,
 so ticking a chore cannot move a streak, a star or a sticker. Items persist
 until she deletes them — nothing resets overnight.
@@ -232,6 +232,14 @@ until she deletes them — nothing resets overnight.
 It reuses the plan screen's two-column layout (`.plan`, `.plan__main`,
 `.plan__side`, `.msgcard`, `.progcard`), which is also what makes it work in
 portrait for free.
+
+`c` is a colour key into `TODO_COLORS`, not a hex — changing a shade there
+repaints every to-do already wearing it. The palette is deliberately **fixed
+rather than themed**: the point is telling her own tasks apart, so switching
+theme must not recolour them. A key this build does not know is left alone on
+load (it may come from a newer build) and simply renders uncoloured via
+`todoColor()`. Only one palette is open at a time (`ui.todoPal`, ephemeral) —
+opening several would make the whole list jump.
 
 ### Theming and scale
 

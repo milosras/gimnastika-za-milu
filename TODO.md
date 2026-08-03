@@ -36,6 +36,14 @@ Second round, from Mila's own list (July 2026):
 - **Lili in every exercise** — the drawn SVG figure is gone from all but one
   exercise, replaced by the pose board (see item 2).
 
+Third round (August 2026):
+
+- **Svaka vežba traje 1 minut** — `sec: 60` kroz ceo `EX`, umesto 60/90/120.
+  Ništa u istoriji se ne menja: sačuvano vreme su sekunde koje je stvarno
+  odradila, a ne ono što plan predviđa.
+- **Boja po obavezi** — `st.todos[i].c` nosi ključ iz `TODO_COLORS`. Paleta se
+  otvara u samom redu, jedna po jedna (`ui.todoPal`).
+
 ---
 
 ## 1. Storage survives updates — done
