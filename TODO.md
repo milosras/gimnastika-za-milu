@@ -46,6 +46,27 @@ Third round (August 2026):
   jednobojnih i tri šarene (duga, jednorog, zalazak sunca), koje uz `c` nose i
   gradijent `g`.
 
+Četvrti krug (avgust 2026):
+
+- **Kuvanje** — osmi tab i četiri nova ekrana: obrok → ostava → jela → recept.
+  54 sastojka (48 u mreži + 6 koji se uvek podrazumevaju) i 43 recepta, sve u
+  `www/recipes.js`. Slike jela crta `www/food.js` iz šest posuda i devetnaest
+  slojeva — nema nijedne fotografije hrane i nema nijednog mrežnog poziva.
+- **`st.ostava`** — jedino novo trajno polje, bez podizanja `VERSION` i bez
+  migracije. Nepoznat id se čuva, ne briše, kao i nepoznata boja obaveze.
+- **Prazan ekran je nemoguć** — `jelaZa()` spušta prag dok se nešto ne pojavi.
+- **Fiksan viewBox za jela**, namerno bez `bbox()`; razlog stoji u zaglavlju
+  `food.js` da ga neko kasnije ne „popravi“ kopiranjem iz `illustrations.js`.
+- **Rail sada ima osam stavki.** Izračunato: staje na svakom iPadu, puca tek
+  ispod ~600px širine, gde clamp udari u svoj pod. Zato je u portretu dodat
+  trajni štit (`flex: 1 1 0` + `min-width` + horizontalni skrol), pa traka
+  degradira lepo pri bilo kom broju stavki, a ne baš na osmoj.
+
+**Otvoreno pitanje:** `ACTIONS.reset` sada čuva `st.ostava`, jer tekst potvrde
+obećava brisanje zvezdica, nalepnica i istorije — ne i frižidera. Po istom
+argumentu verovatno bi trebalo da čuva i `st.todos`, koje trenutno briše. To je
+zasebna odluka, ne tiha izmena uz ovu.
+
 ---
 
 ## 1. Storage survives updates — done

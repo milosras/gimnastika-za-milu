@@ -227,7 +227,10 @@
     arrow: '<path d="M5 12h13M13 6l6 6-6 6"/>',
     check: '<path d="M5 13l4.5 4.5L19 7"/>',
     todo: '<path d="M3.5 7.5 5.5 9.5 9 5.5"/><path d="M3.5 16.5 5.5 18.5 9 14.5"/><path d="M13 7.5h8M13 16.5h8"/>',
-    plus: '<path d="M12 5v14M5 12h14"/>'
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    /* šerpa: telo, linija poklopca, dve kovrdže pare */
+    kuh: '<path d="M4 10h16v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path d="M2 10h20"/>' +
+      '<path d="M9 6.5c0-1.6 1.6-1.6 1.6-3.5M14 6.5c0-1.6 1.6-1.6 1.6-3.5"/>'
   };
 
   function icon(name, size, opts) {
@@ -235,7 +238,9 @@
     var s = size || 26;
     return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="' + (opts.fill || "none") +
       '" stroke="' + (opts.stroke || "currentColor") + '" stroke-width="' + (opts.w || 2.75) +
-      '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[name] + "</svg>";
+      /* ime koje ne postoji sme da da praznu ikonu, ali nikad doslovno
+         „undefined“ usred putanje — to pokvari ceo SVG bez ijedne poruke */
+      '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (IC[name] || "") + "</svg>";
   }
 
   /* ═══ stanje ════════════════════════════════════════════════════════ */
@@ -252,7 +257,7 @@
   /* Shown at the bottom of Podešavanja. Bump it with `CACHE` in sw.js on every
      release — it is the only way to tell from the iPad which build is running,
      which matters because the app keeps working offline out of its own cache. */
-  var BUILD = "8 · 03.08.2026.";
+  var BUILD = "9 · 03.08.2026.";
 
   function today() { return ymd(new Date()); }
   function ymd(d) {
@@ -278,6 +283,7 @@
       maskotaIme: "",      /* what she called it; empty means the default name */
       days: {},            /* "YYYY-MM-DD": { sec, workouts, ex:{id:n}, done:[id] } */
       todos: [],           /* [{ id, t, done }] — njena lista, ne dira gimnastiku */
+      ostava: [],          /* ids iz KUVANJE.SASTOJCI — šta ima kod kuće */
       rem: { on: true, time: "18:00", days: { 0: 1, 1: 1, 2: 1, 3: 1, 4: 1, 5: 0, 6: 0 }, lastFired: "" }
     };
   }
@@ -386,6 +392,12 @@
     out.todos.forEach(function (t) {
       if (t && typeof t === "object" && typeof t.c !== "string") t.c = "";
     });
+    /* Ostava je dodata u buildu 9, pa je stariji zapis nema. Filtriranje tipa je
+       nužno jer `adoptCopy()` gura proizvoljan JSON kroz `hydrate()`. Sastojak
+       koji ovaj build ne poznaje se NE briše — kao i kod boja obaveza, može doći
+       iz novijeg korpusa; poklapanje ga prosto ignoriše. */
+    if (!Array.isArray(out.ostava)) out.ostava = [];
+    out.ostava = out.ostava.filter(function (x) { return typeof x === "string"; });
     if (!Array.isArray(out.favs)) out.favs = [];
     if (typeof out.zvuk !== "boolean") out.zvuk = true;
     if (typeof out.maskotaIme !== "string") out.maskotaIme = "";
@@ -647,6 +659,9 @@
     praise: "",       /* which congratulation the mascot is giving right now */
     todoDraft: "",    /* what she has typed but not added yet */
     todoPal: "",      /* id obaveze čija je paleta boja otvorena */
+    obrok: "",        /* dor | ruc | vec | uzi — koji obrok sprema */
+    sastQ: "",        /* pretraga u ostavi */
+    jelo: "",         /* id recepta koji gleda — id, ne indeks */
     lastReward: null,
     toast: null
   };
@@ -697,21 +712,27 @@
   /* ═══ ekrani ════════════════════════════════════════════════════════ */
 
   function railHtml() {
-    /* Obaveze sits last: it is hers, not part of the gymnastics run through
-       Početna → Vežbe → Plan → Napredak → Nagrade. */
+    /* Obaveze and Kuvanje sit last: they are hers, not part of the gymnastics run
+       through Početna → Vežbe → Plan → Napredak → Nagrade. */
     var items = [
       ["home", "home", "Početna"], ["list", "heart", "Vežbe"], ["plan", "cal", "Plan"],
       ["prog", "chart", "Napredak"], ["prize", "trophy", "Nagrade"],
-      ["rem", "bell", "Podsetnik"], ["todo", "todo", "Obaveze"]
+      ["rem", "bell", "Podsetnik"], ["todo", "todo", "Obaveze"], ["kuh", "kuh", "Kuvanje"]
     ];
-    /* mid-workout nothing is highlighted — she isn't "in" a tab, she's training */
-    var on = { detail: "list", work: "", done: "" }[ui.screen];
+    /* mid-workout nothing is highlighted — she isn't "in" a tab, she's training.
+       Kuvanje's three inner screens do light the tab: unlike the workout, she is
+       still inside it. */
+    var on = { detail: "list", work: "", done: "",
+      sast: "kuh", jela: "kuh", recept: "kuh" }[ui.screen];
     if (on === undefined) on = ui.screen;
     return '<nav class="rail" aria-label="Glavni meni">' +
       '<div class="rail__logo">' + icon("star", 34) + "</div>" +
       items.map(function (it) {
         return '<button class="navbtn' + (on === it[0] ? " on" : "") + '" ' + act("go", it[0]) +
-          (on === it[0] ? ' aria-current="page"' : "") + ">" + icon(it[1], 26) + esc(it[2]) + "</button>";
+          (on === it[0] ? ' aria-current="page"' : "") + ">" + icon(it[1], 26) +
+          /* oznaka mora da bude element, ne go tekst: kao anoniman flex item ne
+             može da dobije ellipsis kad se traka u portretu stisne */
+          '<span class="navbtn__l">' + esc(it[2]) + "</span></button>";
       }).join("") +
       '<div class="rail__spacer"></div>' +
       '<div class="rail__avatar">' + esc(ime().charAt(0).toUpperCase()) + "</div>" +
@@ -1069,6 +1090,241 @@
         "</div></div></div>";
   }
 
+  /* ═══ kuvanje ═══════════════════════════════════════════════════════
+
+     Njeno, kao i Obaveze: `metrics()` ovde nikad ne gleda, pa skuvan ručak ne
+     pomera niz, zvezdicu ni nalepnicu. Ceo izvor recepata je `recipes.js` —
+     nema nijednog mrežnog poziva. */
+
+  /* Oba fajla moraju da postoje da bi se ekran iscrtao — recepti bez crtača su
+     spisak bez slika, a crtač bez recepata nema šta da crta. Ako jedan izostane
+     (stari keš, prekinut deploy), tab kaže da nije učitan umesto da pukne. */
+  var KUH = (typeof KUVANJE === "object" && KUVANJE &&
+    typeof FOOD === "object" && FOOD) ? KUVANJE : null;
+  var SASTOJAK = {};
+  if (KUH) KUH.SASTOJCI.forEach(function (s) { SASTOJAK[s.id] = s; });
+
+  /* Bez dijakritika i bez velikih slova. Dete kuca „sunka“ i „sargarepa“ —
+     pretraga koja to ne pogodi je ukras, a ne pretraga. */
+  function fold(s) {
+    return String(s == null ? "" : s).toLowerCase()
+      .replace(/[čć]/g, "c").replace(/ž/g, "z").replace(/š/g, "s").replace(/đ/g, "dj");
+  }
+  function sastIme(id) { return SASTOJAK[id] ? SASTOJAK[id].n : id; }
+  /* So, ulje i voda se ne tapkaju — svako ih ima uvek. */
+  function imaSastojak(id) {
+    return (SASTOJAK[id] && SASTOJAK[id].stap) || st.ostava.indexOf(id) > -1;
+  }
+  function jeloById(id) {
+    if (!KUH) return null;
+    for (var i = 0; i < KUH.JELA.length; i++) if (KUH.JELA[i].id === id) return KUH.JELA[i];
+    return null;
+  }
+  function obrokRec(k) {
+    if (!KUH) return null;
+    for (var i = 0; i < KUH.OBROCI.length; i++) if (KUH.OBROCI[i].k === k) return KUH.OBROCI[i];
+    return KUH.OBROCI[0];
+  }
+
+  /* Poklapanje ostave sa receptima. Vraća uvek nepraznu listu kad god obrok ima
+     ijedno jelo — prazan ekran je za dete ćorsokak, pa se prag spušta dok se
+     nešto ne pojavi. */
+  function jelaZa(obrok) {
+    if (!KUH) return { odmah: [], skoro: [] };
+    var prazna = st.ostava.length === 0;
+    var sve = KUH.JELA.filter(function (r) { return r.m.indexOf(obrok) > -1; })
+      .map(function (r) {
+        var fali = r.req.filter(function (i) { return !imaSastojak(i); });
+        var bonus = r.opt.filter(function (i) { return imaSastojak(i); }).length;
+        return { r: r, fali: fali, bonus: bonus };
+      });
+    /* Ukupan i deterministički: render() se vrti na svaki dodir, pa mreža ne sme
+       da se premesti pod prstom. Više iskorišćenih sastojaka ide napred — jelo
+       koje troši baš ono što je tapnula deluje kao da je došlo iz njenog frižidera. */
+    sve.sort(function (a, b) {
+      return a.fali.length - b.fali.length || b.bonus - a.bonus ||
+        b.r.req.length - a.r.req.length || a.r.min - b.r.min ||
+        (a.r.id < b.r.id ? -1 : a.r.id > b.r.id ? 1 : 0);
+    });
+    if (prazna) return { odmah: sve, skoro: [], prazna: true };
+    var odmah = sve.filter(function (x) { return x.fali.length === 0; });
+    var skoro = sve.filter(function (x) { return x.fali.length > 0 && x.fali.length <= 2; })
+      .slice(0, 8);
+    /* Ništa se nije poklopilo: spusti prag do kraja umesto da je pošalješ nazad. */
+    if (!odmah.length && !skoro.length) return { odmah: [], skoro: sve.slice(0, 12), sve: true };
+    return { odmah: odmah, skoro: skoro };
+  }
+
+  function jeloKarta(x) {
+    var r = x.r;
+    var pod = x.fali.length
+      ? "Fali ti: " + x.fali.map(sastIme).join(", ")
+      : r.desc;
+    return '<button class="excard" ' + act("jelo", r.id) + ">" +
+      '<div class="excard__thumb">' + FOOD.dish(r.art, { label: r.n }) + "</div>" +
+      '<div class="excard__body"><div class="excard__name">' + esc(r.n) + "</div>" +
+      '<div class="excard__cat">' + esc(pod) + "</div>" +
+      '<div class="excard__meta"><span class="excard__min">' + r.min + " min</span>" +
+      '<span class="lvl">' + [0, 1, 2].map(function (n) {
+        return "<i" + (n < r.lvl ? ' class="on"' : "") + "></i>";
+      }).join("") + "</span></div></div>" +
+      icon("chevron", 24, { stroke: "var(--v)" }) + "</button>";
+  }
+
+  /* ── ekran 1: koji obrok ─────────────────────────────────────────── */
+  function kuhHtml() {
+    if (!KUH) return '<div class="screen"><div class="empty">Recepti nisu učitani.</div></div>';
+    var n = st.ostava.length;
+    return '<div class="screen">' +
+      '<div class="headrow"><h2 class="h2">Kuvanje</h2>' +
+        '<div style="font:600 1.125rem var(--font-body);opacity:.6">Šta spremamo?</div></div>' +
+      '<div class="plan">' +
+        '<div class="plan__main"><div class="mealgrid">' +
+          KUH.OBROCI.map(function (o) {
+            return '<button class="mealcard" ' + act("obrok", o.k) + ">" +
+              '<div class="mealcard__pic">' + FOOD.dish(o.art, { label: o.n }) + "</div>" +
+              '<div class="mealcard__n">' + esc(o.n) + "</div>" +
+              '<div class="mealcard__s">' + esc(o.s) + "</div></button>";
+          }).join("") +
+        "</div></div>" +
+        '<div class="plan__side">' +
+          '<div class="msgcard"><div class="msgcard__row"><div class="msgcard__pic">' +
+            lik("sit") + '</div><div class="msgcard__t">Šta kuvamo danas?</div></div>' +
+            '<div class="msgcard__b">Izaberi obrok, pa mi pokaži šta imaš kod kuće. ' +
+            'Ja ću ti reći šta sve možeš da napraviš.</div></div>' +
+          '<div class="progcard"><div class="progcard__k">U OSTAVI</div>' +
+            '<div class="progcard__v">' + n + "</div>" +
+            '<div style="font:600 1rem var(--font-body);opacity:.55">' +
+            (n ? plural(n, "sastojak", "sastojka", "sastojaka") : "još ništa") + "</div></div>" +
+        "</div></div></div>";
+  }
+
+  /* ── ekran 2: šta ima kod kuće ───────────────────────────────────── */
+  function sastHtml() {
+    if (!KUH) return kuhHtml();
+    var o = obrokRec(ui.obrok);
+    var n = st.ostava.length;
+    var mreza = KUH.SASTOJCI.filter(function (s) { return !s.stap; });
+    return '<div class="screen">' +
+      '<div class="headrow">' +
+        '<button class="iconbtn" ' + act("go", "kuh") + ' aria-label="Nazad">' +
+          icon("back", 26) + "</button>" +
+        '<h2 class="h2">Šta imaš kod kuće?</h2>' +
+        '<div style="font:600 1.125rem var(--font-body);opacity:.6">' + esc(o.n) + "</div></div>" +
+      '<div class="plan">' +
+        '<div class="plan__main">' +
+          '<div class="todoadd">' +
+            '<input class="input todoadd__in" id="pretragaSastojka" type="text" maxlength="30" ' +
+              'placeholder="Traži sastojak — npr. sir" value="' + esc(ui.sastQ) +
+              '" autocomplete="off" autocapitalize="none" spellcheck="false" ' +
+              'enterkeyhint="search" aria-label="Traži sastojak">' +
+            '<button class="cta cta--sm" ' + act("go", "jela") + ">POKAŽI JELA</button>" +
+          "</div>" +
+          '<div class="sastgrid scroll">' +
+            KUH.GRUPE.map(function (g) {
+              var u = mreza.filter(function (s) { return s.g === g.k; });
+              if (!u.length) return "";
+              return '<div class="sasth" data-sec="' + g.k + '">' + esc(g.n) + "</div>" +
+                u.map(function (s) {
+                  var on = st.ostava.indexOf(s.id) > -1;
+                  return '<button class="sastbtn' + (on ? " on" : "") + '" ' +
+                    act("sastToggle", s.id) + ' data-sid="' + s.id + '" data-sec="' + g.k +
+                    '" data-fold="' + esc(fold(s.n + " " + (s.s || ""))) +
+                    '" aria-pressed="' + on + '">' +
+                    '<span class="sastbtn__p">' + FOOD.namirnica(s.id, { label: s.n }) + "</span>" +
+                    '<span class="sastbtn__n">' + esc(s.n) + "</span></button>";
+                }).join("");
+            }).join("") +
+            '<div class="empty" id="sastPrazno" hidden>Nema takvog sastojka u spisku.</div>' +
+          "</div></div>" +
+        '<div class="plan__side">' +
+          '<div class="msgcard"><div class="msgcard__row"><div class="msgcard__pic">' +
+            lik(n ? "happy" : "sit") + '</div><div class="msgcard__t">' +
+            (n ? "Odlično!" : "Otvori frižider") + "</div></div>" +
+            '<div class="msgcard__b">' +
+              (n ? "Tapni sve što imaš, pa pritisni POKAŽI JELA. Što više tapneš, to ti bolje umem da pomognem."
+                 : "Tapni sve što nađeš kod kuće. So, ulje i vodu ne moraš — njih uvek računam.") +
+            "</div></div>" +
+          '<div class="progcard"><div class="progcard__k">IZABRANO</div>' +
+            '<div class="progcard__v js-sastn">' + n + "</div>" +
+            '<div style="font:600 1rem var(--font-body);opacity:.55">od ' + mreza.length +
+            "</div></div>" +
+          (n ? '<button class="danger" style="align-self:stretch;text-align:center" ' +
+            act("sastClear") + ">Isprazni ostavu</button>" : "") +
+        "</div></div></div>";
+  }
+
+  /* ── ekran 3: šta može da napravi ────────────────────────────────── */
+  function jelaHtml() {
+    if (!KUH) return kuhHtml();
+    var o = obrokRec(ui.obrok);
+    var g = jelaZa(o.k);
+    var uk = g.odmah.length + g.skoro.length;
+    var sek = function (naslov, arr) {
+      if (!arr.length) return "";
+      return '<div class="jelah">' + esc(naslov) + "</div>" + arr.map(jeloKarta).join("");
+    };
+    return '<div class="screen">' +
+      '<div class="headrow">' +
+        '<button class="iconbtn" ' + act("go", "sast") + ' aria-label="Nazad">' +
+          icon("back", 26) + "</button>" +
+        '<h2 class="h2">' + esc(o.n) + "</h2>" +
+        '<div class="filters">' +
+          KUH.OBROCI.map(function (x) {
+            return '<button class="chip' + (x.k === o.k ? " on" : "") + '" ' +
+              act("obrok2", x.k) + ">" + esc(x.n) + "</button>";
+          }).join("") +
+        "</div></div>" +
+      '<div class="exgrid scroll">' +
+        (g.prazna
+          ? '<div class="jelah">Evo šta sve umemo za ' + esc(o.n.toLowerCase()) + "</div>"
+          : g.sve
+            ? '<div class="jelah">Ništa se nije poklopilo — evo ipak nekoliko ideja</div>'
+            : "") +
+        (g.prazna || g.sve
+          ? (g.odmah.concat(g.skoro)).map(jeloKarta).join("")
+          : sek("Možeš odmah — " + g.odmah.length, g.odmah) +
+            sek("Fali ti samo malo", g.skoro)) +
+      "</div>" +
+      (uk ? "" : '<div class="empty">Za ovaj obrok još nemam nijedan recept.</div>') +
+      "</div>";
+  }
+
+  /* ── ekran 4: recept ─────────────────────────────────────────────── */
+  function receptHtml() {
+    var r = jeloById(ui.jelo);
+    /* Vežbe smeju bez ovoga jer `ui.sel` pada na nulu; id ne pada nigde. */
+    if (!r) { ui.screen = "jela"; return jelaHtml(); }
+    var fali = r.req.filter(function (i) { return !imaSastojak(i); });
+    return '<div class="screen">' +
+      '<div class="headrow">' +
+        '<button class="iconbtn" ' + act("go", "jela") + ' aria-label="Nazad">' +
+          icon("back", 26) + "</button>" +
+        '<h2 class="h2">' + esc(r.n) + "</h2></div>" +
+      '<div class="det">' +
+        '<div class="slot det__media det__media--jelo">' +
+          FOOD.dish(r.art, { decor: true, label: r.n }) + "</div>" +
+        '<div class="det__side scroll">' +
+          '<span class="tag">' + esc(obrokRec(r.m[0]).n) + "</span>" +
+          '<p class="desc">' + esc(r.desc) + "</p>" +
+          '<div class="facts">' +
+            fact("VREME", r.min + " min", "var(--a)") +
+            fact("TEŽINA", ["Lako", "Srednje", "Za strpljive"][r.lvl - 1], "var(--v)") +
+            fact("ZA KOLIKO", r.os + " " + plural(r.os, "osobu", "osobe", "osoba"), "inherit") +
+          "</div>" +
+          '<div class="steps__h">Šta ti treba</div>' +
+          '<ul class="reclist">' + r.sast.map(function (t) {
+            return "<li>" + esc(t) + "</li>";
+          }).join("") + "</ul>" +
+          (fali.length
+            ? '<div class="recfali">Nemaš u ostavi: <b>' + esc(fali.map(sastIme).join(", ")) +
+              "</b></div>"
+            : "") +
+          '<div class="steps__h">Kako se pravi</div>' +
+          stepsHtml(r.koraci) +
+        "</div></div></div>";
+  }
+
   function progHtml(m) {
     /* 620×540 box: 0% sits at y=460, 100% at y=20. The aspect is kept
        (no preserveAspectRatio="none") so the data points stay circles. */
@@ -1327,6 +1583,10 @@
       case "done": body = doneHtml(m); break;
       case "plan": body = planHtml(m); break;
       case "todo": body = todoHtml(); break;
+      case "kuh": body = kuhHtml(); break;
+      case "sast": body = sastHtml(); break;
+      case "jela": body = jelaHtml(); break;
+      case "recept": body = receptHtml(); break;
       case "prog": body = progHtml(m); break;
       case "prize": body = prizeHtml(m); break;
       case "rem": body = remHtml(); break;
@@ -1336,6 +1596,9 @@
       railHtml() + '<main class="stage">' + body + "</main>" +
       (ui.toast ? '<div class="toast" role="status">' + icon("star", 22, { fill: "var(--gd)", stroke: "none", w: 0 }) +
         esc(ui.toast) + "</div>" : "");
+    /* Polje za pretragu se iscrtava sa svojom vrednošću, pa mreža mora odmah da
+       je poštuje — inače bi posle rendera pisalo „sir“ a videlo se sve. */
+    if (ui.screen === "sast" && ui.sastQ) filtrirajSastojke();
   }
 
   /* Only the timer digits change every second — repaint just those. */
@@ -1358,6 +1621,8 @@
   function go(screen) {
     ui.screen = screen;
     ui.todoPal = "";   /* paleta ne sme da dočeka otvorena kad se vrati na listu */
+    ui.sastQ = "";     /* ni pretraga ostave — mreža se otvara cela */
+    /* `ui.obrok` se NAMERNO ne briše: `jela` i `recept` zavise od njega. */
     if (screen !== "work") { releaseWake(); stopCheer(); }
     render();
   }
@@ -1546,6 +1811,28 @@
       ui.todoPal = "";
       save(); render();
     },
+
+    /* ── kuvanje ─────────────────────────────────────────────────── */
+    obrok: function (v) { ui.obrok = v; go("sast"); },
+    /* isto, ali ostaje na listi jela — pilule za obrok na ekranu `jela` */
+    obrok2: function (v) { ui.obrok = v; render(); },
+    /* Zakrpa umesto punog rendera: prirodni tok je kucaj → tapni → kucaj →
+       tapni, a re-render usred toga zatvara tastaturu na iPadu. */
+    sastToggle: function (v) {
+      var i = st.ostava.indexOf(v);
+      if (i > -1) st.ostava.splice(i, 1); else st.ostava.push(v);
+      save();
+      var btn = document.querySelector('.sastbtn[data-sid="' + v + '"]');
+      if (!btn) { render(); return; }
+      var on = st.ostava.indexOf(v) > -1;
+      btn.classList.toggle("on", on);
+      btn.setAttribute("aria-pressed", String(on));
+      var el = document.querySelector(".js-sastn");
+      if (el) el.textContent = st.ostava.length;
+    },
+    sastClear: function () { st.ostava = []; save(); render(); },
+    jelo: function (v) { ui.jelo = v; go("recept"); },
+
     saveCopy: saveCopy,
     loadCopy: function () {
       var el = document.getElementById("uvoz");
@@ -1572,7 +1859,9 @@
     tema: function (v) { st.tema = v; save(); render(); },
     reset: function () {
       if (!confirm("Obrisati sav napredak — zvezdice, nalepnice i istoriju?")) return;
-      var keep = { ime: st.ime, tema: st.tema, rem: st.rem };
+      /* Potvrda obećava brisanje zvezdica, nalepnica i istorije — ne i njene
+         ostave. Tiho pražnjenje frižidera bi bilo iznenađenje. */
+      var keep = { ime: st.ime, tema: st.tema, rem: st.rem, ostava: st.ostava };
       st = Object.assign(defaults(), keep);
       save();
       ui.screen = "home";
@@ -1588,6 +1877,25 @@
     if (fn) { ev.preventDefault(); fn(el.getAttribute("data-arg")); }
   });
 
+  /* Sakriva sastojke koji ne odgovaraju pretrazi, pa i naslov svake grupe koja
+     je ostala prazna. Vraća broj vidljivih, da Enter zna kad ima jedan pogodak. */
+  function filtrirajSastojke() {
+    var q = fold(ui.sastQ).trim();
+    var btns = document.querySelectorAll(".sastbtn");
+    var zivi = {}, vidljivih = 0, i, b, ok;
+    for (i = 0; i < btns.length; i++) {
+      b = btns[i];
+      ok = !q || b.getAttribute("data-fold").indexOf(q) > -1;
+      b.hidden = !ok;
+      if (ok) { zivi[b.getAttribute("data-sec")] = 1; vidljivih++; }
+    }
+    var h = document.querySelectorAll(".sasth");
+    for (i = 0; i < h.length; i++) h[i].hidden = !zivi[h[i].getAttribute("data-sec")];
+    var prazno = document.getElementById("sastPrazno");
+    if (prazno) prazno.hidden = vidljivih > 0;
+    return vidljivih;
+  }
+
   /* Both text fields update state without re-rendering — a full repaint would
      take the input out from under her finger and lose the keyboard. */
   document.addEventListener("input", function (ev) {
@@ -1599,6 +1907,12 @@
       if (a) a.textContent = ime().charAt(0).toUpperCase();
     } else if (ev.target.id === "novaObaveza") {
       ui.todoDraft = ev.target.value;
+    } else if (ev.target.id === "pretragaSastojka") {
+      /* Filtriranje mreže zakrpom, ne re-renderom — inače joj se tastatura
+         zatvara na svako slovo. Poređenje ide preko `data-fold`, pa „sunka“
+         nađe „Šunka“ i „sargarepa“ nađe „Šargarepa“. */
+      ui.sastQ = ev.target.value;
+      filtrirajSastojke();
     } else if (ev.target.id === "maskotaIme") {
       /* same reason as the name field: re-rendering would take the input out
          from under her finger. Patch the one place on this screen that shows it. */
@@ -1613,6 +1927,18 @@
     if (ev.target.id === "novaObaveza" && ev.key === "Enter") {
       ev.preventDefault();
       ACTIONS.todoAdd();
+    }
+    /* Kad je pretraga suzila mrežu na jedan sastojak, Enter ga tapne umesto nje
+       i isprazni polje — tako ide „sir“ ⏎ „jaja“ ⏎ bez dizanja ruke sa tastature. */
+    if (ev.target.id === "pretragaSastojka" && ev.key === "Enter") {
+      ev.preventDefault();
+      var vid = document.querySelectorAll(".sastbtn:not([hidden])");
+      if (vid.length === 1) {
+        ACTIONS.sastToggle(vid[0].getAttribute("data-sid"));
+        ev.target.value = "";
+        ui.sastQ = "";
+        filtrirajSastojke();
+      }
     }
   });
 

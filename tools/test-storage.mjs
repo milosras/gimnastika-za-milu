@@ -120,7 +120,8 @@ check("name, theme, streak and favourites survive",
   [r.saved.ime, r.saved.tema, r.saved.bestStreak, r.saved.favs]);
 check("reminder settings survive", r.saved.rem.time === "17:00", r.saved.rem.time);
 check("fields the old build never had are filled in",
-  Array.isArray(r.saved.todos) && r.saved.zvuk === true, [r.saved.todos, r.saved.zvuk]);
+  Array.isArray(r.saved.todos) && r.saved.zvuk === true && Array.isArray(r.saved.ostava),
+  [r.saved.todos, r.saved.zvuk, r.saved.ostava]);
 check("the pre-migration payload is snapshotted", r.backupV2 === JSON.stringify(V2), r.backupV2);
 check("the old key is left alone as a backup", r.legacyV2 === JSON.stringify(V2), !!r.legacyV2);
 
@@ -192,6 +193,19 @@ check("a junk file is refused",
 await sleep(600);
 const survived = await ev(`JSON.parse(localStorage.getItem("mila-gimnastika")).stars`);
 check("and leaves the real data alone", survived === 7, survived);
+
+/* ── a payload whose ostava is the wrong shape ──────────────────────────
+   `adoptCopy()` accepts any JSON a file picker hands it, so normalize() has to
+   survive a string where an array belongs — and drop junk entries without
+   dropping ids it simply does not recognise yet. */
+console.log("\nostava of the wrong shape");
+r = await run({ "mila-gimnastika": { v: 3, stars: 4, ostava: "banana" } });
+check("a string ostava becomes an empty array", same(r.saved.ostava, []), r.saved.ostava);
+check("and the rest of that payload still survives", r.saved.stars === 4, r.saved.stars);
+r = await run({
+  "mila-gimnastika": { v: 3, stars: 4, ostava: ["jaja", 7, null, "izmisljotina"] }
+});
+check("junk entries are dropped", same(r.saved.ostava, ["jaja", "izmisljotina"]), r.saved.ostava);
 
 console.log(failed ? `\n${failed} FAILED` : "\nall storage checks passed");
 ws.close();

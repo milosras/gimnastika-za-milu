@@ -1,8 +1,9 @@
 # Gimnastika za Milu
 
-An iPad app for a kid's daily gymnastics practice, in Serbian. Ten screens, a
-different guided workout each weekday, a weekly plan, her own to-do list,
-progress charts, stickers and a reminder — implemented from the Claude Design project
+An iPad app for a kid's daily gymnastics practice, in Serbian. Fourteen screens, a
+different guided workout each weekday, a weekly plan, her own to-do list, a
+cooking tab that suggests dishes from whatever is in the house, progress charts,
+stickers and a reminder — implemented from the Claude Design project
 *Mila Gimnastika iPad.dc.html*. Lili the bunny is the coach.
 
 No build step, no framework, no dependencies. Plain HTML, CSS and JavaScript
@@ -12,8 +13,10 @@ that runs from `www/`.
 www/
   index.html            shell
   styles.css            design tokens + every screen's layout
-  app.js                data, state, the ten screens, workout logic, sound
+  app.js                data, state, the fourteen screens, workout logic, sound
   illustrations.js      drawn fallback figures + badges, inline SVG
+  recipes.js            ingredients, dishes and recipes for Kuvanje
+  food.js               draws a dish from a vessel plus food layers, inline SVG
   img/                  Lili photographed in every pose
   sw.js                 offline cache
   manifest.webmanifest  home-screen app metadata

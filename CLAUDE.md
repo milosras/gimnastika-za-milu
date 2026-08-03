@@ -36,7 +36,7 @@ verified visually, via `npm run shots`. There is no linter.
 ### Visual verification
 
 `tools/shots.mjs` is the main way to check work. It drives Chrome over the
-DevTools protocol, walks all ten screens plus a full workout (including the
+DevTools protocol, walks all fourteen screens plus a full workout (including the
 ready/prep/go/cheer phases and the to-do list), and reports console errors.
 Chrome must already be running with a debugging port:
 
@@ -68,15 +68,29 @@ Without that they silently screenshot a stale build.
 - Events use delegation: buttons carry `data-act="name"` / `data-arg="value"`,
   and one document-level click listener dispatches through the `ACTIONS` map.
   There are no inline handlers and no per-element listeners.
-- The one exception is `tickPaint()`, which mutates only the timer digits each
-  second. A full re-render every second would fight the CSS animations.
+- There are three exceptions, all of them places where a full repaint would take
+  something out from under her finger:
+  - `tickPaint()` mutates only the timer digits each second. A full re-render
+    every second would fight the CSS animations.
+  - The name and mascot-name fields patch the one or two spots that show them.
+  - The ostava search **filters the ingredient grid by toggling `hidden` on the
+    buttons**, matching the typed text against a pre-rendered `data-fold`
+    attribute; `sastToggle` likewise flips one button's class and the counter
+    instead of re-rendering. The natural rhythm there is *type „sir" → tap →
+    type „jaja" → tap*, and a re-render mid-sequence closes the iPad keyboard.
+    Both fall back to `render()` if the element is missing, the way `tickPaint()`
+    does.
 
-Consequence: any DOM state the browser owns is destroyed on re-render. The two
+Consequence: any DOM state the browser owns is destroyed on re-render. The
 `<input>`s are handled specially — their `input` events update state without a
 re-render (the name field patches the rail text directly; the to-do field only
 stores `ui.todoDraft`), or typing would lose focus and the iPad keyboard would
 close. Adding a to-do *does* re-render, then re-focuses the field inside the
 same tap so the keyboard stays up.
+
+`render()` re-applies the ostava filter after painting, because the search field
+is drawn carrying its own value — otherwise it would read „sir" while the grid
+showed everything.
 
 ### Two kinds of state
 
@@ -245,6 +259,73 @@ theme must not recolour them. A key this build does not know is left alone on
 load (it may come from a newer build) and simply renders uncoloured via
 `todoColor()`. Only one palette is open at a time (`ui.todoPal`, ephemeral) —
 opening several would make the whole list jump.
+
+### Kuvanje
+
+Four screens behind the last rail tab: pick a meal (`kuh`) → tap what is in the
+house (`sast`) → see dishes she can make (`jela`) → read the recipe (`recept`).
+The three inner screens alias to `kuh` in the rail highlight — unlike the
+workout, she really is inside the tab.
+
+Like Obaveze, it is **outside every gymnastics number**: `metrics()` never looks
+at it, so cooking earns no star, moves no streak and unlocks no sticker. Adding
+a cooking entry to `STICKERS` is the one change that would create that
+dependency — don't.
+
+- **The corpus is the whole source and there is no network call.** `www/` has no
+  `fetch` outside the service worker and that is deliberate: the app is
+  installed on an iPad that goes to grandma's house. Recipes were written once,
+  reviewed, and shipped as `www/recipes.js`. A live model call would need a key
+  in the client, an internet connection, and a review step for every answer a
+  child reads — all three are worse than a static file. (Claude also does not
+  generate images at all, so the pictures could never have come from an API.)
+- **Two files, split the way `EX` and `illustrations.js` are split:**
+  `recipes.js` is the data that names its picture (`art`), `food.js` knows how
+  to draw it. Both load before `app.js`, and `food.js` uses `ILLU.sparkle`, so
+  it must come after `illustrations.js`.
+- **A recipe carries two ingredient lists on purpose.** `req`/`opt` are ids for
+  matching; `sast` is human text *with quantities* for reading. Same reason `EX`
+  carries both `sec: 60` and `min: "1 min"`.
+- **Staples (`stap: 1`) — so, ulje, voda, biber, brašno, šećer — never appear in
+  the grid and always count as present.** Otherwise every dish would demand that
+  she tap salt.
+- **The dish list can never come back empty.** `jelaZa()` offers what she can
+  make now, then what she is one or two ingredients short of, and if neither
+  produced anything it drops the threshold entirely. An empty results screen is
+  a dead end for a child, so the code makes one structurally impossible; the
+  `.empty` div is never rendered there.
+- The sort is **total** (`fali`, `bonus`, `req.length` desc, `min`, `id`) so the
+  grid cannot reshuffle under her finger across the re-renders. No `Math.random()`
+  anywhere in this path. `req.length` descending is deliberate: between two
+  dishes she can make right now, the one using *more* of what she tapped feels
+  like it came out of her own fridge.
+- `fold()` strips case and diacritics before comparing, so `sunka` finds Šunka
+  and `sargarepa` finds Šargarepa. Search that misses those is decoration.
+- **`st.ostava` is the only new persisted field** — ids from `KUVANJE.SASTOJCI`.
+  No `VERSION` bump and no migration: `normalize()` merges over `defaults()`.
+  An id this build does not recognise is *kept*, exactly like an unknown to-do
+  colour — it may come from a newer corpus, and the matcher just ignores it.
+  `ACTIONS.reset` keeps it: the confirm promises to delete stars, stickers and
+  history, not to empty her fridge.
+- `ui.jelo` holds an **id, not an index**, so editing the corpus can never
+  re-point a stale selection.
+
+Food colours in `food.js` are **fixed, not themed** — a tomato is red in the
+lavender theme too — for the same reason `TODO_COLORS` is fixed. Vessels are
+neutral ceramic so the food reads on all three backgrounds; only `opts.decor`
+touches `var(--gd)` and `var(--a)`.
+
+The dish viewBox is a **fixed `0 0 200 160`, and `bbox()` is the wrong tool
+here.** Poses need fitting because a split is wide and a candle is tall; every
+dish is a vessel of roughly the same footprint on a common baseline, so fitting
+per dish would render a tall glass and a wide plate at wildly different scales
+side by side in the same grid. Vessel differences are handled inside the fixed
+box instead. `.det__media--jelo` constrains the big picture for the same reason:
+a 5:4 drawing in a tall slot leaves a lake of empty space above the plate.
+
+Each vessel returns `back`/`front` so toppings draw *inside* it rather than over
+its near rim. An unknown vessel or topping key falls back or is skipped —
+`undefined` must never reach the output string.
 
 ### Theming and scale
 

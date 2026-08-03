@@ -126,6 +126,42 @@ await paint(3, "jedn");
 await paint(4, "zala");
 await shot("05e-todo-boje");
 
+/* Kuvanje: obrok → ostava → jela → recept. Stoji ovde namerno — pre bloka sa
+   treningom, koji menja zvezdice i nalepnice od kojih zavise snimci 11-13. */
+await click('[data-act="go"][data-arg="kuh"]');
+await shot("05f-kuvanje-obrok");
+await click('[data-act="obrok"][data-arg="ruc"]');
+await shot("05g-kuvanje-ostava-prazna");
+
+for (const id of ["testenina", "paradajz", "luk", "kackavalj", "jaja", "krompir"]) {
+  await click(`[data-act="sastToggle"][data-arg="${id}"]`);
+}
+await shot("05h-kuvanje-ostava");
+
+/* pretraga filtrira mrežu zakrpom DOM-a, bez re-rendera — dokaz da radi */
+const traziSastojak = async (v) => {
+  await evaluate(`(()=>{const i=document.getElementById("pretragaSastojka");i.value=${JSON.stringify(v)};i.dispatchEvent(new Event("input",{bubbles:true}));})()`);
+  await sleep(320);
+};
+await traziSastojak("pap");
+await shot("05i-kuvanje-pretraga");
+await traziSastojak("");     /* mora da se obriše, inače `sast` ostane filtriran */
+
+await click('[data-act="go"][data-arg="jela"]');
+await shot("05j-kuvanje-jela");
+const prvoJelo = await evaluate(
+  'document.querySelector(\'[data-act="jelo"]\').getAttribute("data-arg")'
+);
+await click(`[data-act="jelo"][data-arg="${prvoJelo}"]`);
+await shot("05k-kuvanje-recept");
+
+/* Prazna ostava svejedno mora da da kartice — ćorsokak je za dete kraj puta. */
+await click('[data-act="go"][data-arg="kuh"]');
+await click('[data-act="obrok"][data-arg="uzi"]');
+await click('[data-act="sastClear"]');
+await click('[data-act="go"][data-arg="jela"]');
+await shot("05l-kuvanje-sve");
+
 await click('[data-act="go"][data-arg="prog"]');
 await shot("06-prog");
 await click('[data-act="go"][data-arg="prize"]');
