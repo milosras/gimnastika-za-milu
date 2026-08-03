@@ -9,6 +9,8 @@
     "icons": "python3 tools/make-icons.py",
     "crop": "python3 tools/crop-gimi.py",
     "shots": "node tools/shots.mjs",
+    "poses": "node tools/poses.mjs",
+    "food": "node tools/food.mjs",
     "test": "node tools/test-storage.mjs",
     "deploy": "git subtree push --prefix=www origin gh-pages",
     "ios:add": "npm i @capacitor/core @capacitor/cli @capacitor/ios && npx cap add ios",

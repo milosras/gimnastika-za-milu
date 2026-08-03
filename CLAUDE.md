@@ -26,6 +26,8 @@ npm run deploy    # publish www/ to the gh-pages branch (live in ~60s)
 npm run icons     # regenerate www/icons/* from tools/make-icons.py (~30s, pure Python)
 npm run crop      # re-cut www/img/lili-<id>.png from the pose board (~40s)
 npm run shots     # screenshot every screen through headless Chrome
+npm run food      # contact sheet of every dish, vessel and food layer
+npm run poses     # contact sheet of every drawn gymnast pose
 npm test          # migrate every old save shape and check nothing was lost
 ```
 
@@ -326,6 +328,12 @@ a 5:4 drawing in a tall slot leaves a lake of empty space above the plate.
 Each vessel returns `back`/`front` so toppings draw *inside* it rather than over
 its near rim. An unknown vessel or topping key falls back or is skipped —
 `undefined` must never reach the output string.
+
+**Run `npm run food` after touching `food.js` or adding a dish** — it renders
+every vessel, every layer and every dish onto one sheet. The drawings pass
+automated checks (no unknown keys, no `NaN`) while still looking wrong: the
+first pass had food sunk in a dark tray, pancakes fused into a single blob and
+whipped cream floating above the mug. None of that is visible from the app.
 
 ### Theming and scale
 
