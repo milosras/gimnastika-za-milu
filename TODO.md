@@ -42,7 +42,9 @@ Third round (August 2026):
   Ništa u istoriji se ne menja: sačuvano vreme su sekunde koje je stvarno
   odradila, a ne ono što plan predviđa.
 - **Boja po obavezi** — `st.todos[i].c` nosi ključ iz `TODO_COLORS`. Paleta se
-  otvara u samom redu, jedna po jedna (`ui.todoPal`).
+  otvara u samom redu, jedna po jedna (`ui.todoPal`). Deset boja: sedam
+  jednobojnih i tri šarene (duga, jednorog, zalazak sunca), koje uz `c` nose i
+  gradijent `g`.
 
 ---
 

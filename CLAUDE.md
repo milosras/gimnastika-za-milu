@@ -234,7 +234,12 @@ It reuses the plan screen's two-column layout (`.plan`, `.plan__main`,
 portrait for free.
 
 `c` is a colour key into `TODO_COLORS`, not a hex — changing a shade there
-repaints every to-do already wearing it. The palette is deliberately **fixed
+repaints every to-do already wearing it. Three entries are multi-colour
+gradients and carry `g` alongside `c`: the stripe, the dot and the swatch take
+`var(--tg, var(--tc))`, while `color-mix()` and the shadows need a single
+colour, so every gradient must also name the shade that stands for it. The
+stripe is a `::before`, not a `border-left`, for the same reason — a border
+takes one colour. The palette is deliberately **fixed
 rather than themed**: the point is telling her own tasks apart, so switching
 theme must not recolour them. A key this build does not know is left alone on
 load (it may come from a newer build) and simply renders uncoloured via

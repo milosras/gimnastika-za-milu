@@ -103,7 +103,9 @@ await evaluate('document.querySelector(\'[data-act="todoToggle"]\').click()');
 await sleep(420);
 await shot("05c-todo");
 
-/* boje: otvori paletu na drugoj obavezi, pa oboji sve tri */
+/* boje: dve obaveze više, da se u jednom snimku vide i jednobojne i šarene */
+await addTodo("Nahrani mačku");
+await addTodo("Vežbaj špagu");
 const todoIds = await evaluate(
   '[...document.querySelectorAll(\'[data-act="todoPal"]\')].map(e=>e.getAttribute("data-arg"))'
 );
@@ -119,7 +121,9 @@ const paint = async (i, k) => {
 };
 await paint(1, "zele");
 await paint(0, "plav");
-await paint(2, "nara");
+await paint(2, "duga");
+await paint(3, "jedn");
+await paint(4, "zala");
 await shot("05e-todo-boje");
 
 await click('[data-act="go"][data-arg="prog"]');
