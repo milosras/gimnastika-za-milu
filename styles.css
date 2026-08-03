@@ -1013,8 +1013,27 @@ h1, h2, h3 {
     box-shadow: 0 -0.125rem 1.125rem rgba(120, 40, 110, 0.08);
   }
   .rail__logo, .rail__avatar, .rail__name, .rail__spacer { display: none; }
-  .navbtn { padding: 0.5rem 0.25rem; font-size: 0.6875rem; border-radius: 1rem; }
+  /* Osam stavki staje na svakom iPadu, ali širina po dugmetu je konstantna sve
+     dok clamp iznad ne udari u svoj pod oko 600px — ispod toga bi se oznake
+     preklopile. `flex: 1 1 0` + `min-width` deli red ravnomerno dok ima mesta, a
+     kad ga nestane traka postane horizontalni skroler. Tako degradira lepo pri
+     bilo kom broju stavki, a ne baš na osmoj. */
+  .rail { overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .rail::-webkit-scrollbar { display: none; }
+  .navbtn {
+    padding: 0.5rem 0.25rem;
+    font-size: 0.625rem;
+    border-radius: 1rem;
+    flex: 1 1 0;
+    min-width: 4.25rem;
+  }
   .navbtn svg { width: 1.5rem; height: 1.5rem; }
+  .navbtn__l {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   .screen { padding: 1.5rem 1.5rem 1rem; }
   .stage { padding-bottom: 0; }
@@ -1094,3 +1113,141 @@ h1, h2, h3 {
 .mask__pic .expic { padding: 6%; }
 .mask__n { font: 800 1.25rem/1 var(--font-heading); }
 .mask__gap { font: 700 0.75rem var(--font-body); color: var(--a); opacity: 0.75; }
+
+/* ═══ kuvanje ════════════════════════════════════════════════════════ */
+
+.mealgrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.125rem;
+  align-content: start;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+.mealcard {
+  background: #fff;
+  border-radius: var(--r-lg);
+  padding: 1rem;
+  box-shadow: var(--sh-sm);
+  border: 0.1875rem solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  text-align: center;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.mealcard:hover { transform: translateY(-0.1875rem); box-shadow: var(--sh-md); border-color: var(--a); }
+.mealcard:active { transform: translateY(0); }
+.mealcard__pic {
+  width: 100%;
+  aspect-ratio: 5 / 4;
+  border-radius: 1.125rem;
+  background: linear-gradient(160deg, var(--lc), var(--sf));
+  overflow: hidden;
+  display: flex;
+}
+.mealcard__n { font: 800 1.5rem/1.1 var(--font-heading); color: var(--ink); }
+.mealcard__s { font: 600 0.9375rem/1.3 var(--font-body); opacity: 0.55; }
+
+.sastgrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.625rem;
+  align-content: start;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding-bottom: 0.5rem;
+}
+/* Naslov grupe prelama mrežu preko cele širine — isti trik koji `.empty` koristi. */
+.sasth {
+  grid-column: 1 / -1;
+  font: 800 1.0625rem/1 var(--font-heading);
+  color: var(--v);
+  margin: 0.5rem 0 0.125rem;
+}
+.sasth:first-child { margin-top: 0; }
+.sastbtn {
+  background: #fff;
+  border-radius: 1.125rem;
+  padding: 0.5rem 0.25rem 0.625rem;
+  box-shadow: var(--sh-sm);
+  border: 0.1875rem solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.125rem;
+  transition: border-color 0.16s ease, background 0.16s ease, transform 0.16s ease;
+}
+.sastbtn__p { width: 2.75rem; height: 2.75rem; display: flex; flex: none; }
+.sastbtn__n {
+  font: 700 0.75rem/1.2 var(--font-body);
+  color: var(--ink);
+  opacity: 0.75;
+  text-align: center;
+}
+.sastbtn:hover { transform: translateY(-0.125rem); }
+.sastbtn.on {
+  border-color: var(--a);
+  background: color-mix(in srgb, var(--a) 10%, #fff);
+}
+.sastbtn.on .sastbtn__n { opacity: 1; font-weight: 800; }
+.sastbtn[hidden], .sasth[hidden] { display: none; }
+
+.jelah {
+  grid-column: 1 / -1;
+  font: 800 1.125rem/1 var(--font-heading);
+  color: var(--v);
+  margin: 0.625rem 0 0.125rem;
+}
+.jelah:first-child { margin-top: 0; }
+
+.reclist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4375rem;
+  margin-bottom: 0.5rem;
+}
+.reclist li {
+  font: 600 1.0625rem/1.3 var(--font-body);
+  color: var(--ink);
+  padding-left: 1.125rem;
+  position: relative;
+}
+.reclist li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 0.4375rem;
+  height: 0.4375rem;
+  border-radius: 50%;
+  background: var(--a);
+}
+.recfali {
+  font: 600 0.9375rem/1.35 var(--font-body);
+  background: var(--sf);
+  border-radius: 0.875rem;
+  padding: 0.625rem 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Bela hrana na beloj kartici nestane — mleko, jogurt, beli sir i pavlaka bez
+   ovoga izgledaju kao prazna dugmad. Blagi krug iza sličice ih vraća. */
+.sastbtn__p {
+  background: rgba(59, 37, 64, 0.055);
+  border-radius: 50%;
+}
+
+/* Slika jela ima fiksan odnos 5:4, pa u visokom okviru recepta ostaje ogroman
+   prazan prostor iznad tanjira. Vežbe to nemaju jer im bbox() rasteže figuru. */
+.det__media--jelo {
+  flex: none;
+  width: 46%;
+  aspect-ratio: 5 / 4;
+  align-self: center;
+  max-height: 100%;
+}
