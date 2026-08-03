@@ -702,15 +702,35 @@ h1, h2, h3 {
   box-shadow: var(--sh-sm);
   flex: none;
   animation: pop 0.24s ease both;
-  /* traka boje se crta unutra, pa bojenje ne pomera ništa u redu */
   flex-wrap: wrap;
-  border-left: 0.5rem solid transparent;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  /* mesto za traku boje se drži uvek, pa bojenje ne pomera ništa u redu */
+  position: relative;
+  padding-left: 1.5rem;
+  transition: background 0.2s ease;
 }
+/* Traka je pseudoelement, a ne border-left, jer border prima samo jednu boju —
+   a šarene su gradijenti. Ovako su jednobojne i šarene isti slučaj. */
+.todoitem::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0.625rem;
+  border-radius: var(--r-sm) 0 0 var(--r-sm);
+  background: var(--tg, var(--tc));
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.todoitem.tint::before { opacity: 1; }
 /* --tc: boja koju je izabrala; pozadina je samo nagoveštaj, tekst mora ostati čitljiv */
-.todoitem.tint {
-  border-left-color: var(--tc);
-  background: color-mix(in srgb, var(--tc) 10%, #fff);
+.todoitem.tint { background: color-mix(in srgb, var(--tc) 13%, #fff); }
+/* Šarene: beo veo preko gradijenta. Prvi sloj se crta na vrhu, pa gradijent
+   ostaje samo naznaka i tekst se i dalje čita. */
+.todoitem.grad {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.84)),
+    var(--tg);
 }
 .todoitem__t {
   flex: 1;
@@ -720,7 +740,7 @@ h1, h2, h3 {
   transition: opacity 0.2s ease;
 }
 .todoitem.on .todoitem__t { text-decoration: line-through; opacity: 0.42; }
-.todoitem.tint .check.on { background: var(--tc); }
+.todoitem.tint .check.on { background: var(--tg, var(--tc)); }
 
 .todoitem__c {
   width: 2.5rem;
@@ -736,7 +756,7 @@ h1, h2, h3 {
   width: 1.375rem;
   height: 1.375rem;
   border-radius: 50%;
-  background: var(--tc, transparent);
+  background: var(--tg, var(--tc, transparent));
   box-shadow: inset 0 0 0 0.1875rem rgba(59, 37, 64, 0.22);
   transition: background 0.2s ease;
 }
@@ -759,7 +779,7 @@ h1, h2, h3 {
   height: 2.75rem;
   border-radius: 50%;
   flex: none;
-  background: var(--sc);
+  background: var(--sg, var(--sc));
   color: #fff;
   display: flex;
   align-items: center;

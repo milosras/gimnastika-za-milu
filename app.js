@@ -186,7 +186,11 @@
   /* Boje obaveza. Namerno fiksne, a ne iz teme: poenta je da ona razlikuje
      zadatke međusobno, pa boja ne sme da se promeni kad promeni temu.
      `st.todos[i].c` čuva ključ (ne heks), da promena nijanse ovde prefarba
-     sve već obojene obaveze umesto da ih ostavi na staroj boji. */
+     sve već obojene obaveze umesto da ih ostavi na staroj boji.
+
+     `g` je gradijent za šarene. `c` uz njega nije ukras nego nužnost —
+     `color-mix()` i senke traže jednu boju, pa svaka šarena mora da ponudi i
+     nijansu kojom se predstavlja. */
   var TODO_COLORS = [
     { k: "", name: "Bez boje", c: "" },
     { k: "roze", name: "Roze", c: "#ff3d8b" },
@@ -194,7 +198,13 @@
     { k: "zuta", name: "Žuta", c: "#f2b705" },
     { k: "zele", name: "Zelena", c: "#2eb872" },
     { k: "plav", name: "Plava", c: "#3aa0f5" },
-    { k: "ljub", name: "Ljubičasta", c: "#8b5cf6" }
+    { k: "ljub", name: "Ljubičasta", c: "#8b5cf6" },
+    { k: "duga", name: "Duga", c: "#ff5fa2",
+      g: "linear-gradient(125deg,#ff3d8b,#ff8b3d,#f2b705,#2eb872,#3aa0f5,#8b5cf6)" },
+    { k: "jedn", name: "Jednorog", c: "#c46ef0",
+      g: "linear-gradient(125deg,#ff9ad5,#c46ef0,#7ad3ff,#7ef3c8)" },
+    { k: "zala", name: "Zalazak sunca", c: "#ff7a59",
+      g: "linear-gradient(125deg,#ff2e8b,#ff7a59,#ffc93c)" }
   ];
   var TODO_COLOR = {};
   TODO_COLORS.forEach(function (c) { TODO_COLOR[c.k] = c; });
@@ -242,7 +252,7 @@
   /* Shown at the bottom of Podešavanja. Bump it with `CACHE` in sw.js on every
      release — it is the only way to tell from the iPad which build is running,
      which matters because the app keeps working offline out of its own cache. */
-  var BUILD = "7 · 03.08.2026.";
+  var BUILD = "8 · 03.08.2026.";
 
   function today() { return ymd(new Date()); }
   function ymd(d) {
@@ -1016,8 +1026,8 @@
               var col = todoColor(t.c);
               var open = ui.todoPal === t.id;
               return '<div class="todoitem' + (t.done ? " on" : "") + (col.c ? " tint" : "") +
-                  (open ? " palopen" : "") + '"' +
-                  (col.c ? ' style="--tc:' + col.c + '"' : "") + ">" +
+                  (col.g ? " grad" : "") + (open ? " palopen" : "") + '"' +
+                  (col.c ? ' style="--tc:' + col.c + (col.g ? ";--tg:" + col.g : "") + '"' : "") + ">" +
                 '<button class="check' + (t.done ? " on" : "") + '" ' + act("todoToggle", t.id) +
                   ' aria-pressed="' + !!t.done + '" aria-label="' + esc(t.t) + '">' +
                   icon("check", 24, { w: 3 }) + "</button>" +
@@ -1030,7 +1040,7 @@
                 (open ? '<div class="todopal">' + TODO_COLORS.map(function (c) {
                   return '<button class="sw' + (c.k === col.k ? " on" : "") + (c.c ? "" : " sw--off") +
                     '" ' + act("todoPaint", t.id + "|" + c.k) +
-                    (c.c ? ' style="--sc:' + c.c + '"' : "") +
+                    (c.c ? ' style="--sc:' + c.c + (c.g ? ";--sg:" + c.g : "") + '"' : "") +
                     ' aria-label="' + esc(c.name) + '">' +
                     (c.k === col.k ? icon("check", 20, { w: 3.5 }) : "") + "</button>";
                 }).join("") + "</div>" : "") +
